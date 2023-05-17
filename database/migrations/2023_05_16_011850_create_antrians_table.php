@@ -12,7 +12,7 @@ return new class extends Migration
   public function up(): void
   {
     Schema::create('antrians', function (Blueprint $table) {
-      $table->id();
+      $table->uuid('id');
       $table->integer('nomor_antrian');
       $table->date('tanggal_pendaftaran')->default(now('Asia/Jakarta')->format('Y-m-d'));
       $table->enum('jenjang', ['sd', 'smp', 'sma', 'smk']);

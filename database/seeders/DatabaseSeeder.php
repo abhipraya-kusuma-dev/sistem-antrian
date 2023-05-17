@@ -21,34 +21,34 @@ class DatabaseSeeder extends Seeder
       'password' => bcrypt('hehe1234##')
     ]);
 
-    Antrian::create([
-      'nomor_antrian' => 1,
-      'jenjang' => 'smk',
-      'terpanggil' => 'belum'
-    ]);
-
-    Antrian::create([
-      'nomor_antrian' => 2,
-      'jenjang' => 'smk',
-      'terpanggil' => 'belum'
-    ]);
-
-    Antrian::create([
-      'nomor_antrian' => 3,
-      'jenjang' => 'smk',
-      'terpanggil' => 'belum'
-    ]);
-
-    Antrian::create([
-      'nomor_antrian' => 1,
-      'jenjang' => 'sma',
-      'terpanggil' => 'belum'
-    ]);
-
-    Antrian::create([
-      'nomor_antrian' => 2,
-      'jenjang' => 'sma',
-      'terpanggil' => 'belum'
-    ]);
+    // Antrian::create([
+    //   'nomor_antrian' => 1,
+    //   'jenjang' => 'smk',
+    //   'terpanggil' => 'belum'
+    // ]);
+    //
+    // Antrian::create([
+    //   'nomor_antrian' => 2,
+    //   'jenjang' => 'smk',
+    //   'terpanggil' => 'belum'
+    // ]);
+    //
+    // Antrian::create([
+    //   'nomor_antrian' => 3,
+    //   'jenjang' => 'smk',
+    //   'terpanggil' => 'belum'
+    // ]);
+    //
+    // Antrian::create([
+    //   'nomor_antrian' => 1,
+    //   'jenjang' => 'sma',
+    //   'terpanggil' => 'belum'
+    // ]);
+    //
+    // Antrian::create([
+    //   'nomor_antrian' => 2,
+    //   'jenjang' => 'sma',
+    //   'terpanggil' => 'belum'
+    // ]);
   }
 }

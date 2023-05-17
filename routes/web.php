@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AntrianController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,10 +21,25 @@ Route::get('/', function () {
 });
 
 Route::controller(AntrianController::class)->group(function() {
+  // Display
   Route::get('/antrian', 'index');
+
+  // Daftar Antrian
   Route::get('/antrian/daftar', 'antrianBaru');
-  Route::get('/antrian/daftar/konfirmasi/{jenjang}', 'antrianBaruKonfirmasi');
-  Route::get('/antrian/jenjang/{jenjang}', 'antrianPerJenjang');
+  Route::get('/antrian/daftar/konfirmasi/{jenjang}', 'konfirmasiAntrianBaru');
 
   Route::post('/antrian/daftar/proses', 'buatAntrianBaru');
+});
+
+Route::controller(AdminController::class)->group(function() {
+  // Monitoring Antrian (admin)
+  Route::get('/admin/antrian', 'antrian');
+  Route::get('/admin/antrian/jenjang/{jenjang}', 'antrianPerJenjang');
+  Route::get('/admin/antrian/panggil/{antrian:id}', 'panggilNomorAntrian');
+  Route::put('/admin/antrian/terpanggil', 'nomorAntrianTerpanggil');
+});
+
+Route::controller(AuthController::class)->group(function() {
+  Route::get('/login', 'login')->name('login');
+  Route::post('/login', 'authenticate');
 });

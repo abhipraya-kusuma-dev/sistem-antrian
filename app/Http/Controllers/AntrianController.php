@@ -11,39 +11,6 @@ use Illuminate\Validation\Rules\Enum;
 
 class AntrianController extends Controller
 {
-  public function __construct()
-  {
-    $this->middleware('guest');
-  }
-
-  public function index()
-  {
-    $jenjang = ['sd', 'smp', 'sma', 'smk'];
-    return view('antrian.index', [
-      'jenjang' => $jenjang
-    ]);
-  }
-
-  public function antrianPerJenjang($jenjang)
-  {
-    $antrianTerpanggil = DB::table('antrians')
-      ->where('jenjang', $jenjang)
-      ->where('terpanggil', 'sudah')
-      ->select('*')->get();
-
-    $antrianBelumTerpanggil = DB::table('antrians')
-      ->where('jenjang', $jenjang)
-      ->where('terpanggil', 'belum')
-      ->select('*')->get();
-
-    return view('antrian.jenjang', [
-      'antrianPerJenjang' => [
-        'terpanggil' => $antrianTerpanggil,
-        'belumTerpanggil' => $antrianBelumTerpanggil,
-      ]
-    ]);
-  }
-
   public function antrianBaru()
   {
     $jenjang = ['sd', 'smp', 'sma', 'smk'];
@@ -52,7 +19,7 @@ class AntrianController extends Controller
     ]);
   }
 
-  public function antrianBaruKonfirmasi($jenjang)
+  public function konfirmasiAntrianBaru($jenjang)
   {
     $antrianPerJenjangTerbaru = DB::table('antrians')
       ->where('jenjang', $jenjang)

@@ -10,10 +10,10 @@
 
     @foreach($antrianPerJenjang['belumTerpanggil'] as $antrian)
     <li>
-      <p>
+      <a href="/admin/antrian/panggil/{{ $antrian->id }}">
         <b>Nomor antrian {{ $antrian->nomor_antrian }}</b>
         Jenjang {{ $antrian->jenjang }}
-      </p>
+      </a>
     </li>
     @endforeach
 
