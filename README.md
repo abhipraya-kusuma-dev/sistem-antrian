@@ -17,6 +17,10 @@ php artisan key:generate
 # Migration (Don't forget to fill the database credentials in .env first)
 php artisan migrate:fresh --seed
 
+# Setup API Authentication from play.ht to your .env
+# AUTHORIZATION='YOUR_SECRET_KEY'
+# USER_ID='YOUR_USER_ID'
+
 # Link storage to public folder (add 'FILESYSTEM_DISK=public' at your .env) and
 php artisan storage:link
 
@@ -24,6 +28,14 @@ php artisan storage:link
 php artisan ser
 npm run dev
 ```
+
+## People Behind This Project
+- [AdiCahyaSaputra](https://github.com/AdiCahyaSaputra)
+- [MuhammadRisky](https://github.com/dante-heisenberg)
+
+## Reference
+- [API Access play.ht](https://play.ht/app/api-access)
+- [API Docs play.ht](https://docs.play.ht/reference/api-getting-started)
 
 ## Todo
 - [x] Text To Speech API  
