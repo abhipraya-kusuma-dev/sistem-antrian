@@ -3,7 +3,15 @@
 @section('content')
 <div>
 
-  <h1>Belum Dipanggil</h1>
+  <div>
+    <h1>Pilih Tanggal Pendaftaran (default nya hari ini)</h1>
+    <form>
+      <input type="date" name="tanggal_pendaftaran" value="{{ $tanggal_pendaftaran }}"/>
+      <button type="submit">Pilih Tanggal</button>
+    </form>
+  </div>
+
+  <h2>Belum Dipanggil</h2>
 
   <ul>
     @if(count($antrianPerJenjang['belumTerpanggil']))
@@ -22,7 +30,7 @@
     @endif
   </ul>
 
-  <h1>Sudah Dipanggil</h1>
+  <h2>Sudah Dipanggil</h2>
   <ul>
     @if(count($antrianPerJenjang['terpanggil']))
 

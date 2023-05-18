@@ -48,7 +48,8 @@ class AntrianController extends Controller
     $isAntrianCreated = Antrian::create([
       'nomor_antrian' => $data['nomor_antrian'],
       'jenjang' => $data['jenjang'],
-      'audio_path' => $data['audio_path']
+      'audio_path' => $data['audio_path'],
+      'tanggal_pendaftaran' => now('Asia/Jakarta')->format('Y-m-d')
     ]);
 
     if(!$isAntrianCreated) return redirect('/antrian/daftar')->with('create-error', 'Gagal membuat antrian baru');
