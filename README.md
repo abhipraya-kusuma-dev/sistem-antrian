@@ -36,6 +36,7 @@ npm run dev
 ## Reference
 - [API Access play.ht](https://play.ht/app/api-access)
 - [API Docs play.ht](https://docs.play.ht/reference/api-getting-started)
+- [Error Tracking (sentry)](https://docs.sentry.io/platforms/php/guides/laravel/)
 
 ## Todo
 - [x] Text To Speech API  
