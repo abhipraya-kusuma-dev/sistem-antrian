@@ -7,13 +7,19 @@
     <b>Nomor antrian anda saat ini adalah {{ $nomorAntrianSaatIni }}</b> dengan jenjang {{ $jenjang }}
   </p>
 
-  <form action="/antrian/daftar/proses" method="post">
+  <form action="/antrian/daftar/proses" method="post" onsubmit="submitHandler">
     @csrf
     <input type="hidden" value="{{ $nomorAntrianSaatIni }}" name="nomor_antrian" />
     <input type="hidden" value="{{ $jenjang }}" name="jenjang" />
-    <button type="submit">Iya bang udah bener kok</button>
+    <button type="submit" id="btn">Iya bang udah bener kok</button>
   </form>
 
   <a href="/antrian/daftar">Salah pencet bang, Balik lagi coba</a>
 </div>
+<script>
+  const btn = document.getElementById('btn')
+  btn.addEventListener('click', function() {
+    btn.disabled = true
+  })
+</script>
 @endsection
