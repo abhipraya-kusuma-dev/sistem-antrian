@@ -71,4 +71,11 @@ class AdminController extends Controller
 
     return redirect('/admin/antrian/jenjang/' . $request['antrian_jenjang'])->with('update-error', "Berhasil melakukan yg tadi");
   }
+
+  public function laporan()
+  {
+    return view('laporan.index', [
+      'laporan' => ''
+    ]);
+  }
 }

@@ -25,6 +25,14 @@ class TextToSpeechHelper
     return $data['transcriptionId'];
   }
 
+  public static function generateNomorAntrian(string $jenjang, int $nomor_antrian)
+  {
+    $endCharacterJenjang = strtoupper(substr($jenjang, -1));
+    $zeroPrefixAntrian = str_pad($nomor_antrian, 3, '0', STR_PAD_LEFT);
+
+    return $endCharacterJenjang . $zeroPrefixAntrian;
+  }
+
   private static function getDownloadUrl(string $transcriptionId)
   {
     $response = Http::withHeaders([
@@ -53,14 +61,30 @@ class TextToSpeechHelper
     return 'storage/audio/' . $fileName;
   }
 
-  public static function getAudioPath(int $nomor_antrian)
+  public static function getAudioPath(int $nomor_antrian, string $jenjang)
   {
     $antrian = DB::table('antrians')
+      ->where('nomor_antrian', $nomor_antrian)
+      ->where('jenjang', $jenjang)
+      ->orderBy('tanggal_pendaftaran', 'asc')
+      ->first('audio_path');
+
+    $nomor_antrian = self::generateNomorAntrian($jenjang, $nomor_antrian);
+
+    $audio_path = $antrian->audio_path ?? self::transformTextToSpeech('Antrian nomor ' . $nomor_antrian . ' menuju loket ' . $jenjang);
+
+    return $audio_path;
+  }
+
+  public static function getAudioPathBendahara(int $nomor_antrian, string $jenjang)
+  {
+    $antrian = DB::table('bendaharas')
       ->where('nomor_antrian', $nomor_antrian)
       ->orderBy('tanggal_pendaftaran', 'asc')
       ->first('audio_path');
 
-    $audio_path = $antrian->audio_path ?? self::transformTextToSpeech('Antrian Nomor ' . $nomor_antrian);
+    $kode_antrian = 'B' . str_pad($nomor_antrian, 3, '0', STR_PAD_LEFT);
+    $audio_path = $antrian->audio_path ?? self::transformTextToSpeech('Antrian nomor ' . $kode_antrian . ' menuju loket ' . $jenjang);
 
     return $audio_path;
   }

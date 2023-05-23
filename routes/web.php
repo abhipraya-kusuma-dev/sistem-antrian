@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OperatorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,12 +32,16 @@ Route::controller(AntrianController::class)->group(function() {
   Route::post('/antrian/daftar/proses', 'buatAntrianBaru');
 });
 
-Route::controller(AdminController::class)->group(function() {
+Route::controller(OperatorController::class)->group(function() {
   // Monitoring Antrian (admin)
-  Route::get('/admin/antrian', 'antrian');
-  Route::get('/admin/antrian/jenjang/{jenjang}', 'antrianPerJenjang');
-  Route::get('/admin/antrian/panggil/{antrian:id}', 'panggilNomorAntrian');
-  Route::put('/admin/antrian/terpanggil', 'nomorAntrianTerpanggil');
+  Route::get('/operator/antrian', 'antrian');
+  Route::get('/operator/antrian/jenjang/{jenjang}', 'antrianPerJenjang');
+  Route::get('/operator/antrian/panggil/{antrian:id}', 'panggilNomorAntrian');
+  Route::put('/operator/antrian/terpanggil', 'nomorAntrianTerpanggil');
+
+  Route::put('/operator/antrian/bendahara', 'lanjutKeBendahara');
+
+  Route::get('/laporan', 'laporan');
 });
 
 Route::controller(AuthController::class)->group(function() {

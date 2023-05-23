@@ -38,12 +38,13 @@ class AntrianController extends Controller
   public function buatAntrianBaru(Request $request)
   {
     $request['nomor_antrian'] = (int) $request['nomor_antrian'];
+
     $data = $request->validate([
       'nomor_antrian' => ['required'],
       'jenjang' => ['required', new Enum(JenjangEnum::class)]
     ]);
 
-    $data['audio_path'] = TextToSpeechHelper::getAudioPath($data['nomor_antrian']);
+    $data['audio_path'] = TextToSpeechHelper::getAudioPath($data['nomor_antrian'], $data['jenjang']);
 
     $isAntrianCreated = Antrian::create([
       'nomor_antrian' => $data['nomor_antrian'],

@@ -18,37 +18,22 @@ class DatabaseSeeder extends Seeder
     User::create([
       'name' => 'Admin',
       'username' => 'admin',
+      'role' => 'admin',
       'password' => bcrypt('hehe1234##')
     ]);
 
-    // Antrian::create([
-    //   'nomor_antrian' => 1,
-    //   'jenjang' => 'smk',
-    //   'terpanggil' => 'belum'
-    // ]);
-    //
-    // Antrian::create([
-    //   'nomor_antrian' => 2,
-    //   'jenjang' => 'smk',
-    //   'terpanggil' => 'belum'
-    // ]);
-    //
-    // Antrian::create([
-    //   'nomor_antrian' => 3,
-    //   'jenjang' => 'smk',
-    //   'terpanggil' => 'belum'
-    // ]);
-    //
-    // Antrian::create([
-    //   'nomor_antrian' => 1,
-    //   'jenjang' => 'sma',
-    //   'terpanggil' => 'belum'
-    // ]);
-    //
-    // Antrian::create([
-    //   'nomor_antrian' => 2,
-    //   'jenjang' => 'sma',
-    //   'terpanggil' => 'belum'
-    // ]);
+    User::create([
+      'name' => 'Operator1',
+      'username' => 'op1',
+      'role' => 'operator',
+      'password' => bcrypt('hehe1234##')
+    ]);
+
+    User::create([
+      'name' => 'Operator2',
+      'username' => 'op2',
+      'role' => 'operator',
+      'password' => bcrypt('hehe1234##')
+    ]);
   }
 }

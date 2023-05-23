@@ -18,9 +18,8 @@
 
     @foreach($antrianPerJenjang['belumTerpanggil'] as $antrian)
     <li>
-      <a href="/admin/antrian/panggil/{{ $antrian->id }}">
-        <b>Nomor antrian {{ $antrian->nomor_antrian }}</b>
-        Jenjang {{ $antrian->jenjang }}
+      <a href="/operator/antrian/panggil/{{ $antrian->id }}">
+        <b>{{ $antrian->nomor_antrian }}</b>
       </a>
     </li>
     @endforeach
@@ -37,8 +36,7 @@
     @foreach($antrianPerJenjang['terpanggil'] as $antrian)
     <li>
       <p>
-        <b>Nomor antrian {{ $antrian->nomor_antrian }}</b>
-        Jenjang {{ $antrian->jenjang }}
+        <b>{{ $antrian->nomor_antrian }}</b>
       </p>
     </li>
     @endforeach

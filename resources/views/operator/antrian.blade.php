@@ -15,7 +15,7 @@
 
     @foreach($jenjang as $j)
     <li>
-      <a href="/admin/antrian/jenjang/{{ $j }}">{{ $j }}</a>
+      <a href="/operator/antrian/jenjang/{{ $j }}">{{ $j }}</a>
     </li>
     @endforeach
 
