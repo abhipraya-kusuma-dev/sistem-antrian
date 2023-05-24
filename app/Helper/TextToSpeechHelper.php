@@ -71,7 +71,7 @@ class TextToSpeechHelper
 
     $nomor_antrian = self::generateNomorAntrian($jenjang, $nomor_antrian);
 
-    $audio_path = $antrian->audio_path ?? self::transformTextToSpeech('Antrian nomor ' . $nomor_antrian . ' menuju loket ' . $jenjang);
+    $audio_path = $antrian->audio_path ?? self::transformTextToSpeech('Antrian nomor ' . $nomor_antrian . ' menuju loket ' . strtoupper($jenjang));
 
     return $audio_path;
   }

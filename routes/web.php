@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BendaharaController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\OperatorController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,8 +44,6 @@ Route::controller(OperatorController::class)->group(function () {
   Route::post('/operator/antrian/lanjut/bendahara', 'lanjutKeBendahara');
 
   Route::put('/operator/antrian/terpanggil', 'nomorAntrianTerpanggil');
-
-  Route::get('/laporan', 'laporan');
 });
 
 Route::controller(BendaharaController::class)->group(function () {
@@ -53,6 +52,10 @@ Route::controller(BendaharaController::class)->group(function () {
   Route::put('/bendahara/antrian/terpanggil', 'nomorAntrianTerpanggil');
 
   Route::post('/bendahara/antrian/lanjut/', 'lanjutAntrian');
+});
+
+Route::controller(LaporanController::class)->group(function () {
+  Route::get('/laporan', 'laporan');
 });
 
 Route::controller(AuthController::class)->group(function () {
