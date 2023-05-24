@@ -41,6 +41,7 @@ npm run dev
 ## Todo
 - [x] Text To Speech API  
 - [x] Daftar Antrian  
-- [x] Kelola Antrian (admin)  
+- [x] Kelola Antrian (admin/op)  
+- [x] Kelola Antrian Bendahara (admin/op)  
 - [ ] Display Antrian  
 - [ ] Laporan per hari    
