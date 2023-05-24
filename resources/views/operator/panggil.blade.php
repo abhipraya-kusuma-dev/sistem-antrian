@@ -3,6 +3,10 @@
 @section('content')
 <div>
 
+  @if(session('antrian-mentok'))
+  <p>{{ session('antrian-mentok') }}</p>
+  @endif
+
   <h1>Panggil Peserta</h1>
   <p>Nomor Antrian <b>{{ $antrian->nomor_antrian}}</b></p>
   <p>Jenjang <b>{{ $antrian->jenjang}}</b></p>
@@ -10,6 +14,11 @@
 
   <audio src="{{ asset($antrian->audio_path) }}" hidden id="audio"></audio>
   <button type="button" id="panggil-btn">Panggil</button>
+  <form action="/operator/antrian/lanjut/" method="post">
+    @csrf
+    <input type="hidden" name="antrian_id" value="{{$antrian->id }}" />
+    <button type="submit">Lanjut Antrian</button>
+  </form>
 
   <form action="/operator/antrian/terpanggil" method="post">
     @method('PUT')
@@ -19,8 +28,10 @@
     <button type="submit" onclick="return confirm('Yakin? gk bisa di un-panggil lho ini')">Sudah Terpanggil</button>
   </form>
 
-  <form action="/operator/antrian/bendahara" method="post">
+  <form action="/operator/antrian/lanjut/bendahara" method="post">
     @csrf
+    <input type="hidden" name="antrian_id" value="{{ $antrian->id }}" />
+    <input type="hidden" name="antrian_jenjang" value="{{ $antrian->jenjang }}" />
     <button type="submit">Lanjut Ke Bendahara</button>
   </form>
 

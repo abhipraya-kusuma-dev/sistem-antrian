@@ -72,6 +72,20 @@ class OperatorController extends Controller
       'antrian' => $antrian
     ]);
   }
+  public function lanjutAntrian(Request $request)
+  {
+    $antrianSaatIni = DB::table('antrians')->where('id', $request['antrian_id'])->select('nomor_antrian', 'tanggal_pendaftaran', 'jenjang')->first();
+
+    $antrianSelanjutnya = DB::table('antrians')
+      ->where('tanggal_pendaftaran', $antrianSaatIni->tanggal_pendaftaran)
+      ->where('nomor_antrian', $antrianSaatIni->nomor_antrian + 1)
+      ->where('jenjang', $antrianSaatIni->jenjang)
+      ->select('*')->first();
+
+    if(is_null($antrianSelanjutnya)) return back()->with('antrian-mentok', 'Antrian sudah mentok');
+
+    return redirect('/operator/antrian/panggil/' . $antrianSelanjutnya->id);
+  }
 
   public function nomorAntrianTerpanggil(Request $request)
   {
@@ -84,17 +98,23 @@ class OperatorController extends Controller
     return redirect('/operator/antrian/jenjang/' . $request['antrian_jenjang'])->with('update-error', "Berhasil melakukan yg tadi");
   }
 
-  public function lanjutKeBendahara()
+  public function lanjutKeBendahara(Request $request)
   {
+    $isAntrianUpdated = Antrian::where('id', $request['antrian_id'])->update([
+      'terpanggil' => 'sudah'
+    ]);
+
+    if (!$isAntrianUpdated) return redirect('/operator/antrian/jenjang/' . $request['antrian_jenjang'])->with('update-error', 'Gagal melakukan pemindahan antrian ke bendahara');
+
     $antrianSaatIni = DB::table('bendaharas')
-      ->orderBy('created_at')->first('nomor_antrian');
+      ->orderBy('created_at', 'desc')->first('nomor_antrian');
 
     $nomorAntrianSaatIni = $antrianSaatIni->nomor_antrian ?? 0;
 
     $isCreated = Bendahara::create([
       'nomor_antrian' => $nomorAntrianSaatIni + 1,
       'tanggal_pendaftaran' => Carbon::now('Asia/Jakarta')->format('Y-m-d'),
-      'audio_path' => TextToSpeechHelper::getAudioPathBendahara($nomorAntrianSaatIni + 1, 'bendahara')
+      'audio_path' => TextToSpeechHelper::getAudioPathBendahara($nomorAntrianSaatIni + 1)
     ]);
 
     if (!$isCreated) return redirect('/operator/antrian')->with('create-error', 'Gagal melakukan pemindahan antrian ke bendahara');

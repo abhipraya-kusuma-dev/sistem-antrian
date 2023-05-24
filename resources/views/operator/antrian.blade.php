@@ -20,5 +20,6 @@
     @endforeach
 
   </ul>
+  <a href="/bendahara/antrian">Antrian Bendahara</a>
 </div>
 @endsection

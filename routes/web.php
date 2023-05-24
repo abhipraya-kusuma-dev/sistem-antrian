@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BendaharaController;
 use App\Http\Controllers\OperatorController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +22,7 @@ Route::get('/', function () {
   return view('welcome');
 });
 
-Route::controller(AntrianController::class)->group(function() {
+Route::controller(AntrianController::class)->group(function () {
   // Display
   Route::get('/antrian', 'index');
 
@@ -32,19 +33,29 @@ Route::controller(AntrianController::class)->group(function() {
   Route::post('/antrian/daftar/proses', 'buatAntrianBaru');
 });
 
-Route::controller(OperatorController::class)->group(function() {
+Route::controller(OperatorController::class)->group(function () {
   // Monitoring Antrian (admin)
   Route::get('/operator/antrian', 'antrian');
   Route::get('/operator/antrian/jenjang/{jenjang}', 'antrianPerJenjang');
   Route::get('/operator/antrian/panggil/{antrian:id}', 'panggilNomorAntrian');
-  Route::put('/operator/antrian/terpanggil', 'nomorAntrianTerpanggil');
 
-  Route::put('/operator/antrian/bendahara', 'lanjutKeBendahara');
+  Route::post('/operator/antrian/lanjut/', 'lanjutAntrian');
+  Route::post('/operator/antrian/lanjut/bendahara', 'lanjutKeBendahara');
+
+  Route::put('/operator/antrian/terpanggil', 'nomorAntrianTerpanggil');
 
   Route::get('/laporan', 'laporan');
 });
 
-Route::controller(AuthController::class)->group(function() {
+Route::controller(BendaharaController::class)->group(function () {
+  Route::get('/bendahara/antrian', 'antrianBendahara');
+  Route::get('/bendahara/antrian/panggil/{bendahara:id}', 'panggilNomorAntrian');
+  Route::put('/bendahara/antrian/terpanggil', 'nomorAntrianTerpanggil');
+
+  Route::post('/bendahara/antrian/lanjut/', 'lanjutAntrian');
+});
+
+Route::controller(AuthController::class)->group(function () {
   Route::get('/login', 'login')->name('login');
   Route::post('/login', 'authenticate');
 });

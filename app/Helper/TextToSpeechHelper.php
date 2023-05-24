@@ -76,15 +76,20 @@ class TextToSpeechHelper
     return $audio_path;
   }
 
-  public static function getAudioPathBendahara(int $nomor_antrian, string $jenjang)
+  public static function getKodeAntrianBendahara(int $nomor_antrian)
+  {
+    return 'B' . str_pad($nomor_antrian, 3, '0', STR_PAD_LEFT);
+  }
+
+  public static function getAudioPathBendahara(int $nomor_antrian)
   {
     $antrian = DB::table('bendaharas')
       ->where('nomor_antrian', $nomor_antrian)
       ->orderBy('tanggal_pendaftaran', 'asc')
       ->first('audio_path');
 
-    $kode_antrian = 'B' . str_pad($nomor_antrian, 3, '0', STR_PAD_LEFT);
-    $audio_path = $antrian->audio_path ?? self::transformTextToSpeech('Antrian nomor ' . $kode_antrian . ' menuju loket ' . $jenjang);
+    $kode_antrian = self::getKodeAntrianBendahara($nomor_antrian);
+    $audio_path = $antrian->audio_path ?? self::transformTextToSpeech('Antrian nomor ' . $kode_antrian . ' menuju loket bendahara');
 
     return $audio_path;
   }
