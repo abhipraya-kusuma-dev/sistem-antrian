@@ -3,6 +3,11 @@
 @section('content')
 <div>
 
+  <form action='/logout' method='post'>
+    @csrf
+    <button type="submit">Logout</button>
+  </form>
+
   <h1>Laporan</h1>
   <form>
     <input type="date" name="tanggal_pendaftaran" value="{{ $tanggal_pendaftaran }}" />
@@ -17,8 +22,6 @@
   <script>
     const ctx = document.getElementById('myChart')
     const data = {{ Js::from($data) }}
-
-    console.log(data)
 
     const laporan = {
       labels: [

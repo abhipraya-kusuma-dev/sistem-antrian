@@ -10,6 +10,14 @@
   <p>{{ session('update-success') }}</p>
   @endif
 
+  @if(session('create-success'))
+  <p>{{ session('create-success') }}</p>
+  @endif
+
+  @if(session('create-error'))
+  <p>{{ session('create-error') }}</p>
+  @endif
+
   <h1>Pilih Jenjang</h1>
   <ul>
 
