@@ -3,7 +3,7 @@
 @section('content')
 <header class="flex py-6 px-8 justify-between items-center">
   <div class="space-x-4 flex items-center">
-    <img src="wk.png" class="w-20" alt="logo-image">
+    <img src="{{ asset('wk.png') }}" class="w-20" alt="logo-image">
     <h1 class="text-[#1a5088] text-6xl font-bold">Antrian PPDB</h1>
   </div>
   <div id="hamburger">
