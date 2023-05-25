@@ -27,7 +27,7 @@ class AuthController extends Controller
     if (Auth::attempt($data)) {
       $request->session()->regenerate();
 
-      return redirect()->intended('/antrian/admin');
+      return redirect()->intended('/antrian');
     }
 
     return back()->with('login-error', 'Gagal Login bang');

@@ -16,7 +16,7 @@ return new class extends Migration
       $table->integer('nomor_antrian');
       $table->date('tanggal_pendaftaran')->default(now('Asia/Jakarta')->format('Y-m-d'));
       $table->enum('jenjang', ['sd', 'smp', 'sma', 'smk']);
-      $table->enum('terpanggil', ['belum', 'sudah'])->default('belum');
+      $table->enum('terpanggil', ['belum', 'sudah', 'lewati'])->default('belum');
       $table->string('audio_path')->nullable();
       $table->timestamps();
     });

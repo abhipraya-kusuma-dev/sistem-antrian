@@ -82,7 +82,7 @@ class OperatorController extends Controller
       ->where('jenjang', $antrianSaatIni->jenjang)
       ->select('*')->first();
 
-    if(is_null($antrianSelanjutnya)) return back()->with('antrian-mentok', 'Antrian sudah mentok');
+    if (is_null($antrianSelanjutnya)) return back()->with('antrian-mentok', 'Antrian sudah mentok');
 
     return redirect('/operator/antrian/panggil/' . $antrianSelanjutnya->id);
   }
