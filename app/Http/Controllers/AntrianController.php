@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enum\JenjangEnum;
 use App\Helper\TextToSpeechHelper;
 use App\Models\Antrian;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rules\Enum;
@@ -15,9 +16,13 @@ class AntrianController extends Controller
   public function index(){
     $jenjang = ['sd', 'smp', 'sma', 'smk', 'bendahara'];
     $warna = ['#ff6384', '#36a2eb', '#ffcd56', '#c8a2eb', '#d27b41'];
+    $loket = ['Loket 1', 'Loket 2', 'Loket 3', 'Loket 4', 'Loket 5'];
     return view('antrian.index',[
       'jenjang' => $jenjang,
       'warna' => $warna,
+      'waktu' => Carbon::now('Asia/Jakarta')->format('H:i:s'),
+      'tanggal' => Carbon::now('Asia/Jakarta')->format('D, d M Y'),
+      'loket' => $loket,
     ]
   );
   }
