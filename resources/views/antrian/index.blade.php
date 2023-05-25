@@ -1,66 +1,82 @@
 @extends('layout.main')
 
 @section('content')
-<header class="flex py-6 px-8 justify-between items-center">
-  <div class="space-x-4 flex items-center">
-    <img src="{{ asset('wk.png') }}" class="w-20" alt="logo-image">
-    <h1 class="text-[#1a5088] text-6xl font-bold">Antrian PPDB</h1>
+<header class="flex p-3 justify-between shadow-md items-center">
+
+  <div class="flex items-center space-x-4">
+    <img src="wk.png" class="w-20" alt="wk.png">
+    <div>
+      <h1 class="text-3xl font-semibold text-[#1A508B]">ANTREAN SWK</h1>
+      <p>Jalan Bandengan Utara 80 14440 Jakarta Daerah Khusus Ibukota Jakarta</p>
+    </div>
   </div>
-  <div id="hamburger">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-14 h-14 text-[#1a5088] cursor-pointer">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-    </svg>
+
+  {{-- Jam --}}
+  <div class="flex flex-col items-center">
+    <h1 class="text-4xl font-bold" id="time"></h1>
+    <p>{{$tanggal}}</p>
   </div>
-  {{-- item-hamburger --}}
-  <div class="fixed rounded-md border-2 border-solid border-black space-y-8 px-10 font-bold text-lg hidden right-4 top-[10%] translate-y-[50%] bg-white flex-col p-6" id="menu">
-    <a href="/laporan" class="flex space-x-4 items-center">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0118 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3l1.5 1.5 3-3.75" />
-      </svg><span>Laporan</span>
-    </a>
-    <a href="" class="flex space-x-4 items-center">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
-      </svg><span>Logout</span>
-    </a>
-  </div>
+
 </header>
 
-{{-- Nomor antrian tiap jenjang --}}
-<main class="mt-10 p-4">
-  <div class="grid grid-cols-5 gap-4">
-    @foreach ($jenjang as $j)
-      <div style="background-color: {{$warna[$loop->index]}};" class=" flex flex-col rounded-md items-center justify-start pb-20 space-y-4 py-4 border-2 border-black border-solid">
-        <h2 class="text-3xl font-bold uppercase">{{$j}}</h2>
-        <p class="text-7xl uppercase">k01</p>
+
+<main class="p-6">
+
+  <div class="flex justify-around">
+    <div class="flex w-1/2 ">
+      <div class="flex flex-col w-full text-center space-y-6 text-white">
+        <div class="bg-blue-400 w-full p-2 rounded-md">
+          <h1 class="text-xl font-semibold">Antrian</h1>
+        </div>
+        <div class="bg-blue-400 p-6 rounded-md">
+          <p class="text-9xl font-bold">005</p>
+        </div>
+        <div class="bg-blue-400 p-2 rounded-md">
+          <p class="text-xl uppercase font-semibold">Loket 1</p>
+        </div>
       </div>
+    </div>
+
+    {{-- Video --}}
+    <div class="">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/EZX96uHXCeE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-5 gap-4 mt-4">
+    @foreach ($loket as $l)
+    <div style="background-color: {{$warna[$loop->index]}};" class=" rounded-md text-center  space-y-8 py-4 text-white">
+      <p class="text-xl font-semibold">Antrian</p>
+      <p class="text-5xl font-bold">003</p>
+      <hr>
+      <p class="-translate-y-6 font-semibold uppercase">{{$l}}</p>
+    </div>
     @endforeach
   </div>
-  {{-- text berjalan --}}
-  <div class="w-full p-10">
-    <marquee class=" text-3xl font-bold">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod, placeat provident modi enim eaque aut quia est adipisci rem error, a, optio accusamus nulla! Sunt adipisci delectus libero perspiciatis. Corrupti quos quibusdam consectetur obcaecati optio? Eius laboriosam, illum doloribus, ipsa adipisci autem assumenda veniam vitae saepe doloremque, sapiente nostrum ex.</marquee>
+
+</main><hr class="border-2 border-black">
+
+<footer class="flex justify-between p-4 items-center">
+  <p>Copy Right Wijayakusuma 2023</p>
+  <div class="grid grid-cols-2 gap-4">
+    <a href="https://instagram.com/sekolah_wijayakusuma?igshid=MmJiY2I4NDBkZg==" target="_blank">Instagram</a>
+    <a href="https://www.tiktok.com/@sekolah_wijayakusuma?_t=8cbLfbj2UJL&_r=1" target="_blank">Tiktok</a>
+    <a href="https://sekolahwijayakusuma.sch.id/" target="_blank">Website</a>
+    <a href="https://youtube.com/@sekolahwijayakusumajakut" target="_blank">Youtube</a>
   </div>
-</main>
-
-<footer class="flex space-x-20 bg-[#1a5088] absolute inset-x-0 p-4 text-white font-semibold bottom-0">
-  <a href="https://instagram.com/sekolah_wijayakusuma?igshid=MmJiY2I4NDBkZg==" target="_blank">Instagram</a>
-  <a href="https://www.tiktok.com/@sekolah_wijayakusuma?_t=8cbLfbj2UJL&_r=1" target="_blank">Tiktok</a>
-  <a href="https://sekolahwijayakusuma.sch.id/" target="_blank">Webiste SWK</a>
-  <a href="https://youtube.com/@sekolahwijayakusumajakut" target="_blank">Youtube</a>
 </footer>
-<script>
-  const hamburger = document.getElementById('hamburger');
-  const menu = document.getElementById('menu');
 
-  hamburger.addEventListener('click', function(){
-    if (menu.classList.contains('hidden')) {
-      menu.classList.remove('hidden');
-      menu.classList.add('flex');
-    }
-    else {
-      menu.classList.remove('flex');
-      menu.classList.add('hidden');
-    }
-  });
+<script>
+  var timeDisplay = document.getElementById("time");
+
+
+function refreshTime() {
+  var dateString = new Date().toLocaleTimeString();
+  var formattedString = dateString.replace(", ", " - ");
+  timeDisplay.innerHTML = formattedString;
+}
+
+setInterval(refreshTime, 1000);
 </script>
+
 @endsection
