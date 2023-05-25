@@ -13,7 +13,7 @@
 
   {{-- Jam --}}
   <div class="flex flex-col items-center">
-    <h1 class="text-4xl font-bold">{{$waktu}}</h1>
+    <h1 class="text-4xl font-bold" id="time"></h1>
     <p>{{$tanggal}}</p>
   </div>
 
@@ -65,5 +65,18 @@
     <a href="https://youtube.com/@sekolahwijayakusumajakut" target="_blank">Youtube</a>
   </div>
 </footer>
+
+<script>
+  var timeDisplay = document.getElementById("time");
+
+
+function refreshTime() {
+  var dateString = new Date().toLocaleTimeString();
+  var formattedString = dateString.replace(", ", " - ");
+  timeDisplay.innerHTML = formattedString;
+}
+
+setInterval(refreshTime, 1000);
+</script>
 
 @endsection

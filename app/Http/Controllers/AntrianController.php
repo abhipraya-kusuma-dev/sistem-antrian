@@ -20,7 +20,6 @@ class AntrianController extends Controller
     return view('antrian.index',[
       'jenjang' => $jenjang,
       'warna' => $warna,
-      'waktu' => Carbon::now('Asia/Jakarta')->format('H:i:s'),
       'tanggal' => Carbon::now('Asia/Jakarta')->format('D, d M Y'),
       'loket' => $loket,
     ]
