@@ -55,10 +55,21 @@ class OperatorController extends Controller
       $antrianBelumTerpanggil[$i]->nomor_antrian = TextToSpeechHelper::generateNomorAntrian($antrianBelumTerpanggil[$i]->jenjang, $antrianBelumTerpanggil[$i]->nomor_antrian);
     }
 
+    $antrianTerlewati = DB::table('antrians')
+      ->where('jenjang', $jenjang)
+      ->where('tanggal_pendaftaran', $tanggal_pendaftaran)
+      ->where('terpanggil', 'lewati')
+      ->select('*')->get();
+
+    for ($i = 0; $i < count($antrianTerlewati); $i++) {
+      $antrianTerlewati[$i]->nomor_antrian = TextToSpeechHelper::generateNomorAntrian($antrianTerlewati[$i]->jenjang, $antrianTerlewati[$i]->nomor_antrian);
+    }
+
     return view('operator.jenjang', [
       'antrianPerJenjang' => [
         'terpanggil' => $antrianTerpanggil,
         'belumTerpanggil' => $antrianBelumTerpanggil,
+        'terlewati' => $antrianTerlewati,
       ],
       'tanggal_pendaftaran' => $tanggal_pendaftaran
     ]);

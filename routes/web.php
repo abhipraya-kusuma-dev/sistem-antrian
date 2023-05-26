@@ -1,5 +1,6 @@
 <?php
 
+use App\Helper\TextToSpeechHelper;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\AuthController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\BendaharaController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\OperatorController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Antrian;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,4 +64,19 @@ Route::controller(AuthController::class)->group(function () {
   Route::get('/login', 'login')->name('login');
   Route::post('/login', 'authenticate');
   Route::post('/logout', 'logout');
+});
+
+Route::get('/page1', function () {
+  return view('test.page1');
+});
+
+Route::get('/page2', function () {
+  $antrians = Antrian::all();
+  for ($i = 0; $i < count($antrians); $i++) {
+    $antrians[$i]->nomor_antrian = TextToSpeechHelper::generateNomorAntrian($antrians[$i]->jenjang, $antrians[$i]->nomor_antrian);
+  }
+
+  return view('test.page2', [
+    'antrians' => $antrians
+  ]);
 });

@@ -46,5 +46,22 @@
     @endif
   </ul>
 
+  <h2>Di Lewati</h2>
+  <ul>
+    @if(count($antrianPerJenjang['terlewati']))
+
+    @foreach($antrianPerJenjang['terlewati'] as $antrian)
+    <li>
+      <p>
+        <b>{{ $antrian->nomor_antrian }}</b>
+      </p>
+    </li>
+    @endforeach
+
+    @else
+    <li>Tidak ada data</li>
+    @endif
+  </ul>
+
 </div>
 @endsection
