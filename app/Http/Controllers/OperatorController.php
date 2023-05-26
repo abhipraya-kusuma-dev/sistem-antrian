@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\AntrianHelper;
 use App\Helper\TextToSpeechHelper;
 use App\Models\Antrian;
 use App\Models\Bendahara;
@@ -16,12 +17,6 @@ class OperatorController extends Controller
     $this->middleware('auth');
   }
 
-  private function getTanggalPendaftaran(Request $request)
-  {
-    if ($request['tanggal_pendaftaran']) return Carbon::parse($request['tanggal_pendaftaran'], 'Asia/Jakarta')->format('Y-m-d');
-    return now('Asia/Jakarta')->format('Y-m-d');
-  }
-
   public function antrian()
   {
     $jenjang = ['sd', 'smp', 'sma', 'smk'];
@@ -33,7 +28,7 @@ class OperatorController extends Controller
 
   public function antrianPerJenjang($jenjang, Request $request)
   {
-    $tanggal_pendaftaran =  $this->getTanggalPendaftaran($request);
+    $tanggal_pendaftaran =  AntrianHelper::getTanggalPendaftaran($request);
 
     $antrianTerpanggil = DB::table('antrians')
       ->where('jenjang', $jenjang)
@@ -42,7 +37,7 @@ class OperatorController extends Controller
       ->select('*')->get();
 
     for ($i = 0; $i < count($antrianTerpanggil); $i++) {
-      $antrianTerpanggil[$i]->nomor_antrian = TextToSpeechHelper::generateNomorAntrian($antrianTerpanggil[$i]->jenjang, $antrianTerpanggil[$i]->nomor_antrian);
+      $antrianTerpanggil[$i]->nomor_antrian = AntrianHelper::generateNomorAntrian($antrianTerpanggil[$i]->jenjang, $antrianTerpanggil[$i]->nomor_antrian);
     }
 
     $antrianBelumTerpanggil = DB::table('antrians')
@@ -52,7 +47,7 @@ class OperatorController extends Controller
       ->select('*')->get();
 
     for ($i = 0; $i < count($antrianBelumTerpanggil); $i++) {
-      $antrianBelumTerpanggil[$i]->nomor_antrian = TextToSpeechHelper::generateNomorAntrian($antrianBelumTerpanggil[$i]->jenjang, $antrianBelumTerpanggil[$i]->nomor_antrian);
+      $antrianBelumTerpanggil[$i]->nomor_antrian = AntrianHelper::generateNomorAntrian($antrianBelumTerpanggil[$i]->jenjang, $antrianBelumTerpanggil[$i]->nomor_antrian);
     }
 
     $antrianTerlewati = DB::table('antrians')
@@ -62,7 +57,7 @@ class OperatorController extends Controller
       ->select('*')->get();
 
     for ($i = 0; $i < count($antrianTerlewati); $i++) {
-      $antrianTerlewati[$i]->nomor_antrian = TextToSpeechHelper::generateNomorAntrian($antrianTerlewati[$i]->jenjang, $antrianTerlewati[$i]->nomor_antrian);
+      $antrianTerlewati[$i]->nomor_antrian = AntrianHelper::generateNomorAntrian($antrianTerlewati[$i]->jenjang, $antrianTerlewati[$i]->nomor_antrian);
     }
 
     return view('operator.jenjang', [
@@ -77,7 +72,7 @@ class OperatorController extends Controller
 
   public function panggilNomorAntrian(Antrian $antrian)
   {
-    $antrian->nomor_antrian = TextToSpeechHelper::generateNomorAntrian($antrian->jenjang, $antrian->nomor_antrian);
+    $antrian->nomor_antrian = AntrianHelper::generateNomorAntrian($antrian->jenjang, $antrian->nomor_antrian);
 
     return view('operator.panggil', [
       'antrian' => $antrian
@@ -85,13 +80,17 @@ class OperatorController extends Controller
   }
   public function lanjutAntrian(Request $request)
   {
-    $antrianSaatIni = DB::table('antrians')->where('id', $request['antrian_id'])->select('nomor_antrian', 'tanggal_pendaftaran', 'jenjang')->first();
+    $antrianSaatIni = DB::table('antrians')
+      ->where('id', $request['antrian_id'])
+      ->select('nomor_antrian', 'tanggal_pendaftaran', 'jenjang')
+      ->first();
 
     $antrianSelanjutnya = DB::table('antrians')
       ->where('tanggal_pendaftaran', $antrianSaatIni->tanggal_pendaftaran)
       ->where('nomor_antrian', $antrianSaatIni->nomor_antrian + 1)
       ->where('jenjang', $antrianSaatIni->jenjang)
-      ->select('*')->first();
+      ->select('*')
+      ->first();
 
     if (is_null($antrianSelanjutnya)) return back()->with('antrian-mentok', 'Antrian sudah mentok');
 

@@ -5,6 +5,7 @@ namespace App\Helper;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use App\Helper\AntrianHelper;
 
 class TextToSpeechHelper
 {
@@ -23,14 +24,6 @@ class TextToSpeechHelper
     $data = $response->json();
 
     return $data['transcriptionId'];
-  }
-
-  public static function generateNomorAntrian(string $jenjang, int $nomor_antrian)
-  {
-    $endCharacterJenjang = strtoupper(substr($jenjang, -1));
-    $zeroPrefixAntrian = str_pad($nomor_antrian, 3, '0', STR_PAD_LEFT);
-
-    return $endCharacterJenjang . $zeroPrefixAntrian;
   }
 
   private static function getDownloadUrl(string $transcriptionId)
@@ -69,16 +62,11 @@ class TextToSpeechHelper
       ->orderBy('tanggal_pendaftaran', 'asc')
       ->first('audio_path');
 
-    $nomor_antrian = self::generateNomorAntrian($jenjang, $nomor_antrian);
+    $nomor_antrian = AntrianHelper::generateNomorAntrian($jenjang, $nomor_antrian);
 
     $audio_path = $antrian->audio_path ?? self::transformTextToSpeech('Antrian nomor ' . $nomor_antrian . ' menuju loket ' . strtoupper($jenjang));
 
     return $audio_path;
-  }
-
-  public static function getKodeAntrianBendahara(int $nomor_antrian)
-  {
-    return 'B' . str_pad($nomor_antrian, 3, '0', STR_PAD_LEFT);
   }
 
   public static function getAudioPathBendahara(int $nomor_antrian)
@@ -88,7 +76,7 @@ class TextToSpeechHelper
       ->orderBy('tanggal_pendaftaran', 'asc')
       ->first('audio_path');
 
-    $kode_antrian = self::getKodeAntrianBendahara($nomor_antrian);
+    $kode_antrian = AntrianHelper::getKodeAntrianBendahara($nomor_antrian);
     $audio_path = $antrian->audio_path ?? self::transformTextToSpeech('Antrian nomor ' . $kode_antrian . ' menuju loket bendahara');
 
     return $audio_path;

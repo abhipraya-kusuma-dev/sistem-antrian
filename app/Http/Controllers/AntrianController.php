@@ -12,7 +12,6 @@ use Illuminate\Validation\Rules\Enum;
 
 class AntrianController extends Controller
 {
-
   public function index(){
     $jenjang = ['sd', 'smp', 'sma', 'smk', 'bendahara'];
     $warna = ['#ff6384', '#36a2eb', '#ffcd56', '#c8a2eb', '#d27b41'];
@@ -24,9 +23,9 @@ class AntrianController extends Controller
       'warna' => $warna,
       'tanggal' => Carbon::now('Asia/Jakarta')->format('D, d M Y'),
       'loket' => $loket,
-    ]
-  );
+    ]);
   }
+
   public function antrianBaru()
   {
     $jenjang = ['sd', 'smp', 'sma', 'smk'];

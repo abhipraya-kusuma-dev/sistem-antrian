@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\AntrianHelper;
 use App\Models\Bendahara;
-use App\Helper\TextToSpeechHelper;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,15 +14,9 @@ class BendaharaController extends Controller
     $this->middleware('auth');
   }
 
-  private function getTanggalPendaftaran(Request $request)
-  {
-    if ($request['tanggal_pendaftaran']) return Carbon::parse($request['tanggal_pendaftaran'], 'Asia/Jakarta')->format('Y-m-d');
-    return now('Asia/Jakarta')->format('Y-m-d');
-  }
-
   public function antrianBendahara(Request $request)
   {
-    $tanggal_pendaftaran =  $this->getTanggalPendaftaran($request);
+    $tanggal_pendaftaran =  AntrianHelper::getTanggalPendaftaran($request);
 
     $antrianTerpanggil = DB::table('bendaharas')
       ->where('tanggal_pendaftaran', $tanggal_pendaftaran)
@@ -31,7 +24,7 @@ class BendaharaController extends Controller
       ->select('*')->get();
 
     for ($i = 0; $i < count($antrianTerpanggil); $i++) {
-      $antrianTerpanggil[$i]->nomor_antrian = TextToSpeechHelper::getKodeAntrianBendahara($antrianTerpanggil[$i]->nomor_antrian);
+      $antrianTerpanggil[$i]->nomor_antrian = AntrianHelper::getKodeAntrianBendahara($antrianTerpanggil[$i]->nomor_antrian);
     }
 
     $antrianBelumTerpanggil = DB::table('bendaharas')
@@ -40,7 +33,7 @@ class BendaharaController extends Controller
       ->select('*')->get();
 
     for ($i = 0; $i < count($antrianBelumTerpanggil); $i++) {
-      $antrianBelumTerpanggil[$i]->nomor_antrian = TextToSpeechHelper::getKodeAntrianBendahara($antrianBelumTerpanggil[$i]->nomor_antrian);
+      $antrianBelumTerpanggil[$i]->nomor_antrian = AntrianHelper::getKodeAntrianBendahara($antrianBelumTerpanggil[$i]->nomor_antrian);
     }
 
     return view('bendahara.index', [
@@ -54,7 +47,7 @@ class BendaharaController extends Controller
 
   public function panggilNomorAntrian(Bendahara $bendahara)
   {
-    $bendahara->nomor_antrian = TextToSpeechHelper::getKodeAntrianBendahara($bendahara->nomor_antrian);
+    $bendahara->nomor_antrian = AntrianHelper::getKodeAntrianBendahara($bendahara->nomor_antrian);
 
     return view('bendahara.panggil', [
       'bendahara' => $bendahara
@@ -72,7 +65,10 @@ class BendaharaController extends Controller
   }
   public function lanjutAntrian(Request $request)
   {
-    $antrianSaatIni = DB::table('bendaharas')->where('id', $request['bendahara_id'])->select('nomor_antrian', 'tanggal_pendaftaran')->first();
+    $antrianSaatIni = DB::table('bendaharas')
+      ->where('id', $request['bendahara_id'])
+      ->select('nomor_antrian', 'tanggal_pendaftaran')
+      ->first();
 
     $antrianSelanjutnya = DB::table('bendaharas')
       ->where('tanggal_pendaftaran', $antrianSaatIni->tanggal_pendaftaran)

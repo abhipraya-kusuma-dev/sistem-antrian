@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\AntrianHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 
 class LaporanController extends Controller
 {
@@ -14,13 +14,7 @@ class LaporanController extends Controller
     $this->middleware('auth');
   }
 
-  private function getTanggalPendaftaran(Request $request)
-  {
-    if ($request['tanggal_pendaftaran']) return Carbon::parse($request['tanggal_pendaftaran'], 'Asia/Jakarta')->format('Y-m-d');
-    return now('Asia/Jakarta')->format('Y-m-d');
-  }
-
-  public function getMappedLaporanData(Collection $laporan)
+  private function getMappedLaporanData(Collection $laporan)
   {
     $jenjang = ['sd', 'smp', 'sma', 'smk'];
     $pointer = 0;
@@ -47,7 +41,7 @@ class LaporanController extends Controller
 
   public function laporan(Request $request)
   {
-    $tanggal_pendaftaran = $this->getTanggalPendaftaran($request);
+    $tanggal_pendaftaran = AntrianHelper::getTanggalPendaftaran($request);
     $laporanAntrian = DB::table('antrians')
       ->where('tanggal_pendaftaran', $tanggal_pendaftaran)
       ->select('*')->get();
