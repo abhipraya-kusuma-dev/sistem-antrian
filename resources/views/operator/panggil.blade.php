@@ -11,13 +11,25 @@
   <p>Nomor Antrian <b>{{ $antrian->nomor_antrian}}</b></p>
   <p>Jenjang <b>{{ $antrian->jenjang}}</b></p>
   <p>Tanggal Pendaftaran <b>{{ $antrian->tanggal_pendaftaran }}</b></p>
+  <p>Status <b>{{ $antrian->terpanggil }}</b></p>
 
   <audio src="{{ asset($antrian->audio_path) }}" hidden id="audio"></audio>
+  @if($antrian->terpanggil === 'sudah')
+  <button type="button" id="panggil-btn" disabled>Panggil</button>
+  @else
   <button type="button" id="panggil-btn">Panggil</button>
+  @endif
+
   <form action="/operator/antrian/lanjut/" method="post">
     @csrf
     <input type="hidden" name="antrian_id" value="{{$antrian->id }}" />
     <button type="submit">Lanjut Antrian</button>
+  </form>
+
+  <form action="/operator/antrian/lewati/" method="post">
+    @csrf
+    <input type="hidden" name="antrian_id" value="{{$antrian->id }}" />
+    <button type="submit">Lewati Antrian</button>
   </form>
 
   <form action="/operator/antrian/terpanggil" method="post">

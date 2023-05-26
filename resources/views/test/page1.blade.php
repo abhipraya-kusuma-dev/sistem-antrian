@@ -8,7 +8,7 @@
 
 <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 <script>
-  const socket = io('127.0.0.1:3000')
+  const socket = io(`{{ env('SOCKET_IO_SERVER') }}`)
   const spanAntrian = document.getElementById('span-antrian')
 
   socket.on('change antrian display', (nomorAntrian) => {

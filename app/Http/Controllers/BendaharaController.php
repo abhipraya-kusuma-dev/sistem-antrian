@@ -80,4 +80,14 @@ class BendaharaController extends Controller
     return redirect('/bendahara/antrian/panggil/' . $antrianSelanjutnya->id);
 
   }
+  public function lewatiAntrian(Request $request)
+  {
+    $isAntrianUpdated = Bendahara::where('id', $request['bendahara_id'])->update([
+      'terpanggil' => 'lewati'
+    ]);
+
+    if (!$isAntrianUpdated) return back()->with('update-error', 'Gagal melewati antrian');
+
+    return $this->lanjutAntrian($request);
+  }
 }

@@ -7,7 +7,7 @@
     <b>Nomor antrian anda saat ini adalah {{ $nomorAntrianSaatIni }}</b> dengan jenjang {{ $jenjang }}
   </p>
 
-  <form action="/antrian/daftar/proses" method="post" onsubmit="submitHandler">
+  <form action="/antrian/daftar/proses" method="post">
     @csrf
     <input type="hidden" value="{{ $nomorAntrianSaatIni }}" name="nomor_antrian" />
     <input type="hidden" value="{{ $jenjang }}" name="jenjang" />
