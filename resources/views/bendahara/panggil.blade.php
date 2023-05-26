@@ -10,10 +10,15 @@
   <h1>Panggil Peserta Bendahara</h1>
   <p>Nomor Antrian <b>{{ $bendahara->nomor_antrian}}</b></p>
   <p>Tanggal Pendaftaran <b>{{ $bendahara->tanggal_pendaftaran }}</b></p>
-  <p>Status <b>{{ $antrian->terpanggil }}</b></p>
+  <p>Status <b>{{ $bendahara->terpanggil }}</b></p>
 
   <audio src="{{ asset($bendahara->audio_path) }}" hidden id="audio"></audio>
-  <button type="button" id="panggil-btn" disabled="{{ $antrian->terpanggil === 'sudah' }}">Panggil</button>
+
+  @if($bendahara->terpanggil === 'sudah')
+  <button type="button" id="panggil-btn" disabled>Panggil</button>
+  @else
+  <button type="button" id="panggil-btn">Panggil</button>
+  @endif
 
   <form action="/bendahara/antrian/lanjut/" method="post">
     @csrf

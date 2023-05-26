@@ -54,6 +54,7 @@ Route::controller(BendaharaController::class)->group(function () {
   Route::put('/bendahara/antrian/terpanggil', 'nomorAntrianTerpanggil');
 
   Route::post('/bendahara/antrian/lanjut/', 'lanjutAntrian');
+  Route::post('/bendahara/antrian/lewati/', 'lewatiAntrian');
 });
 
 Route::controller(LaporanController::class)->group(function () {

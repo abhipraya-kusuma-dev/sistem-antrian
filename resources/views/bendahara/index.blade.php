@@ -22,9 +22,9 @@
   <h2>Belum Dipanggil</h2>
 
   <ul>
-    @if(count($antrianPerJenjang['belumTerpanggil']))
+    @if(count($antrianBendahara['belumTerpanggil']))
 
-    @foreach($antrianPerJenjang['belumTerpanggil'] as $antrian)
+    @foreach($antrianBendahara['belumTerpanggil'] as $antrian)
     <li>
       <a href="/bendahara/antrian/panggil/{{ $antrian->id }}">
         <b>{{ $antrian->nomor_antrian }}</b>
@@ -39,13 +39,31 @@
 
   <h2>Sudah Dipanggil</h2>
   <ul>
-    @if(count($antrianPerJenjang['terpanggil']))
+    @if(count($antrianBendahara['terpanggil']))
 
-    @foreach($antrianPerJenjang['terpanggil'] as $antrian)
+    @foreach($antrianBendahara['terpanggil'] as $antrian)
     <li>
       <p>
         <b>{{ $antrian->nomor_antrian }}</b>
       </p>
+    </li>
+    @endforeach
+
+    @else
+    <li>Tidak ada data</li>
+    @endif
+  </ul>
+
+  <h2>Di Lewati</h2>
+
+  <ul>
+    @if(count($antrianBendahara['terlewati']))
+
+    @foreach($antrianBendahara['terlewati'] as $antrian)
+    <li>
+      <a href="/bendahara/antrian/panggil/{{ $antrian->id }}">
+        <b>{{ $antrian->nomor_antrian }}</b>
+      </a>
     </li>
     @endforeach
 

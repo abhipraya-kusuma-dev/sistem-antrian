@@ -52,9 +52,9 @@
 
     @foreach($antrianPerJenjang['terlewati'] as $antrian)
     <li>
-      <p>
+      <a href="/operator/antrian/panggil/{{ $antrian->id }}">
         <b>{{ $antrian->nomor_antrian }}</b>
-      </p>
+      </a>
     </li>
     @endforeach
 

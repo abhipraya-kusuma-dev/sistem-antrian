@@ -36,10 +36,20 @@ class BendaharaController extends Controller
       $antrianBelumTerpanggil[$i]->nomor_antrian = AntrianHelper::getKodeAntrianBendahara($antrianBelumTerpanggil[$i]->nomor_antrian);
     }
 
+    $antrianTerlewati = DB::table('bendaharas')
+      ->where('tanggal_pendaftaran', $tanggal_pendaftaran)
+      ->where('terpanggil', 'lewati')
+      ->select('*')->get();
+
+    for ($i = 0; $i < count($antrianTerlewati); $i++) {
+      $antrianTerlewati[$i]->nomor_antrian = AntrianHelper::getKodeAntrianBendahara($antrianTerlewati[$i]->nomor_antrian);
+    }
+
     return view('bendahara.index', [
-      'antrianPerJenjang' => [
+      'antrianBendahara' => [
         'terpanggil' => $antrianTerpanggil,
         'belumTerpanggil' => $antrianBelumTerpanggil,
+        'terlewati' => $antrianTerlewati,
       ],
       'tanggal_pendaftaran' => $tanggal_pendaftaran
     ]);
