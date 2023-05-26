@@ -4,7 +4,7 @@
 <header class="flex p-3 justify-between shadow-md items-center">
 
   <div class="flex items-center space-x-4">
-    <img src="wk.png" class="w-20" alt="wk.png">
+    <img src="{{ asset('wk.png') }}" class="w-20" alt="wk.png">
     <div>
       <h1 class="text-3xl font-semibold text-[#1A508B]">ANTREAN SWK</h1>
       <p>Jalan Bandengan Utara 80 14440 Jakarta Daerah Khusus Ibukota Jakarta</p>
@@ -45,7 +45,7 @@
 
   <div class="grid grid-cols-5 gap-4 mt-4">
     @foreach ($loket as $l)
-    <div style="background-color: {{$warna[$loop->index]}};" class=" rounded-md text-center  space-y-8 py-4 text-white">
+    <div style="background-color: {{ $warna[$loop->index] }};" class=" rounded-md text-center  space-y-8 py-4 text-white">
       <p class="text-xl font-semibold">Antrian</p>
       <p class="text-5xl font-bold">003</p>
       <hr>
@@ -54,7 +54,8 @@
     @endforeach
   </div>
 
-</main><hr class="border-2 border-black">
+</main>
+<hr class="border-2 border-black">
 
 <footer class="flex justify-between p-4 items-center">
   <p>Copy Right Wijayakusuma 2023</p>
@@ -69,14 +70,13 @@
 <script>
   var timeDisplay = document.getElementById("time");
 
+  function refreshTime() {
+    var dateString = new Date().toLocaleTimeString();
+    var formattedString = dateString.replace(", ", " - ");
+    timeDisplay.innerHTML = formattedString;
+  }
 
-function refreshTime() {
-  var dateString = new Date().toLocaleTimeString();
-  var formattedString = dateString.replace(", ", " - ");
-  timeDisplay.innerHTML = formattedString;
-}
-
-setInterval(refreshTime, 1000);
+  setInterval(refreshTime, 1000);
 </script>
 
 @endsection
