@@ -24,9 +24,14 @@ php artisan migrate:fresh --seed
 # Link storage to public folder (add 'FILESYSTEM_DISK=public' at your .env) and
 php artisan storage:link
 
+# Setup socket io
+# add this to your .env files
+# SOCKET_IO_SERVER='127.0.0.1:3000'
+
 # Run APP
 php artisan ser
 npm run dev
+node server.cjs
 ```
 
 ## People Behind This Project
