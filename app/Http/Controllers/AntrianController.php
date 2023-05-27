@@ -14,8 +14,7 @@ class AntrianController extends Controller
 {
   public function index(){
     $jenjang = ['sd', 'smp', 'sma', 'smk', 'bendahara'];
-    $warna = ['#ff6384', '#36a2eb', '#ffcd56', '#c8a2eb', '#d27b41'];
-
+    $warna = ['#ff6384', '#36a2eb', '#FFCD56', '#c8a2eb', '#d27b41'];
     $loket = ['Loket 1', 'Loket 2', 'Loket 3', 'Loket 4', 'Loket 5'];
 
     return view('antrian.index',[
@@ -29,8 +28,10 @@ class AntrianController extends Controller
   public function antrianBaru()
   {
     $jenjang = ['sd', 'smp', 'sma', 'smk'];
+    $warna = ['#ff6384', '#36a2eb', '#FFCD56', '#c8a2eb', '#d27b41'];
     return view('antrian.daftar', [
-      'jenjang' => $jenjang
+      'jenjang' => $jenjang,
+      'warna' => $warna
     ]);
   }
 
