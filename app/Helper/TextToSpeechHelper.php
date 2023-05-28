@@ -18,7 +18,8 @@ class TextToSpeechHelper
       'Content-Type' => 'application/json',
     ])->post('https://play.ht/api/v1/convert', [
       'content' => [$text],
-      'voice' => 'id-ID-Standard-A'
+      'voice' => 'id-ID-Standard-A',
+      'globalSpeed' => '70%'
     ]);
 
     $data = $response->json();
