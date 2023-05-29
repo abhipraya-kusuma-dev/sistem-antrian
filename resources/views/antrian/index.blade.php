@@ -29,10 +29,10 @@
           <h1 class="text-5xl font-semibold text-stroke-2 text-stroke-black">Antrean</h1>
         </div>
         <div class="bg-blue-400 p-6 py-9 rounded-md">
-          <p id="nomor_antrian" class="text-9xl font-bold drop-shadow-xl shadow-black text-stroke-4 text-stroke-black"></p>
+          <p id="nomor_antrian" class="text-9xl font-bold drop-shadow-xl shadow-black text-stroke-4 text-stroke-black">0000</p>
         </div>
         <div class="bg-blue-400 p-2 rounded-md">
-          <p id="loket_antrian" class="text-5xl uppercase font-semibold text-stroke-2 text-stroke-black"></p>
+          <p id="loket_antrian" class="text-5xl uppercase font-semibold text-stroke-2 text-stroke-black">Loket</p>
         </div>
       </div>
     </div>
@@ -139,10 +139,25 @@
 
   const socket = io(`{{ env('SOCKET_IO_SERVER') }}`)
 
-  socket.on('change antrian display', (antrian) => {
-    console.log(antrian)
+  function generateAntrianDisplay(antrian) {
     nomorAntrian.textContent = antrian.nomor_antrian
     loketAntrian.textContent = 'Loket ' + antrian.jenjang.toUpperCase()
+  }
+
+  socket.on('change antrian display', (antrian) => {
+
+    if (nomorAntrian.textContent !== '0000' && loketAntrian.textContent !== 'Loket') {
+      socket.emit('change antrian display loading', antrian)
+      return setTimeout(() => {
+        socket.emit('change antrian display complete', antrian)
+      }, 4000)
+    }
+
+    generateAntrianDisplay(antrian)
+  })
+
+  socket.on('change antrian display complete', (antrian) => {
+    generateAntrianDisplay(antrian)
   })
 </script>
 

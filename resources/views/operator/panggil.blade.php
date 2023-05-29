@@ -17,7 +17,7 @@
   @if($antrian->terpanggil === 'sudah')
   <button type="button" id="panggil-btn" disabled>Panggil</button>
   @else
-  <button type="button" id="panggil-btn">Panggil</button>
+  <button type="button" id="panggil-btn" class="disabled:text-black/60 text-black font-bold">Panggil</button>
   @endif
 
   <form action="/operator/antrian/lanjut/" method="post">
@@ -63,5 +63,12 @@
   })
 
   socket.emit('change antrian display', antrian)
+
+  socket.on('change antrian display loading', (antrian) => {
+    panggilBtn.setAttribute('disabled', 'true')
+  })
+  socket.on('change antrian display complete', (antrian) => {
+    panggilBtn.removeAttribute('disabled')
+  })
 </script>
 @endsection
