@@ -4,6 +4,8 @@ namespace App\Helper;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
+use PhpParser\Node\Stmt\Foreach_;
 
 class AntrianHelper
 {
@@ -24,5 +26,27 @@ class AntrianHelper
   {
     if ($request['tanggal_pendaftaran']) return Carbon::parse($request['tanggal_pendaftaran'], 'Asia/Jakarta')->format('Y-m-d');
     return now('Asia/Jakarta')->format('Y-m-d');
+  }
+
+  public static function groupBasedOnJenjang(Collection $antrian)
+  {
+    $arr = [
+      'sd' => [],
+      'smp' => [],
+      'sma' => [],
+      'smk' => [],
+    ];
+
+    foreach ($arr as $key => $value) {
+
+      for ($i = 0; $i < $antrian->count(); $i++) {
+        if ($antrian[$i]->jenjang === $key) {
+          $arr[$key][] = $antrian[$i];
+        }
+      }
+
+    }
+
+    return $arr;
   }
 }

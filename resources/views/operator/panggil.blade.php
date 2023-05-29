@@ -48,12 +48,20 @@
   </form>
 
 </div>
+
+<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 <script>
   const panggilBtn = document.getElementById('panggil-btn')
   const audio = document.getElementById('audio')
 
+  const antrian = {{ Js::from($antrian) }}
+
+  const socket = io(`{{ env('SOCKET_IO_SERVER') }}`)
+
   panggilBtn.addEventListener('click', () => {
     audio.play()
   })
+
+  socket.emit('change antrian display', antrian)
 </script>
 @endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enum\JenjangEnum;
+use App\Helper\AntrianHelper;
 use App\Helper\TextToSpeechHelper;
 use App\Models\Antrian;
 use Carbon\Carbon;
@@ -12,16 +13,29 @@ use Illuminate\Validation\Rules\Enum;
 
 class AntrianController extends Controller
 {
-  public function index(){
-    $jenjang = ['sd', 'smp', 'sma', 'smk', 'bendahara'];
+  public function index()
+  {
     $warna = ['#ff6384', '#36a2eb', '#FFCD56', '#c8a2eb', '#d27b41'];
-    $loket = ['Loket 1', 'Loket 2', 'Loket 3', 'Loket 4', 'Loket 5'];
 
-    return view('antrian.index',[
-      'jenjang' => $jenjang,
+    $antrianBiasa = DB::table('antrians')
+      ->where('tanggal_pendaftaran', now('Asia/Jakarta')->subDay(2)->format('Y-m-d'))
+      ->orderBy('created_at', 'asc')
+      ->select('*')
+      ->get();
+
+    $antrianBendahara = DB::table('bendaharas')
+      ->where('tanggal_pendaftaran', now('Asia/Jakarta')->subDay(2)->format('Y-m-d'))
+      ->orderBy('created_at', 'asc')
+      ->select('*')
+      ->get();
+
+    $antrian = AntrianHelper::groupBasedOnJenjang($antrianBiasa);
+    $antrian['bendahara'] = $antrianBendahara->toArray();
+
+    return view('antrian.index', [
       'warna' => $warna,
       'tanggal' => Carbon::now('Asia/Jakarta')->format('D, d M Y'),
-      'loket' => $loket,
+      'antrian' => $antrian
     ]);
   }
 
@@ -69,7 +83,7 @@ class AntrianController extends Controller
       'tanggal_pendaftaran' => now('Asia/Jakarta')->format('Y-m-d')
     ]);
 
-    if(!$isAntrianCreated) return redirect('/antrian/daftar')->with('create-error', 'Gagal membuat antrian baru');
+    if (!$isAntrianCreated) return redirect('/antrian/daftar')->with('create-error', 'Gagal membuat antrian baru');
 
     return redirect('/antrian/daftar')->with('create-success', 'Berhasil membuat antrian baru');
   }

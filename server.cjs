@@ -13,7 +13,7 @@ server.listen(3000, () => {
 })
 
 io.on('connection', (socket) => {
-  socket.on('change antrian display', (nomorAntrian) => {
-    io.emit('change antrian display', nomorAntrian)
+  socket.on('change antrian display', (antrian) => {
+    io.emit('change antrian display', antrian)
   })
 })
