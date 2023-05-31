@@ -38,7 +38,7 @@ Route::controller(AntrianController::class)->group(function () {
 Route::controller(OperatorController::class)->group(function () {
   // Monitoring Antrian (admin)
   Route::get('/operator/antrian', 'antrian');
-  Route::get('/operator/antrian/jenjang/{jenjang}', 'antrianPerJenjang');
+  Route::get('/operator/antrian/jenjang/{jenjang}/{status}', 'antrianPerJenjang');
   Route::get('/operator/antrian/panggil/{antrian:id}', 'panggilNomorAntrian');
 
   Route::post('/operator/antrian/lanjut/', 'lanjutAntrian');
@@ -49,7 +49,7 @@ Route::controller(OperatorController::class)->group(function () {
 });
 
 Route::controller(BendaharaController::class)->group(function () {
-  Route::get('/bendahara/antrian', 'antrianBendahara');
+  Route::get('/bendahara/antrian/{status}', 'antrianBendahara');
   Route::get('/bendahara/antrian/panggil/{bendahara:id}', 'panggilNomorAntrian');
   Route::put('/bendahara/antrian/terpanggil', 'nomorAntrianTerpanggil');
 

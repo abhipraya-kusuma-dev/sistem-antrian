@@ -14,44 +14,23 @@ class BendaharaController extends Controller
     $this->middleware('auth');
   }
 
-  public function antrianBendahara(Request $request)
+  public function antrianBendahara($status, Request $request)
   {
     $tanggal_pendaftaran =  AntrianHelper::getTanggalPendaftaran($request);
 
-    $antrianTerpanggil = DB::table('bendaharas')
+    $antrian = DB::table('bendaharas')
       ->where('tanggal_pendaftaran', $tanggal_pendaftaran)
-      ->where('terpanggil', 'sudah')
+      ->where('terpanggil', $status)
       ->select('*')->get();
 
-    for ($i = 0; $i < count($antrianTerpanggil); $i++) {
-      $antrianTerpanggil[$i]->nomor_antrian = AntrianHelper::getKodeAntrianBendahara($antrianTerpanggil[$i]->nomor_antrian);
-    }
-
-    $antrianBelumTerpanggil = DB::table('bendaharas')
-      ->where('tanggal_pendaftaran', $tanggal_pendaftaran)
-      ->where('terpanggil', 'belum')
-      ->select('*')->get();
-
-    for ($i = 0; $i < count($antrianBelumTerpanggil); $i++) {
-      $antrianBelumTerpanggil[$i]->nomor_antrian = AntrianHelper::getKodeAntrianBendahara($antrianBelumTerpanggil[$i]->nomor_antrian);
-    }
-
-    $antrianTerlewati = DB::table('bendaharas')
-      ->where('tanggal_pendaftaran', $tanggal_pendaftaran)
-      ->where('terpanggil', 'lewati')
-      ->select('*')->get();
-
-    for ($i = 0; $i < count($antrianTerlewati); $i++) {
-      $antrianTerlewati[$i]->nomor_antrian = AntrianHelper::getKodeAntrianBendahara($antrianTerlewati[$i]->nomor_antrian);
+    for ($i = 0; $i < count($antrian); $i++) {
+      $antrian[$i]->nomor_antrian = AntrianHelper::getKodeAntrianBendahara($antrian[$i]->nomor_antrian);
     }
 
     return view('bendahara.index', [
-      'antrianBendahara' => [
-        'terpanggil' => $antrianTerpanggil,
-        'belumTerpanggil' => $antrianBelumTerpanggil,
-        'terlewati' => $antrianTerlewati,
-      ],
-      'tanggal_pendaftaran' => $tanggal_pendaftaran
+      'semua_antrian' => $antrian,
+      'tanggal_pendaftaran' => $tanggal_pendaftaran,
+      'status' => $status
     ]);
   }
 
@@ -85,10 +64,9 @@ class BendaharaController extends Controller
       ->where('nomor_antrian', $antrianSaatIni->nomor_antrian + 1)
       ->select('*')->first();
 
-    if(is_null($antrianSelanjutnya)) return back()->with('antrian-mentok', 'Antrian sudah mentok');
+    if (is_null($antrianSelanjutnya)) return back()->with('antrian-mentok', 'Antrian sudah mentok');
 
     return redirect('/bendahara/antrian/panggil/' . $antrianSelanjutnya->id);
-
   }
   public function lewatiAntrian(Request $request)
   {

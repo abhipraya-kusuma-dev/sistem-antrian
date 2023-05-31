@@ -4,53 +4,31 @@
 <div>
 
   <div>
-    <h1>Pilih Tanggal Pendaftaran (default nya hari ini)</h1>
-    <form>
-      <input type="date" name="tanggal_pendaftaran" value="{{ $tanggal_pendaftaran }}"/>
+    <h1 class="text-2xl font-bold">Pilih Tanggal Pendaftaran (default nya hari ini)</h1>
+    <form class="mt-2">
+      <input type="date" name="tanggal_pendaftaran" value="{{ $tanggal_pendaftaran }}" />
       <button type="submit">Pilih Tanggal</button>
     </form>
   </div>
 
-  <h2>Belum Dipanggil</h2>
+  <nav class="flex space-x-2">
+    <a href="/operator/antrian/jenjang/{{ $jenjang }}/belum?tanggal_pendaftaran={{ $tanggal_pendaftaran }}" class="{{ $status === 'belum' ? 'text-blue-600 font-bold' : 'text-blue-600/80' }}">
+      Belum Terpanggil
+    </a>
+    <a href="/operator/antrian/jenjang/{{ $jenjang }}/sudah?tanggal_pendaftaran={{ $tanggal_pendaftaran }}" class="{{ $status === 'sudah' ? 'text-blue-600 font-bold' : 'text-blue-600/80' }}">
+      Terpanggil
+    </a>
+    <a href="/operator/antrian/jenjang/{{ $jenjang }}/lewati?tanggal_pendaftaran={{ $tanggal_pendaftaran }}" class="{{ $status === 'lewati' ? 'text-blue-600 font-bold' : 'text-blue-600/80' }}">
+      Dilewati
+    </a>
+  </nav>
 
-  <ul>
-    @if(count($antrianPerJenjang['belumTerpanggil']))
+  <h2 class="text-lg mt-2 font-bold">Antrian</h2>
 
-    @foreach($antrianPerJenjang['belumTerpanggil'] as $antrian)
-    <li>
-      <a href="/operator/antrian/panggil/{{ $antrian->id }}">
-        <b>{{ $antrian->nomor_antrian }}</b>
-      </a>
-    </li>
-    @endforeach
+  <ul class="text-green-600">
+    @if(count($semua_antrian))
 
-    @else
-    <li>Tidak ada data</li>
-    @endif
-  </ul>
-
-  <h2>Sudah Dipanggil</h2>
-  <ul>
-    @if(count($antrianPerJenjang['terpanggil']))
-
-    @foreach($antrianPerJenjang['terpanggil'] as $antrian)
-    <li>
-      <p>
-        <b>{{ $antrian->nomor_antrian }}</b>
-      </p>
-    </li>
-    @endforeach
-
-    @else
-    <li>Tidak ada data</li>
-    @endif
-  </ul>
-
-  <h2>Di Lewati</h2>
-  <ul>
-    @if(count($antrianPerJenjang['terlewati']))
-
-    @foreach($antrianPerJenjang['terlewati'] as $antrian)
+    @foreach($semua_antrian as $antrian)
     <li>
       <a href="/operator/antrian/panggil/{{ $antrian->id }}">
         <b>{{ $antrian->nomor_antrian }}</b>

@@ -7,36 +7,40 @@
   <p>{{ session('antrian-mentok') }}</p>
   @endif
 
-  <h1>Panggil Peserta Bendahara</h1>
-  <p>Nomor Antrian <b>{{ $bendahara->nomor_antrian}}</b></p>
-  <p>Tanggal Pendaftaran <b>{{ $bendahara->tanggal_pendaftaran }}</b></p>
-  <p>Status <b>{{ $bendahara->terpanggil }}</b></p>
+  <a href="/bendahara/antrian/belum" class="text-blue-600 hover:underline">Kembali Ke Menu Tadi</a>
+
+  <h1 class="text-lg font-bold">Panggil Peserta Bendahara</h1>
+  <div class="my-2">
+    <p>Nomor Antrian <b>{{ $bendahara->nomor_antrian}}</b></p>
+    <p>Tanggal Pendaftaran <b>{{ $bendahara->tanggal_pendaftaran }}</b></p>
+    <p>Status <b>{{ $bendahara->terpanggil }}</b></p>
+  </div>
 
   <audio src="{{ asset($bendahara->audio_path) }}" hidden id="audio"></audio>
 
   @if($bendahara->terpanggil === 'sudah')
-  <button type="button" id="panggil-btn" disabled>Panggil</button>
+  <button class="disabled:text-black/60" type="button" id="panggil-btn" disabled>Panggil</button>
   @else
-  <button type="button" id="panggil-btn">Panggil</button>
+  <button type="button" id="panggil-btn" class="disabled:text-black/60 text-red-600 font-bold">Panggil</button>
   @endif
 
   <form action="/bendahara/antrian/lanjut/" method="post">
     @csrf
     <input type="hidden" name="bendahara_id" value="{{ $bendahara->id }}" />
-    <button type="submit">Lanjut Antrian</button>
+    <button type="submit" class="text-green-600 font-bold">Antrian Selanjutnya</button>
   </form>
 
   <form action="/bendahara/antrian/lewati/" method="post">
     @csrf
     <input type="hidden" name="bendahara_id" value="{{ $bendahara->id }}" />
-    <button type="submit">Lewati Antrian</button>
+    <button type="submit" class="text-green-600 font-bold">Lewati Antrian</button>
   </form>
 
   <form action="/bendahara/antrian/terpanggil" method="post">
     @method('PUT')
     @csrf
     <input type="hidden" name="bendahara_id" value="{{ $bendahara->id }}" />
-    <button type="submit" onclick="return confirm('Yakin? gk bisa di un-panggil lho ini')">Sudah Terpanggil</button>
+    <button type="submit" onclick="return confirm('Yakin? gk bisa di un-panggil lho ini')" class="text-green-600 font-bold">Antrian Sudah Terpanggil</button>
   </form>
 
 </div>

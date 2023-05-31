@@ -23,12 +23,12 @@
 
     @foreach($jenjang as $j)
     <li>
-      <a href="/operator/antrian/jenjang/{{ $j }}">{{ $j }}</a>
+      <a href="/operator/antrian/jenjang/{{ $j }}/belum">{{ $j }}</a>
     </li>
     @endforeach
 
   </ul>
-  <a href="/bendahara/antrian">Antrian Bendahara</a>
+  <a href="/bendahara/antrian/belum">Antrian Bendahara</a>
 
 </div>
 @endsection
