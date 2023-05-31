@@ -49,6 +49,6 @@ node server.cjs
 - [x] Kelola Antrian (admin/op)  
 - [x] Kelola Antrian Bendahara (admin/op)  
 - [ ] Display Antrian  
-- [ ] Laporan per hari    
+- [x] Laporan per hari    
 - [ ] Export ke excel dan pdf  
 - [x] Pisah menu berdasarkan kategori "terpanggil" (kelola antrian)  
