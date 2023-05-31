@@ -51,4 +51,4 @@ node server.cjs
 - [ ] Display Antrian  
 - [ ] Laporan per hari    
 - [ ] Export ke excel dan pdf  
-- [ ] Pisah menu berdasarkan kategori "terpanggil" (kelola antrian)  
+- [x] Pisah menu berdasarkan kategori "terpanggil" (kelola antrian)  
