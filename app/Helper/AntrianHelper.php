@@ -5,21 +5,21 @@ namespace App\Helper;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
-use PhpParser\Node\Stmt\Foreach_;
 
 class AntrianHelper
 {
-  public static function generateNomorAntrian(string $jenjang, int $nomor_antrian)
+  public static function getKodeAntrian(string|null $jenjang): string
   {
-    $endCharacterJenjang = strtoupper(substr($jenjang, -1));
-    $zeroPrefixAntrian = str_pad($nomor_antrian, 3, '0', STR_PAD_LEFT);
+    if (is_null($jenjang)) return 'B';
 
-    return $endCharacterJenjang . $zeroPrefixAntrian;
+    return strtoupper(substr($jenjang, -1));
   }
 
-  public static function getKodeAntrianBendahara(int $nomor_antrian)
+  public static function generateNomorAntrian(string $kode_antrian, int $nomor_antrian)
   {
-    return 'B' . str_pad($nomor_antrian, 3, '0', STR_PAD_LEFT);
+    $zeroPrefixAntrian = str_pad($nomor_antrian, 3, '0', STR_PAD_LEFT);
+
+    return $kode_antrian . $zeroPrefixAntrian;
   }
 
   public static function getTanggalPendaftaran(Request $request)
@@ -35,16 +35,16 @@ class AntrianHelper
       'smp' => [],
       'sma' => [],
       'smk' => [],
+      'bendahara' => [],
     ];
 
-    foreach ($arr as $key => $value) {
-
-      for ($i = 0; $i < $antrian->count(); $i++) {
-        if ($antrian[$i]->jenjang === $key) {
-          $arr[$key][] = $antrian[$i];
-        }
+    for ($i = 0; $i < $antrian->count(); $i++) {
+      if (is_null($antrian[$i]->jenjang) && $antrian[$i]->kode_antrian === 'B') {
+        $arr['bendahara'][] = $antrian[$i];
+        continue;
       }
 
+      $arr[$antrian[$i]->jenjang][] = $antrian[$i];
     }
 
     return $arr;

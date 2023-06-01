@@ -50,7 +50,7 @@ Route::controller(OperatorController::class)->group(function () {
 
 Route::controller(BendaharaController::class)->group(function () {
   Route::get('/bendahara/antrian/{status}', 'antrianBendahara');
-  Route::get('/bendahara/antrian/panggil/{bendahara:id}', 'panggilNomorAntrian');
+  Route::get('/bendahara/antrian/panggil/{antrian:id}', 'panggilNomorAntrian');
   Route::put('/bendahara/antrian/terpanggil', 'nomorAntrianTerpanggil');
 
   Route::post('/bendahara/antrian/lanjut/', 'lanjutAntrian');

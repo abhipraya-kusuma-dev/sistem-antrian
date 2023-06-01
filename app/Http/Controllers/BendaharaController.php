@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helper\AntrianHelper;
-use App\Models\Bendahara;
+use App\Models\Antrian;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -18,13 +18,15 @@ class BendaharaController extends Controller
   {
     $tanggal_pendaftaran =  AntrianHelper::getTanggalPendaftaran($request);
 
-    $antrian = DB::table('bendaharas')
+    $antrian = DB::table('antrians')
       ->where('tanggal_pendaftaran', $tanggal_pendaftaran)
+      ->where('kode_antrian', 'B')
       ->where('terpanggil', $status)
+      ->orderBy('nomor_antrian', 'asc')
       ->select('*')->get();
 
     for ($i = 0; $i < count($antrian); $i++) {
-      $antrian[$i]->nomor_antrian = AntrianHelper::getKodeAntrianBendahara($antrian[$i]->nomor_antrian);
+      $antrian[$i]->nomor_antrian = AntrianHelper::generateNomorAntrian($antrian[$i]->kode_antrian, $antrian[$i]->nomor_antrian);
     }
 
     return view('bendahara.index', [
@@ -34,48 +36,48 @@ class BendaharaController extends Controller
     ]);
   }
 
-  public function panggilNomorAntrian(Bendahara $bendahara)
+  public function panggilNomorAntrian(Antrian $antrian)
   {
-    $bendahara->nomor_antrian = AntrianHelper::getKodeAntrianBendahara($bendahara->nomor_antrian);
+    $antrian->nomor_antrian = AntrianHelper::generateNomorAntrian($antrian->kode_antrian, $antrian->nomor_antrian);
 
     return view('bendahara.panggil', [
-      'bendahara' => $bendahara
+      'antrian' => $antrian
     ]);
   }
 
   public function nomorAntrianTerpanggil(Request $request)
   {
-    $isAntrianUpdated = Bendahara::where('id', $request['bendahara_id'])->update([
+    $isAntrianUpdated = Antrian::where('id', $request['antrian_id'])->update([
       'terpanggil' => 'sudah'
     ]);
 
-    if (!$isAntrianUpdated) return redirect('/bendahara/antrian')->with('update-error', 'Gagal melakukan yg tadi');
-    return redirect('/bendahara/antrian')->with('update-success', 'Berhasil melakukan yg tadi');
+    if (!$isAntrianUpdated) return redirect('/bendahara/antrian/belum')->with('update-error', 'Gagal melakukan yg tadi');
+    return redirect('/bendahara/antrian/belum')->with('update-success', 'Berhasil melakukan yg tadi');
   }
   public function lanjutAntrian(Request $request)
   {
-    $antrianSaatIni = DB::table('bendaharas')
-      ->where('id', $request['bendahara_id'])
+    $antrianSaatIni = DB::table('antrians')
+      ->where('id', $request['antrian_id'])
+      ->where('kode_antrian', 'B')
       ->select('nomor_antrian', 'tanggal_pendaftaran')
       ->first();
 
-    $antrianSelanjutnya = DB::table('bendaharas')
+    $antrianSelanjutnya = DB::table('antrians')
+      ->where('kode_antrian', 'B')
       ->where('tanggal_pendaftaran', $antrianSaatIni->tanggal_pendaftaran)
       ->where('nomor_antrian', $antrianSaatIni->nomor_antrian + 1)
       ->select('*')->first();
 
     if (is_null($antrianSelanjutnya)) return back()->with('antrian-mentok', 'Antrian sudah mentok');
-
     return redirect('/bendahara/antrian/panggil/' . $antrianSelanjutnya->id);
   }
   public function lewatiAntrian(Request $request)
   {
-    $isAntrianUpdated = Bendahara::where('id', $request['bendahara_id'])->update([
+    $isAntrianUpdated = Antrian::where('id', $request['antrian_id'])->update([
       'terpanggil' => 'lewati'
     ]);
 
     if (!$isAntrianUpdated) return back()->with('update-error', 'Gagal melewati antrian');
-
     return $this->lanjutAntrian($request);
   }
 }

@@ -17,20 +17,13 @@ class AntrianController extends Controller
   {
     $warna = ['#ff6384', '#36a2eb', '#FFCD56', '#c8a2eb', '#d27b41'];
 
-    $antrianBiasa = DB::table('antrians')
-      ->where('tanggal_pendaftaran', now('Asia/Jakarta')->subDay(2)->format('Y-m-d'))
+    $antrian = DB::table('antrians')
+      ->where('tanggal_pendaftaran', now('Asia/Jakarta')->format('Y-m-d'))
       ->orderBy('created_at', 'asc')
       ->select('*')
       ->get();
 
-    $antrianBendahara = DB::table('bendaharas')
-      ->where('tanggal_pendaftaran', now('Asia/Jakarta')->subDay(2)->format('Y-m-d'))
-      ->orderBy('created_at', 'asc')
-      ->select('*')
-      ->get();
-
-    $antrian = AntrianHelper::groupBasedOnJenjang($antrianBiasa);
-    $antrian['bendahara'] = $antrianBendahara->toArray();
+    $antrian = AntrianHelper::groupBasedOnJenjang($antrian);
 
     return view('antrian.index', [
       'warna' => $warna,
@@ -71,7 +64,7 @@ class AntrianController extends Controller
 
     $data = $request->validate([
       'nomor_antrian' => ['required'],
-      'jenjang' => ['required', new Enum(JenjangEnum::class)]
+      'jenjang' => ['nullable', new Enum(JenjangEnum::class)]
     ]);
 
     $data['audio_path'] = TextToSpeechHelper::getAudioPath($data['nomor_antrian'], $data['jenjang']);
@@ -79,6 +72,7 @@ class AntrianController extends Controller
     $isAntrianCreated = Antrian::create([
       'nomor_antrian' => $data['nomor_antrian'],
       'jenjang' => $data['jenjang'],
+      'kode_antrian' => AntrianHelper::getKodeAntrian($data['jenjang']),
       'audio_path' => $data['audio_path'],
       'tanggal_pendaftaran' => now('Asia/Jakarta')->format('Y-m-d')
     ]);

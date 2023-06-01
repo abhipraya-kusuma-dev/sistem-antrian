@@ -57,28 +57,17 @@ class TextToSpeechHelper
 
   public static function getAudioPath(int $nomor_antrian, string $jenjang)
   {
+    $kode_antrian = AntrianHelper::getKodeAntrian($jenjang);
+    $kode_nomor_antrian = AntrianHelper::generateNomorAntrian($kode_antrian, $nomor_antrian);
+
     $antrian = DB::table('antrians')
       ->where('nomor_antrian', $nomor_antrian)
-      ->where('jenjang', $jenjang)
+      ->where('kode_antrian', $kode_antrian)
       ->orderBy('tanggal_pendaftaran', 'asc')
       ->first('audio_path');
 
-    $nomor_antrian = AntrianHelper::generateNomorAntrian($jenjang, $nomor_antrian);
-
-    $audio_path = $antrian->audio_path ?? self::transformTextToSpeech('Antrian nomor ' . $nomor_antrian . ' menuju loket ' . strtoupper($jenjang));
-
-    return $audio_path;
-  }
-
-  public static function getAudioPathBendahara(int $nomor_antrian)
-  {
-    $antrian = DB::table('bendaharas')
-      ->where('nomor_antrian', $nomor_antrian)
-      ->orderBy('tanggal_pendaftaran', 'asc')
-      ->first('audio_path');
-
-    $kode_antrian = AntrianHelper::getKodeAntrianBendahara($nomor_antrian);
-    $audio_path = $antrian->audio_path ?? self::transformTextToSpeech('Antrian nomor ' . $kode_antrian . ' menuju loket bendahara');
+    $loket = is_null($jenjang) ? 'Bendahara' : strtoupper($jenjang);
+    $audio_path = $antrian->audio_path ?? self::transformTextToSpeech('Antrian nomor ' . $kode_nomor_antrian . ' menuju loket ' . $loket);
 
     return $audio_path;
   }

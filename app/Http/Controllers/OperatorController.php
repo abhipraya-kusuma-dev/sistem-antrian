@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helper\AntrianHelper;
-use App\Helper\TextToSpeechHelper;
 use App\Models\Antrian;
-use App\Models\Bendahara;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -28,16 +26,19 @@ class OperatorController extends Controller
 
   public function antrianPerJenjang($jenjang, $status, Request $request)
   {
+    if (is_null($jenjang)) return redirect('/bendahara/antrian');
+
     $tanggal_pendaftaran =  AntrianHelper::getTanggalPendaftaran($request);
 
     $antrian = DB::table('antrians')
       ->where('jenjang', $jenjang)
       ->where('tanggal_pendaftaran', $tanggal_pendaftaran)
       ->where('terpanggil', $status)
+      ->orderBy('nomor_antrian', 'asc')
       ->select('*')->get();
 
     for ($i = 0; $i < count($antrian); $i++) {
-      $antrian[$i]->nomor_antrian = AntrianHelper::generateNomorAntrian($antrian[$i]->jenjang, $antrian[$i]->nomor_antrian);
+      $antrian[$i]->nomor_antrian = AntrianHelper::generateNomorAntrian($antrian[$i]->kode_antrian, $antrian[$i]->nomor_antrian);
     }
 
     return view('operator.jenjang', [
@@ -50,7 +51,9 @@ class OperatorController extends Controller
 
   public function panggilNomorAntrian(Antrian $antrian)
   {
-    $antrian->nomor_antrian = AntrianHelper::generateNomorAntrian($antrian->jenjang, $antrian->nomor_antrian);
+    if($antrian->kode_antrian === 'B') return redirect('/bendahara/antrian/panggil/' . $antrian->id);
+
+    $antrian->nomor_antrian = AntrianHelper::generateNomorAntrian($antrian->kode_antrian, $antrian->nomor_antrian);
 
     return view('operator.panggil', [
       'antrian' => $antrian
@@ -60,13 +63,13 @@ class OperatorController extends Controller
   {
     $antrianSaatIni = DB::table('antrians')
       ->where('id', $request['antrian_id'])
-      ->select('nomor_antrian', 'tanggal_pendaftaran', 'jenjang')
+      ->select('nomor_antrian', 'tanggal_pendaftaran', 'kode_antrian')
       ->first();
 
     $antrianSelanjutnya = DB::table('antrians')
       ->where('tanggal_pendaftaran', $antrianSaatIni->tanggal_pendaftaran)
       ->where('nomor_antrian', $antrianSaatIni->nomor_antrian + 1)
-      ->where('jenjang', $antrianSaatIni->jenjang)
+      ->where('kode_antrian', $antrianSaatIni->kode_antrian)
       ->select('*')
       ->first();
 
@@ -92,32 +95,28 @@ class OperatorController extends Controller
       'terpanggil' => 'sudah'
     ]);
 
-    if (!$isAntrianUpdated) return redirect('/operator/antrian/jenjang/' . $request['antrian_jenjang'])->with('update-error', 'Gagal melakukan yg tadi');
+    if (!$isAntrianUpdated) return redirect('/operator/antrian/jenjang/' . $request['antrian_jenjang'] . '/belum')->with('update-error', 'Gagal melakukan yg tadi');
 
-    return redirect('/operator/antrian/jenjang/' . $request['antrian_jenjang'])->with('update-error', "Berhasil melakukan yg tadi");
+    return redirect('/operator/antrian/jenjang/' . $request['antrian_jenjang'] . '/belum')->with('update-error', "Berhasil melakukan yg tadi");
   }
 
   public function lanjutKeBendahara(Request $request)
   {
-    $isAntrianUpdated = Antrian::where('id', $request['antrian_id'])->update([
-      'terpanggil' => 'sudah'
-    ]);
-
-    if (!$isAntrianUpdated) return redirect('/operator/antrian/jenjang/' . $request['antrian_jenjang'])->with('update-error', 'Gagal melakukan pemindahan antrian ke bendahara');
-
-    $antrianSaatIni = DB::table('bendaharas')
+    $antrianSaatIni = DB::table('antrians')
+      ->where('kode_antrian', 'B')
       ->orderBy('created_at', 'desc')->first('nomor_antrian');
 
     $nomorAntrianSaatIni = $antrianSaatIni->nomor_antrian ?? 0;
 
-    $isCreated = Bendahara::create([
+    $isAntrianUpdated = Antrian::where('id', $request['antrian_id'])->update([
+      'kode_antrian' => 'B',
       'nomor_antrian' => $nomorAntrianSaatIni + 1,
       'tanggal_pendaftaran' => Carbon::now('Asia/Jakarta')->format('Y-m-d'),
-      'audio_path' => TextToSpeechHelper::getAudioPathBendahara($nomorAntrianSaatIni + 1)
+      'jenjang' => NULL
     ]);
 
-    if (!$isCreated) return redirect('/operator/antrian')->with('create-error', 'Gagal melakukan pemindahan antrian ke bendahara');
+    if (!$isAntrianUpdated) return redirect('/operator/antrian/jenjang/' . $request['antrian_jenjang'] . '/belum')->with('update-error', 'Gagal melakukan pemindahan antrian ke bendahara');
 
-    return redirect('/operator/antrian')->with('create-success', 'Antrian dilanjut ke bendahara dengan nomor ' . $isCreated->nomor_antrian);
+    return redirect('/operator/antrian')->with('update-success', 'Antrian dilanjut ke bendahara dengan nomor ' . $nomorAntrianSaatIni + 1);
   }
 }
