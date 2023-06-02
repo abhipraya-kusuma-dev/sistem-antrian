@@ -4,11 +4,11 @@
 <div>
 
   @if(session('create-error'))
-  <p>{{ session('create-error') }}</p>
+  <p class="hidden">{{ session('create-error') }}</p>
   @endif
 
   @if(session('create-success'))
-  <p>{{ session('create-success') }}</p>
+  <p class="hidden">{{ session('create-success') }}</p>
   @endif
 
 
@@ -17,17 +17,15 @@
     <p class="text-[#1A508B] font-bold text-5xl uppercase">Antrean PPDB</p>
   </header>
 
-  <main class="flex flex-col items-center  mt-20">
+  <main class="flex flex-col items-center space-y-4 p-4 mt-20">
     <h1 class="text-5xl font-bold">Daftar Antrean Jenjang </h1>
-  <ul>
-
-    @foreach($jenjang as $j)
-    <li>
-      <a href="/antrian/daftar/konfirmasi/{{ $j }}" class="rounded-lg" style="background-color: {{ $warna[$loop->index] }};">{{ $j }}</a>
-    </li>
+    <div class="flex flex-col space-y-4 text-center w-full">
+      @foreach($jenjang as $j)
+    <a href="/antrian/daftar/konfirmasi/{{ $j }}" class="py-3 px-4 font-semibold text-white text-xl uppercase" style="background-color: {{ $warna[$loop->index] }};">
+      {{ $j }}</a>
+      <a href="/antrian/daftar/konfirmasi/antrian/bendahara" class="py-3 px-4 font-semibold text-white text-xl uppercase" style="background-color: {{ $warna }};"></a>
     @endforeach
-
-  </ul>
+    </div>
   </main>
 
 </div>
