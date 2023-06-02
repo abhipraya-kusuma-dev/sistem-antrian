@@ -69,6 +69,7 @@
   socket.emit('change antrian display', antrian)
 
   socket.on('change antrian display loading', (antrian) => {
+    console.log(antrian)
     panggilBtn.setAttribute('disabled', 'true')
   })
   socket.on('change antrian display complete', (antrian) => {

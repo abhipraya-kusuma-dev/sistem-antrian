@@ -14,6 +14,7 @@ server.listen(3000, () => {
 
 io.on('connection', (socket) => {
   socket.on('change antrian display', (antrian) => {
+    console.log(antrian)
     io.emit('change antrian display', antrian)
   })
   socket.on('change antrian display loading', (antrian) => {
