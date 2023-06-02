@@ -26,6 +26,9 @@
       <a href="/antrian/daftar/konfirmasi/{{ $j }}" class="rounded-lg" style="background-color: {{ $warna[$loop->index] }};">{{ $j }}</a>
     </li>
     @endforeach
+    <li>
+      <a href="/antrian/daftar/konfirmasi/bendahara" class="rounded-lg" style="background-color: {{ $warna[4] }};">Bendahara</a>
+    </li>
 
   </ul>
   </main>

@@ -55,7 +55,7 @@ class TextToSpeechHelper
     return 'storage/audio/' . $fileName;
   }
 
-  public static function getAudioPath(int $nomor_antrian, string $jenjang)
+  public static function getAudioPath(int $nomor_antrian, string|null $jenjang)
   {
     $kode_antrian = AntrianHelper::getKodeAntrian($jenjang);
     $kode_nomor_antrian = AntrianHelper::generateNomorAntrian($kode_antrian, $nomor_antrian);

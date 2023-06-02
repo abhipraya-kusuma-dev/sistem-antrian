@@ -6,6 +6,7 @@ use App\Helper\AntrianHelper;
 use App\Models\Antrian;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Helper\TextToSpeechHelper;
 
 class BendaharaController extends Controller
 {
@@ -34,6 +35,44 @@ class BendaharaController extends Controller
       'tanggal_pendaftaran' => $tanggal_pendaftaran,
       'status' => $status
     ]);
+  }
+
+  public function konfirmasiAntrianBaru()
+  {
+    $antrianPerJenjangTerbaru = DB::table('antrians')
+      ->where('kode_antrian', 'B')
+      ->where('tanggal_pendaftaran', now('Asia/Jakarta')->format('Y-m-d'))
+      ->orderBy('nomor_antrian', 'desc')
+      ->first('nomor_antrian');
+
+    $nomorAntrianSebelumnya = $antrianPerJenjangTerbaru->nomor_antrian ?? 0;
+
+    return view('bendahara.konfirmasi', [
+      'nomorAntrianSaatIni' => $nomorAntrianSebelumnya + 1,
+    ]);
+  }
+
+  public function buatAntrianBaru(Request $request)
+  {
+    $request['nomor_antrian'] = (int) $request['nomor_antrian'];
+
+    $data = $request->validate([
+      'nomor_antrian' => ['required'],
+    ]);
+
+    $data['jenjang'] = NULL;
+    $data['audio_path'] = TextToSpeechHelper::getAudioPath($data['nomor_antrian'], $data['jenjang']);
+
+    $isAntrianCreated = Antrian::create([
+      'nomor_antrian' => $data['nomor_antrian'],
+      'kode_antrian' => AntrianHelper::getKodeAntrian($data['jenjang']),
+      'audio_path' => $data['audio_path'],
+      'tanggal_pendaftaran' => now('Asia/Jakarta')->format('Y-m-d')
+    ]);
+
+    if (!$isAntrianCreated) return redirect('/antrian/daftar')->with('create-error', 'Gagal membuat antrian baru');
+
+    return redirect('/antrian/daftar')->with('create-success', 'Berhasil membuat antrian baru');
   }
 
   public function panggilNomorAntrian(Antrian $antrian)
