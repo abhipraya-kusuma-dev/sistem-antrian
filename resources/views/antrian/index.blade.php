@@ -159,6 +159,7 @@
   socket.on('change antrian display complete', (antrian) => {
     generateAntrianDisplay(antrian)
   })
+
 </script>
 
 @endsection

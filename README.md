@@ -1,6 +1,7 @@
 # Sistem Antrian
 
 ## Run On Your Local Machine
+
 ```
 # Clone Repo
 git clone https://github.com/AdiCahyaSaputra/sistem-antrian
@@ -35,20 +36,29 @@ node server.cjs
 ```
 
 ## People Behind This Project
+
 - [AdiCahyaSaputra](https://github.com/AdiCahyaSaputra)
 - [MuhammadRisky](https://github.com/dante-heisenberg)
 
 ## Reference
+
 - [API Access play.ht](https://play.ht/app/api-access)
 - [API Docs play.ht](https://docs.play.ht/reference/api-getting-started)
 - [Error Tracking (sentry)](https://docs.sentry.io/platforms/php/guides/laravel/)
 
 ## Todo
-- [x] Text To Speech API  
-- [x] Daftar Antrian  
-- [x] Kelola Antrian (admin/op)  
-- [x] Kelola Antrian Bendahara (admin/op)  
-- [ ] Display Antrian  
-- [x] Laporan per hari    
-- [ ] Export ke excel dan pdf  
-- [x] Pisah menu berdasarkan kategori "terpanggil" (kelola antrian)  
+
+- [x] Text To Speech API
+- [x] Daftar Antrian
+- [x] Kelola Antrian (admin/op)
+- [x] Kelola Antrian Bendahara (admin/op)
+- [ ] Display Antrian
+- [x] Laporan per hari
+- [ ] Export ke excel dan pdf
+- [x] Pisah menu berdasarkan kategori "terpanggil" (kelola antrian)
+- [ ] Real time card antrian
+- [ ] Suara pada display antrean
+- [ ] Warna card antrian saat ini
+- [ ] tampilkan jumlah antrian disebelah tombol daftar
+- [ ] Akun operator ada 5
+- [ ] Print Otomatis
