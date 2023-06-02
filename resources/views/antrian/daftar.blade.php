@@ -26,6 +26,7 @@
       <a href="/antrian/daftar/konfirmasi/antrian/bendahara" class="py-3 px-4 font-semibold text-white text-xl uppercase" style="background-color: {{ $warna }};"></a>
     @endforeach
     </div>
+
   </main>
 
 </div>

@@ -44,6 +44,8 @@ class AntrianController extends Controller
 
   public function konfirmasiAntrianBaru($jenjang)
   {
+    if($jenjang === 'bendahara') return redirect('/bendahara/konfirmasi');
+
     $antrianPerJenjangTerbaru = DB::table('antrians')
       ->where('jenjang', $jenjang)
       ->where('tanggal_pendaftaran', now('Asia/Jakarta')->format('Y-m-d'))
