@@ -16,7 +16,7 @@
     <p>Status <b>{{ $antrian->terpanggil }}</b></p>
   </div>
 
-  <audio src="{{ asset($antrian->audio_path) }}" hidden id="audio"></audio>
+  <!-- <audio src="{{ asset($antrian->audio_path) }}" hidden id="audio"></audio> -->
 
   @if($antrian->terpanggil === 'sudah')
   <button class="disabled:text-black/60" type="button" id="panggil-btn" disabled>Panggil</button>
@@ -48,18 +48,13 @@
 <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 <script>
   const panggilBtn = document.getElementById('panggil-btn')
-  const audio = document.getElementById('audio')
-
-  panggilBtn.addEventListener('click', () => {
-    audio.play()
-  })
 
   const antrian = {{ Js::from($antrian) }}
 
   const socket = io(`{{ env('SOCKET_IO_SERVER') }}`)
 
   panggilBtn.addEventListener('click', () => {
-    audio.play()
+    socket.emit('play current antrian audio', antrian.audio_path)
   })
 
   socket.emit('change antrian display', antrian)

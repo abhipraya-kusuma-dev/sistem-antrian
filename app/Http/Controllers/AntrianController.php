@@ -18,7 +18,7 @@ class AntrianController extends Controller
     $warna = ['#ff6384', '#36a2eb', '#FFCD56', '#c8a2eb', '#d27b41'];
 
     $antrian = DB::table('antrians')
-      ->where('tanggal_pendaftaran', now('Asia/Jakarta')->format('Y-m-d'))
+      ->where('tanggal_pendaftaran', now('Asia/Jakarta')->subDay(1)->format('Y-m-d'))
       ->orderBy('created_at', 'asc')
       ->select('*')
       ->get();

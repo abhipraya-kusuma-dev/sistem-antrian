@@ -57,7 +57,7 @@ node server.cjs
 - [ ] Export ke excel dan pdf
 - [x] Pisah menu berdasarkan kategori "terpanggil" (kelola antrian)
 - [ ] Real time card antrian
-- [ ] Suara pada display antrean
+- [x] Suara pada display antrean
 - [ ] Warna card antrian saat ini
 - [ ] tampilkan jumlah antrian disebelah tombol daftar
 - [ ] Akun operator ada 5

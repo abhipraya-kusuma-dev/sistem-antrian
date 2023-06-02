@@ -54,6 +54,7 @@ class OperatorController extends Controller
     if($antrian->kode_antrian === 'B') return redirect('/bendahara/antrian/panggil/' . $antrian->id);
 
     $antrian->nomor_antrian = AntrianHelper::generateNomorAntrian($antrian->kode_antrian, $antrian->nomor_antrian);
+    $antrian->audio_path = asset($antrian->audio_path);
 
     return view('operator.panggil', [
       'antrian' => $antrian

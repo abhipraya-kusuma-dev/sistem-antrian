@@ -3,6 +3,8 @@
 @section('content')
 <header class="flex p-3 px-6 justify-between shadow-md items-center">
 
+  <audio hidden id="audio"></audio>
+
   <div class="flex items-center space-x-4">
     <img src="{{ asset('wk.png') }}" class="w-20" alt="wk.png">
     <div>
@@ -136,13 +138,22 @@
 
   const nomorAntrian = document.getElementById('nomor_antrian')
   const loketAntrian = document.getElementById('loket_antrian')
+  const audio = document.getElementById('audio')
 
   const socket = io(`{{ env('SOCKET_IO_SERVER') }}`)
 
   function generateAntrianDisplay(antrian) {
+    const loket = antrian.jenjang ?? 'Bendahara'
+
     nomorAntrian.textContent = antrian.nomor_antrian
-    loketAntrian.textContent = 'Loket ' + antrian.jenjang.toUpperCase()
+    loketAntrian.textContent = 'Loket ' + loket.toUpperCase()
+    audio.src = antrian.audio_path
   }
+
+  socket.on('play current antrian audio', (audioPath) => {
+    console.log('audio played')
+    audio.play()
+  })
 
   socket.on('change antrian display', (antrian) => {
 
@@ -159,7 +170,6 @@
   socket.on('change antrian display complete', (antrian) => {
     generateAntrianDisplay(antrian)
   })
-
 </script>
 
 @endsection

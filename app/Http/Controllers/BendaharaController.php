@@ -78,6 +78,7 @@ class BendaharaController extends Controller
   public function panggilNomorAntrian(Antrian $antrian)
   {
     $antrian->nomor_antrian = AntrianHelper::generateNomorAntrian($antrian->kode_antrian, $antrian->nomor_antrian);
+    $antrian->audio_path = asset($antrian->audio_path);
 
     return view('bendahara.panggil', [
       'antrian' => $antrian
