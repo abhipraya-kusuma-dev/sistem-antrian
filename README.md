@@ -49,7 +49,7 @@ node server.cjs
 ## Todo
 
 - [x] Text To Speech API
-- [ ] Daftar Antrian
+- [x] Daftar Antrian
 - [x] Kelola Antrian (admin/op)
 - [x] Kelola Antrian Bendahara (admin/op)
 - [ ] Display Antrian
