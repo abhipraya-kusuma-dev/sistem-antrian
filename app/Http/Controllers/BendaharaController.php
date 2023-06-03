@@ -61,7 +61,9 @@ class BendaharaController extends Controller
     ]);
 
     $data['jenjang'] = NULL;
-    $data['audio_path'] = TextToSpeechHelper::getAudioPath($data['nomor_antrian'], $data['jenjang']);
+    $data['audio_path'] = TextToSpeechHelper::getAudioPath($data['nomor_antrian'], $data['jenjang'], $request);
+
+    if(is_null($data['audio_path'])) return redirect('/antrian/daftar')->with('create-error', 'Gagal membuat antrian baru');
 
     $isAntrianCreated = Antrian::create([
       'nomor_antrian' => $data['nomor_antrian'],

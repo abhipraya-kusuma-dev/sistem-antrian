@@ -1,19 +1,18 @@
 @extends('layout.main')
 
 @section('content')
-<div>
+<div id="daftar-container">
 
   @if(session('create-error'))
-  <p class="hidden">{{ session('create-error') }}</p>
+  <p id="message" class="fixed z-[10] rounded px-4 text-lg inset-x-4 top-4 bg-red-600 text-white font-bold py-2">{{ session('create-error') }}</p>
   @endif
 
   @if(session('create-success'))
-  <p class="hidden">{{ session('create-success') }}</p>
+  <p id="message" class="fixed z-[10] rounded px-4 text-lg inset-x-4 top-4 bg-green-600 text-white font-bold py-2">{{ session('create-success') }}</p>
   @endif
 
-
   <header class="flex p-6 items-center space-x-4 flex-col space-y-4">
-    <img src="{{asset('wk.png')}}" class="w-20" alt="logo">
+    <img src="{{ asset('wk.png') }}" class="w-20" alt="logo">
     <p class="text-[#1A508B] font-bold text-3xl uppercase">Antrean PPDB</p>
   </header>
 
@@ -35,4 +34,12 @@
   </main>
 
 </div>
+<script>
+  const daftarContainer = document.getElementById('daftar-container')
+  if (daftarContainer.firstElementChild.id === 'message') {
+    setTimeout(() => {
+      daftarContainer.removeChild(daftarContainer.firstElementChild)
+    }, 3000)
+  }
+</script>
 @endsection

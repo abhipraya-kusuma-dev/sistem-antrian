@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use App\Helper\AntrianHelper;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 
 class TextToSpeechHelper
 {
@@ -36,15 +38,24 @@ class TextToSpeechHelper
       'Content-Type' => 'application/json',
     ])->get('https://play.ht/api/v1/articleStatus?transcriptionId=' . $transcriptionId);
 
+
     $data = $response->json();
 
-    return $data['audioUrl'];
+    if (!empty($data['audioUrl'])) {
+      Cookie::forget('transcriptionId');
+      return $data['audioUrl'];
+    }
+
+    Cookie::make('transcriptionId', $transcriptionId, 2, httpOnly: true, secure: true);
+    return '';
   }
 
-  private static function transformTextToSpeech(string $text)
+  private static function transformTextToSpeech(string $text, Request $request)
   {
-    $transcriptionId = self::getTranscriptionID($text);
+    $transcriptionId = $request->cookie('transcriptionId') ?? self::getTranscriptionID($text);
     $audioUrl = self::getDownloadUrl($transcriptionId);
+
+    if(empty($audioUrl)) return NULL;
 
     $fileName = Str::random() . '.mp3';
     $pathToFile = storage_path('app/public/audio/' . $fileName);
@@ -55,7 +66,7 @@ class TextToSpeechHelper
     return 'storage/audio/' . $fileName;
   }
 
-  public static function getAudioPath(int $nomor_antrian, string|null $jenjang)
+  public static function getAudioPath(int $nomor_antrian, string|null $jenjang, Request $request)
   {
     $kode_antrian = AntrianHelper::getKodeAntrian($jenjang);
     $kode_nomor_antrian = AntrianHelper::generateNomorAntrian($kode_antrian, $nomor_antrian);
@@ -67,7 +78,7 @@ class TextToSpeechHelper
       ->first('audio_path');
 
     $loket = is_null($jenjang) ? 'Bendahara' : strtoupper($jenjang);
-    $audio_path = $antrian->audio_path ?? self::transformTextToSpeech('Antrian nomor ' . $kode_nomor_antrian . ' menuju loket ' . $loket);
+    $audio_path = $antrian->audio_path ?? self::transformTextToSpeech('Antrian nomor ' . $kode_nomor_antrian . ' menuju loket ' . $loket, $request);
 
     return $audio_path;
   }

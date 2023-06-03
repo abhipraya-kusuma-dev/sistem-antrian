@@ -1,21 +1,20 @@
 @extends('layout.main')
 
 @section('content')
-<div class="karcis flex justify-center items-center h-screen">
-  <div class="karcis-card border-b border-black py-4 px-10 flex flex-col items-center text-center" id="tytyd">
-    <h1 class="text-xl font-bold">ANTREAN PPDB</h1>
-    <p>Sekolah wijaya kusuma <br>
-      Jl. Bandengan utara 80, <br> Penjaringan,
-      Jakarta Utara, 14440</p>
-    <div class="border-t-[5px] border-b-[5px] mt-2 border-black border-double border-spacing-10 w-full p-4">
-      <h1 class="font-bold text-5xl">K0100</h1>
-      <P class="text-3xl font-bold">LOKET <br> SD</P>
+<div class="h-screen flex items-center justify-center">
+  <div class="p-4 border-2 border-black">
+    <h1 class="text-lg">Nomor Antrian anda saat ini adalah</h1>
+    <p class="font-bold text-center">Nomor {{ $nomorAntrianSaatIni }}</p>
+
+    <div class="flex mt-2">
+      <a href="/antrian/daftar" class="active:bg-red-800 py-2 px-4 w-1/2 bg-red-500/80 text-center text-white font-bold">Nanti Aja Deh</a>
+      <form class="w-1/2" action="/antrian/daftar/proses" method="post">
+        @csrf
+        <input type="hidden" name="nomor_antrian" value="{{ $nomorAntrianSaatIni }}" />
+        <input type="hidden" name="jenjang" value="{{ $jenjang }}" />
+        <button type="submit" class="active:bg-green-800 py-2 px-4 w-full bg-green-500/80 text-center text-white font-bold">Lanjutkan</button>
+      </form>
     </div>
-    <p class="mt-2 text-xs">Sabtu, 20 juni 2023 / 10:30</p>
   </div>
 </div>
-
-<script>
-  window.print();
-</script>
 @endsection
