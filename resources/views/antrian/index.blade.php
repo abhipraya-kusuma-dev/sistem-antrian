@@ -42,7 +42,7 @@
     {{-- Video --}}
     <div class="col-span-5">
       <div class="w-full aspect-video bg-slate-400">
-        <iframe class="w-full h-full" src="https://www.youtube.com/embed/5IKEBgT0JLc?autoplay=1&loop=1&playlist=5IKEBgT0JLc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <div id="yt-video" class="w-full h-full"></div>
       </div>
     </div>
   </div>
@@ -150,10 +150,43 @@
     audio.src = antrian.audio_path
   }
 
-  socket.on('play current antrian audio', (audioPath) => {
-    console.log('audio played')
+  const tag = document.createElement('script')
+  tag.src = "https://www.youtube.com/iframe_api"
+
+  const firstScriptTag = document.getElementsByTagName('script')[0]
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
+
+  let player;
+
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('yt-video', {
+      // width: '640',
+      // height: '390',
+      videoId: '5IKEBgT0JLc',
+      playerVars: {
+        'autoplay': 1,
+        'controls': 1,
+        'loop': 1,
+        'playlist': '5IKEBgT0JLc'
+      }
+    })
+  }
+
+  socket.on('play current antrian audio', (antrianDisplay) => {
+    generateAntrianDisplay(antrianDisplay)
+    socket.emit('change antrian display loading', antrianDisplay)
+
     audio.play()
+    player.mute()
+
+    const listener = audio.addEventListener('ended', () => {
+      socket.emit('change antrian display complete', antrianDisplay)
+      player.unMute()
+    })
+
+    audio.removeEventListener('ended', listener)
   })
+
 
   socket.on('change antrian display', (antrian) => {
 

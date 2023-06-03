@@ -16,8 +16,6 @@
     <p>Status <b>{{ $antrian->terpanggil }}</b></p>
   </div>
 
-  <!-- <audio src="{{ asset($antrian->audio_path) }}" hidden id="audio"></audio> -->
-
   @if($antrian->terpanggil === 'sudah')
   <button class="disabled:text-black/60" type="button" id="panggil-btn" disabled>Panggil</button>
   @else
@@ -54,15 +52,15 @@
   const socket = io(`{{ env('SOCKET_IO_SERVER') }}`)
 
   panggilBtn.addEventListener('click', () => {
-    socket.emit('play current antrian audio', antrian.audio_path)
+    socket.emit('play current antrian audio', antrian)
   })
 
   socket.emit('change antrian display', antrian)
 
   socket.on('change antrian display loading', (antrian) => {
-    console.log(antrian)
     panggilBtn.setAttribute('disabled', 'true')
   })
+
   socket.on('change antrian display complete', (antrian) => {
     panggilBtn.removeAttribute('disabled')
   })
