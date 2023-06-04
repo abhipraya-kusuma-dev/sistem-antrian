@@ -25,20 +25,20 @@
   <form action="/bendahara/antrian/lanjut/" method="post">
     @csrf
     <input type="hidden" name="antrian_id" value="{{ $antrian->id }}" />
-    <button type="submit" class="text-green-600 font-bold">Antrian Selanjutnya</button>
+    <button type="submit" id="lanjut-btn" class="text-green-600 font-bold">Antrian Selanjutnya</button>
   </form>
 
   <form action="/bendahara/antrian/lewati/" method="post">
     @csrf
     <input type="hidden" name="antrian_id" value="{{ $antrian->id }}" />
-    <button type="submit" class="text-green-600 font-bold">Lewati Antrian</button>
+    <button type="submit" id="lewati-btn" class="text-green-600 font-bold">Lewati Antrian</button>
   </form>
 
   <form action="/bendahara/antrian/terpanggil" method="post">
     @method('PUT')
     @csrf
     <input type="hidden" name="antrian_id" value="{{ $antrian->id }}" />
-    <button type="submit" onclick="return confirm('Yakin? gk bisa di un-panggil lho ini')" class="text-green-600 font-bold">Antrian Sudah Terpanggil</button>
+    <button type="submit" id="terpanggil-btn" onclick="return confirm('Yakin? gk bisa di un-panggil lho ini')" class="text-green-600 font-bold">Antrian Sudah Terpanggil</button>
   </form>
 
 </div>
@@ -46,6 +46,9 @@
 <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 <script>
   const panggilBtn = document.getElementById('panggil-btn')
+  const lanjutBtn = document.getElementById('lanjut-btn')
+  const lewatiBtn = document.getElementById('lewati-btn')
+  const terpanggilBtn = document.getElementById('terpanggil-btn')
 
   const antrian = {{ Js::from($antrian) }}
 
@@ -53,6 +56,14 @@
 
   panggilBtn.addEventListener('click', () => {
     socket.emit('play current antrian audio', antrian)
+  })
+
+  lewatiBtn.addEventListener('click', () => {
+    socket.emit('skip antrian', 'skip')
+  })
+
+  terpanggilBtn.addEventListener('click', () => {
+    socket.emit('skip antrian', 'skip')
   })
 
   socket.emit('change antrian display', antrian)

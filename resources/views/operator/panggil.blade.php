@@ -68,6 +68,18 @@
     socket.emit('play current antrian audio', antrian)
   })
 
+  lewatiBtn.addEventListener('click', () => {
+    socket.emit('skip antrian', 'skip')
+  })
+
+  terpanggilBtn.addEventListener('click', () => {
+    socket.emit('skip antrian', 'skip')
+  })
+
+  lanjutBendaharaBtn.addEventListener('click', () => {
+    socket.emit('skip antrian', 'skip')
+  })
+
   socket.emit('change antrian display', antrian)
 
   socket.on('change antrian display loading', (antrian) => {

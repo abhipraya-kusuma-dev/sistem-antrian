@@ -33,6 +33,7 @@ Route::controller(AntrianController::class)->group(function () {
   Route::get('/antrian/daftar/konfirmasi/{jenjang}', 'konfirmasiAntrianBaru');
 
   Route::post('/antrian/daftar/proses', 'buatAntrianBaru');
+  Route::get('/antrian/terbaru', 'getNewestAntrianData')->name('new_antrian');
 });
 
 Route::controller(OperatorController::class)->group(function () {

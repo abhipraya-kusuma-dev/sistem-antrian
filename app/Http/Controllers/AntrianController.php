@@ -17,19 +17,27 @@ class AntrianController extends Controller
   {
     $warna = ['#ff6384', '#36a2eb', '#FFCD56', '#c8a2eb', '#d27b41'];
 
-    $antrian = DB::table('antrians')
-      ->where('tanggal_pendaftaran', now('Asia/Jakarta')->format('Y-m-d'))
-      ->orderBy('created_at', 'asc')
-      ->select('*')
-      ->get();
-
-    $antrian = AntrianHelper::groupBasedOnJenjang($antrian);
+    $antrian = collect(json_decode($this->getNewestAntrianData()->content()))->all();
 
     return view('antrian.index', [
       'warna' => $warna,
       'tanggal' => Carbon::now('Asia/Jakarta')->format('D, d M Y'),
       'antrian' => $antrian
     ]);
+  }
+
+  public function getNewestAntrianData()
+  {
+    $antrian = DB::table('antrians')
+      ->where('tanggal_pendaftaran', now('Asia/Jakarta')->format('Y-m-d'))
+      ->where('terpanggil', 'belum')
+      ->orderBy('created_at', 'asc')
+      ->select('*')
+      ->get();
+
+    $antrian = AntrianHelper::groupBasedOnJenjang($antrian);
+
+    return response()->json($antrian);
   }
 
   public function antrianBaru()
@@ -44,7 +52,7 @@ class AntrianController extends Controller
 
   public function konfirmasiAntrianBaru($jenjang)
   {
-    if($jenjang === 'bendahara') return redirect('/bendahara/konfirmasi');
+    if ($jenjang === 'bendahara') return redirect('/bendahara/konfirmasi');
 
     $antrianPerJenjangTerbaru = DB::table('antrians')
       ->where('jenjang', $jenjang)
@@ -71,7 +79,7 @@ class AntrianController extends Controller
 
     $data['audio_path'] = TextToSpeechHelper::getAudioPath($data['nomor_antrian'], $data['jenjang'], $request);
 
-    if(is_null($data['audio_path'])) return redirect('/antrian/daftar')->with('create-error', 'Gagal membuat antrian baru');
+    if (is_null($data['audio_path'])) return redirect('/antrian/daftar')->with('create-error', 'Gagal membuat antrian baru');
 
     $isAntrianCreated = Antrian::create([
       'nomor_antrian' => $data['nomor_antrian'],

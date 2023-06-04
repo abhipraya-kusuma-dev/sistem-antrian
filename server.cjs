@@ -16,6 +16,9 @@ io.on('connection', (socket) => {
   socket.on('change antrian display', (antrian) => {
     io.emit('change antrian display', antrian)
   })
+  socket.on('skip antrian', (skip) => {
+    io.emit('skip antrian', skip)
+  })
   socket.on('change antrian display loading', (antrian) => {
     io.emit('change antrian display loading', antrian)
   })
