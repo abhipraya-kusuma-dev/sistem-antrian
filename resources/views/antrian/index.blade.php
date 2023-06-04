@@ -27,13 +27,13 @@
   <div class="grid grid-cols-12 gap-4">
     <div class="flex col-span-7">
       <div class="flex flex-col w-full text-center space-y-2 text-white">
-        <div class="bg-blue-400 w-full p-2 rounded-md">
+        <div id="current-antrian-title" class="bg-blue-400 w-full p-2 rounded-md">
           <h1 class="text-5xl font-semibold text-stroke-2 text-stroke-black">Antrean</h1>
         </div>
-        <div class="bg-blue-400 p-6 py-9 rounded-md">
+        <div id="current-antrian-nomor" class="bg-blue-400 p-6 py-9 rounded-md">
           <p id="nomor_antrian" class="text-9xl font-bold drop-shadow-xl shadow-black text-stroke-4 text-stroke-black">0000</p>
         </div>
-        <div class="bg-blue-400 p-2 rounded-md">
+        <div id="current-antrian-loket" class="bg-blue-400 p-2 rounded-md">
           <p id="loket_antrian" class="text-5xl uppercase font-semibold text-stroke-2 text-stroke-black">Loket</p>
         </div>
       </div>
@@ -140,10 +140,27 @@
   const loketAntrian = document.getElementById('loket_antrian')
   const audio = document.getElementById('audio')
 
+  const currentAntrianTitle = document.getElementById('current-antrian-title')
+  const currentAntrianNomor = document.getElementById('current-antrian-nomor')
+  const currentAntrianLoket= document.getElementById('current-antrian-loket')
+
   const socket = io(`{{ env('SOCKET_IO_SERVER') }}`)
 
   function generateAntrianDisplay(antrian) {
     const loket = antrian.jenjang ?? 'Bendahara'
+    const indexWarnaJenjang = {
+      sd: 0,
+      smp: 1,
+      sma: 2,
+      smk: 3,
+      bendahara: 4
+    }
+
+    const warna = {{ Js::from($warna) }}
+
+    currentAntrianTitle.style.backgroundColor = warna[indexWarnaJenjang[antrian.jenjang ?? 'bendahara']]
+    currentAntrianNomor.style.backgroundColor = warna[indexWarnaJenjang[antrian.jenjang ?? 'bendahara']]
+    currentAntrianLoket.style.backgroundColor = warna[indexWarnaJenjang[antrian.jenjang ?? 'bendahara']]
 
     nomorAntrian.textContent = antrian.nomor_antrian
     loketAntrian.textContent = 'Loket ' + loket.toUpperCase()
@@ -196,6 +213,7 @@
     generateAntrianDisplay(antrian)
   })
 
+
   const cardContainer = document.getElementById('card-container')
   const updateCardContainer = async () => {
     const req = await fetch(`{{ route('new_antrian') }}`)
@@ -221,6 +239,7 @@
   socket.on('skip antrian', async (skip) => {
     await updateCardContainer()
   })
+
 </script>
 
 @endsection

@@ -52,11 +52,11 @@ node server.cjs
 - [x] Daftar Antrian
 - [x] Kelola Antrian (admin/op)
 - [x] Kelola Antrian Bendahara (admin/op)
-- [ ] Display Antrian
+- [x] Display Antrian
 - [x] Laporan per hari
 - [ ] Export ke excel dan pdf
 - [x] Pisah menu berdasarkan kategori "terpanggil" (kelola antrian)
-- [ ] Real time card antrian
+- [x] Real time card antrian
 - [x] Suara pada display antrean
 - [ ] Warna card antrian saat ini
 - [ ] tampilkan jumlah antrian disebelah tombol daftar

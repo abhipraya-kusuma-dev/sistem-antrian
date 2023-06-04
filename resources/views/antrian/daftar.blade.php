@@ -24,11 +24,11 @@
       @foreach($jenjang as $j)
       <a href="/antrian/daftar/konfirmasi/{{ $j }}" class="items-center flex justify-between py-3 px-10 font-semibold text-white uppercase rounded-full border-2 shadow-xl shadow-slate-400 border-black " style="background-color: {{ $warna[$loop->index] }};">
         <span>{{ $j }}</span>
-        <span class="text-sm text-stroke-0 text-black">Jml Antre = 20</span>
+        <span class="text-sm text-stroke-0 text-black">Jml Antre = {{ count($antrian[$j]) }}</span>
       </a>
       <form></form>
       @endforeach
-      <a href="/antrian/daftar/konfirmasi/bendahara" class="items-center flex justify-between py-3 px-10 font-semibold text-white uppercase rounded-full border-2 shadow-xl shadow-slate-400 border-black " style="background-color: {{ $warna[4] }};"><span>Bendahara</span><span class="text-sm text-stroke-0 text-black">Jml Antre = 20</span></a>
+      <a href="/antrian/daftar/konfirmasi/bendahara" class="items-center flex justify-between py-3 px-10 font-semibold text-white uppercase rounded-full border-2 shadow-xl shadow-slate-400 border-black " style="background-color: {{ $warna[4] }};"><span>Bendahara</span><span class="text-sm text-stroke-0 text-black">Jml Antre = {{ count($antrian['bendahara']) }}</span></a>
     </div>
 
   </main>
