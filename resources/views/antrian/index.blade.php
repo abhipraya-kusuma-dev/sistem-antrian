@@ -189,14 +189,6 @@
 
 
   socket.on('change antrian display', (antrian) => {
-
-    if (nomorAntrian.textContent !== '0000' && loketAntrian.textContent !== 'Loket') {
-      socket.emit('change antrian display loading', antrian)
-      return setTimeout(() => {
-        socket.emit('change antrian display complete', antrian)
-      }, 4000)
-    }
-
     generateAntrianDisplay(antrian)
   })
 

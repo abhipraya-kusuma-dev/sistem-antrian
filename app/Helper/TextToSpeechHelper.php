@@ -74,6 +74,7 @@ class TextToSpeechHelper
     $antrian = DB::table('antrians')
       ->where('nomor_antrian', $nomor_antrian)
       ->where('kode_antrian', $kode_antrian)
+      ->whereNotNull('audio_path')
       ->orderBy('tanggal_pendaftaran', 'asc')
       ->first('audio_path');
 

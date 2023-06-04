@@ -12,7 +12,7 @@ class BendaharaController extends Controller
 {
   public function __construct()
   {
-    $this->middleware('auth');
+    $this->middleware('auth')->except('konfirmasiAntrianBaru', 'buatAntrianBaru');
   }
 
   public function antrianBendahara($status, Request $request)
