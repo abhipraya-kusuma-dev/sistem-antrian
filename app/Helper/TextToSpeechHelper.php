@@ -40,6 +40,9 @@ class TextToSpeechHelper
 
 
     $data = $response->json();
+    if (!$data['converted']) {
+      return self::getDownloadUrl($transcriptionId);
+    }
 
     if (!empty($data['audioUrl'])) {
       Cookie::forget('transcriptionId');
@@ -55,7 +58,7 @@ class TextToSpeechHelper
     $transcriptionId = $request->cookie('transcriptionId') ?? self::getTranscriptionID($text);
     $audioUrl = self::getDownloadUrl($transcriptionId);
 
-    if(empty($audioUrl)) return NULL;
+    if (empty($audioUrl)) return NULL;
 
     $fileName = Str::random() . '.mp3';
     $pathToFile = storage_path('app/public/audio/' . $fileName);

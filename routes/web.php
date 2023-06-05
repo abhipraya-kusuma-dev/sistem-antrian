@@ -8,6 +8,7 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\OperatorController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Antrian;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,4 +85,13 @@ Route::get('/page2', function () {
   return view('test.page2', [
     'antrians' => $antrians
   ]);
+});
+
+Route::get('/update', function() {
+  $antrian = DB::table('antrians')
+    ->where('tanggal_pendaftaran', now('Asia/Jakarta')->format('Y-m-d'))
+    ->whereNot('terpanggil', 'belum')
+    ->select('*')->get();
+
+  return $antrian;
 });

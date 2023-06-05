@@ -62,3 +62,6 @@ node server.cjs
 - [x] tampilkan jumlah antrian disebelah tombol daftar
 - [ ] Akun operator ada 5
 - [ ] Print Otomatis
+- [ ] Regenerate ulang card antrian display setelah pendaftaran berhasil  
+- [x] Optimasi Daftar Antrian  
+- [ ] Intro dan Outro antrian audio  
