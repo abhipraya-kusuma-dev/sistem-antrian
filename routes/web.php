@@ -35,6 +35,8 @@ Route::controller(AntrianController::class)->group(function () {
 
   Route::post('/antrian/daftar/proses', 'buatAntrianBaru');
   Route::get('/antrian/terbaru', 'getNewestAntrianData')->name('new_antrian');
+
+  Route::get('/antrian/daftar/berhasil/{antrian:id}', 'daftarAntrianBerhasil');
 });
 
 Route::controller(OperatorController::class)->group(function () {

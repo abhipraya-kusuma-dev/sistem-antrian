@@ -8,8 +8,8 @@
       Jl. Bandengan utara 80, <br> Penjaringan,
       Jakarta Utara, 14440</p>
     <div class="border-t-[5px] border-b-[5px] mt-2 border-black border-double border-spacing-10 w-full p-4">
-      <h1 class="font-bold text-5xl">K0100</h1>
-      <P class="text-3xl font-bold">LOKET <br> SD</P>
+      <h1 class="font-bold text-5xl">{{ $antrian->nomor_antrian }}</h1>
+      <P class="text-3xl font-bold">LOKET <br> {{ strtoupper($antrian->jenjang) }}</P>
     </div>
     <p class="mt-2 text-xs">Sabtu, 20 juni 2023 / 10:30</p>
   </div>

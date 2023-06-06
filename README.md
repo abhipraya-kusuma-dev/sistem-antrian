@@ -65,3 +65,5 @@ node server.cjs
 - [x] Regenerate ulang card antrian display setelah pendaftaran berhasil  
 - [x] Optimasi Daftar Antrian  
 - [ ] Intro dan Outro antrian audio  
+- [ ] Antrian berhasil date  
+- [ ] Antrian Berhasil kembali ke menu awal setelah beberapa detik  

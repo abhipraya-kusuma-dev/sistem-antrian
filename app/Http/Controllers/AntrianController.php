@@ -100,6 +100,16 @@ class AntrianController extends Controller
 
     if (!$isAntrianCreated) return redirect('/antrian/daftar')->with('create-error', 'Gagal membuat antrian baru');
 
-    return redirect('/antrian/daftar')->with('create-success', 'Berhasil membuat antrian baru');
+    return redirect("/antrian/daftar/berhasil/$isAntrianCreated->id");
+  }
+
+  public function daftarAntrianBerhasil(Antrian $antrian)
+  {
+    $antrian->nomor_antrian = AntrianHelper::generateNomorAntrian($antrian->kode_antrian, $antrian->nomor_antrian);
+    $antrian->jenjang = $antrian->jenjang ?? 'Bendahara';
+
+    return view('antrian.berhasil', [
+      'antrian' => $antrian
+    ]);
   }
 }
