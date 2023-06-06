@@ -7,7 +7,6 @@
   <p>{{ session('antrian-mentok') }}</p>
   @endif
 
-
   <h1 class="text-lg font-bold">Panggil Peserta</h1>
   <div class="my-2">
     <p>Nomor Antrian <b>{{ $antrian->nomor_antrian}}</b></p>
@@ -56,11 +55,6 @@
     <input type="hidden" name="antrian_jenjang" value="{{ $antrian->jenjang }}" />
     <button type="submit" id="terpanggil-btn" onclick="return confirm('Yakin? gk bisa di un-panggil lho ini')" class="disabled:text-black/60 text-green-600 font-bold">Antrian Sudah Terpanggil</button>
   </form>
-  @endif
-
-
-
-
 
   <form action="/operator/antrian/lanjut/bendahara" method="post">
     @csrf
@@ -68,6 +62,7 @@
     <input type="hidden" name="antrian_jenjang" value="{{ $antrian->jenjang }}" />
     <button type="submit" id="lanjut-bendahara-btn" class="disabled:text-black/60 text-blue-600 font-bold">Lanjut Ke Bendahara</button>
   </form>
+  @endif
 
   <a href="/operator/antrian/jenjang/{{ $antrian->jenjang }}/belum" class="text-blue-600 hover:underline">Kembali Ke Menu Tadi</a>
 </div>

@@ -35,39 +35,5 @@ class DatabaseSeeder extends Seeder
       'role' => 'operator',
       'password' => bcrypt('hehe1234##')
     ]);
-
-    // Antrian::create([
-    //   'nomor_antrian' => 1,
-    //   'tanggal_pendaftaran' => now('Asia/Jakarta')->format('Y-m-d'),
-    //   'jenjang' => 'smk',
-    //   'kode_antrian' => 'K',
-    // ]);
-    //
-    // Antrian::create([
-    //   'nomor_antrian' => 2,
-    //   'tanggal_pendaftaran' => now('Asia/Jakarta')->format('Y-m-d'),
-    //   'jenjang' => 'smk',
-    //   'kode_antrian' => 'K',
-    // ]);
-    //
-    // Antrian::create([
-    //   'nomor_antrian' => 3,
-    //   'tanggal_pendaftaran' => now('Asia/Jakarta')->format('Y-m-d'),
-    //   'jenjang' => 'smk',
-    //   'kode_antrian' => 'K',
-    // ]);
-    //
-    // Antrian::create([
-    //   'nomor_antrian' => 1,
-    //   'tanggal_pendaftaran' => now('Asia/Jakarta')->format('Y-m-d'),
-    //   'jenjang' => 'smp',
-    //   'kode_antrian' => 'P',
-    // ]);
-    //
-    // Antrian::create([
-    //   'nomor_antrian' => 1,
-    //   'tanggal_pendaftaran' => now('Asia/Jakarta')->format('Y-m-d'),
-    //   'kode_antrian' => 'B',
-    // ]);
   }
 }

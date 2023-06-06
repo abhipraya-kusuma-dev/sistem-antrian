@@ -15,7 +15,11 @@
   </div>
 </div>
 
+<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 <script>
   window.print();
+
+  const socket = io(`{{ env('SOCKET_IO_SERVER') }}`)
+  socket.emit('skip antrian', 'skip')
 </script>
 @endsection

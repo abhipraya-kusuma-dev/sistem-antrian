@@ -34,7 +34,6 @@
   </main>
 
 </div>
-<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 <script>
   const daftarContainer = document.getElementById('daftar-container')
   if (daftarContainer.firstElementChild.id === 'message') {
@@ -43,11 +42,4 @@
     }, 3000)
   }
 </script>
-
-@if(session('create-success'))
-<script>
-  const socket = io(`{{ env('SOCKET_IO_SERVER') }}`)
-  socket.emit('skip antrian', 'skip')
-</script>
-@endif
 @endsection
