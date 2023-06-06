@@ -25,20 +25,20 @@
   <form action="/bendahara/antrian/lanjut/" method="post">
     @csrf
     <input type="hidden" name="antrian_id" value="{{ $antrian->id }}" />
-    <button type="submit" id="lanjut-btn" class="text-green-600 font-bold">Antrian Selanjutnya</button>
+    <button type="submit" id="lanjut-btn" class="disabled:text-black/60 text-green-600 font-bold">Antrian Selanjutnya</button>
   </form>
 
   <form action="/bendahara/antrian/lewati/" method="post">
     @csrf
     <input type="hidden" name="antrian_id" value="{{ $antrian->id }}" />
-    <button type="submit" id="lewati-btn" class="text-green-600 font-bold">Lewati Antrian</button>
+    <button type="submit" id="lewati-btn" class="disabled:text-black/60 text-green-600 font-bold">Lewati Antrian</button>
   </form>
 
   <form action="/bendahara/antrian/terpanggil" method="post">
     @method('PUT')
     @csrf
     <input type="hidden" name="antrian_id" value="{{ $antrian->id }}" />
-    <button type="submit" id="terpanggil-btn" onclick="return confirm('Yakin? gk bisa di un-panggil lho ini')" class="text-green-600 font-bold">Antrian Sudah Terpanggil</button>
+    <button type="submit" id="terpanggil-btn" onclick="return confirm('Yakin? gk bisa di un-panggil lho ini')" class="disabled:text-black/60 text-green-600 font-bold">Antrian Sudah Terpanggil</button>
   </form>
 
 </div>
@@ -70,10 +70,16 @@
 
   socket.on('change antrian display loading', (antrian) => {
     panggilBtn.setAttribute('disabled', 'true')
+    lanjutBtn.setAttribute('disabled', 'true')
+    lewatiBtn.setAttribute('disabled', 'true')
+    terpanggilBtn.setAttribute('disabled', 'true')
   })
 
   socket.on('change antrian display complete', (antrian) => {
     panggilBtn.removeAttribute('disabled')
+    lanjutBtn.removeAttribute('disabled')
+    lewatiBtn.removeAttribute('disabled')
+    terpanggilBtn.removeAttribute('disabled')
   })
 </script>
 @endsection

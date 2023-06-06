@@ -21,5 +21,9 @@
 
   const socket = io(`{{ env('SOCKET_IO_SERVER') }}`)
   socket.emit('skip antrian', 'skip')
+
+  setTimeout(() => {
+    window.location.href = `{{ url('/antrian/daftar') }}`
+  }, 5000)
 </script>
 @endsection
