@@ -11,12 +11,24 @@
       <h1 class="font-bold text-5xl">{{ $antrian->nomor_antrian }}</h1>
       <P class="text-3xl font-bold">LOKET <br> {{ strtoupper($antrian->jenjang) }}</P>
     </div>
-    <p class="mt-2 text-xs">Sabtu, 20 juni 2023 / 10:30</p>
+    <p id="calender" class="mt-2 text-xs">Sabtu, 20 juni 2023 / 10:30</p>
   </div>
 </div>
 
 <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+<script src="{{ asset('moment.js') }}"></script>
 <script>
+  const calender = document.getElementById('calender')
+
+  function generateKalender(kalender) {
+    const splitedKalender = kalender.split(' ');
+    splitedKalender.splice(4, splitedKalender.length - 1);
+    return splitedKalender.join(' ');
+  }
+
+  moment.locale('id');
+  calender.textContent = generateKalender(moment().format('LLLL'));
+
   window.print();
 
   const socket = io(`{{ env('SOCKET_IO_SERVER') }}`)
