@@ -67,7 +67,7 @@ Route::controller(BendaharaController::class)->group(function () {
 
 Route::controller(SeragamController::class)->group(function() {
   Route::get('/seragam/konfirmasi', 'konfirmasiPendaftaran');
-  Route::get('/seragam/daftar/berhasil/', 'daftarAntrianBerhasil');
+  Route::get('/seragam/daftar/berhasil/{antrian:id}', 'daftarAntrianBerhasil');
 
   Route::post('/seragam/daftar/proses', 'buatAntrianBaru');
 });
