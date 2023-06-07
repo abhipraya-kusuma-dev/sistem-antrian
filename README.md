@@ -67,3 +67,5 @@ node server.cjs
 - [ ] Intro dan Outro antrian audio  
 - [x] Antrian berhasil date  
 - [x] Antrian Berhasil kembali ke menu awal setelah beberapa detik  
+- [ ] Antrian Seragam Display  
+- [ ] Antrian Seragam List  
