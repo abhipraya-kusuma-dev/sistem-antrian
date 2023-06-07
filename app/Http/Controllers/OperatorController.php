@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helper\AntrianHelper;
+use App\Helper\TextToSpeechHelper;
 use App\Models\Antrian;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -113,6 +114,7 @@ class OperatorController extends Controller
       'kode_antrian' => 'B',
       'nomor_antrian' => $nomorAntrianSaatIni + 1,
       'tanggal_pendaftaran' => Carbon::now('Asia/Jakarta')->format('Y-m-d'),
+      'audio_path' => TextToSpeechHelper::getAudioPath($nomorAntrianSaatIni + 1, NULL, $request),
       'jenjang' => NULL
     ]);
 

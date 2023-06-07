@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use App\Helper\AntrianHelper;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cookie;
 
 class TextToSpeechHelper
 {
@@ -40,25 +39,22 @@ class TextToSpeechHelper
 
 
     $data = $response->json();
+
     if (!$data['converted']) {
       return self::getDownloadUrl($transcriptionId);
     }
 
     if (!empty($data['audioUrl'])) {
-      Cookie::forget('transcriptionId');
       return $data['audioUrl'];
     }
 
-    Cookie::make('transcriptionId', $transcriptionId, 2, httpOnly: true, secure: true);
-    return '';
+    return self::getDownloadUrl($transcriptionId);
   }
 
   private static function transformTextToSpeech(string $text, Request $request)
   {
     $transcriptionId = $request->cookie('transcriptionId') ?? self::getTranscriptionID($text);
     $audioUrl = self::getDownloadUrl($transcriptionId);
-
-    if (empty($audioUrl)) return NULL;
 
     $fileName = Str::random() . '.mp3';
     $pathToFile = storage_path('app/public/audio/' . $fileName);
