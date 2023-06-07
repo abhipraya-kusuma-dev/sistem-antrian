@@ -9,4 +9,5 @@ enum KodeAntrianEnum: string
   case A = 'A';
   case K = 'K';
   case B = 'B';
+  case M = 'M';
 }

@@ -78,6 +78,8 @@ class TextToSpeechHelper
       ->first('audio_path');
 
     $loket = is_null($jenjang) ? 'Bendahara' : strtoupper($jenjang);
+    $loket = $jenjang === 'seragam' ? 'Seragam' : $loket;
+
     $audio_path = $antrian->audio_path ?? self::transformTextToSpeech('Antrian nomor ' . $kode_nomor_antrian . ' menuju loket ' . $loket, $request);
 
     return $audio_path;

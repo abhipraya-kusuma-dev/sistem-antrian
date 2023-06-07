@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BendaharaController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\OperatorController;
+use App\Http\Controllers\SeragamController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Antrian;
 use Illuminate\Support\Facades\DB;
@@ -64,6 +65,13 @@ Route::controller(BendaharaController::class)->group(function () {
   Route::post('/bendahara/antrian/lewati/', 'lewatiAntrian');
 });
 
+Route::controller(SeragamController::class)->group(function() {
+  Route::get('/seragam/konfirmasi', 'konfirmasiPendaftaran');
+  Route::get('/seragam/daftar/berhasil/', 'daftarAntrianBerhasil');
+
+  Route::post('/seragam/daftar/proses', 'buatAntrianBaru');
+});
+
 Route::controller(LaporanController::class)->group(function () {
   Route::get('/laporan', 'laporan');
 });
@@ -72,21 +80,6 @@ Route::controller(AuthController::class)->group(function () {
   Route::get('/login', 'login')->name('login');
   Route::post('/login', 'authenticate');
   Route::post('/logout', 'logout');
-});
-
-Route::get('/page1', function () {
-  return view('test.page1');
-});
-
-Route::get('/page2', function () {
-  $antrians = Antrian::all();
-  for ($i = 0; $i < count($antrians); $i++) {
-    $antrians[$i]->nomor_antrian = AntrianHelper::generateNomorAntrian($antrians[$i]->jenjang, $antrians[$i]->nomor_antrian);
-  }
-
-  return view('test.page2', [
-    'antrians' => $antrians
-  ]);
 });
 
 Route::get('/update', function() {

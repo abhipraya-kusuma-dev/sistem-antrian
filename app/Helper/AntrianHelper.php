@@ -11,6 +11,7 @@ class AntrianHelper
   public static function getKodeAntrian(string|null $jenjang): string
   {
     if (is_null($jenjang)) return 'B';
+    if($jenjang === 'seragam') return 'M';
 
     return strtoupper(substr($jenjang, -1));
   }
