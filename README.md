@@ -54,7 +54,7 @@ node server.cjs
 - [x] Kelola Antrian Bendahara (admin/op)
 - [x] Display Antrian
 - [x] Laporan per hari
-- [ ] Export ke excel dan pdf
+- [ ] Export ke excel dan pdf per minggu  
 - [x] Pisah menu berdasarkan kategori "terpanggil" (kelola antrian)
 - [x] Real time card antrian
 - [x] Suara pada display antrean
@@ -67,5 +67,6 @@ node server.cjs
 - [ ] Intro dan Outro antrian audio  
 - [x] Antrian berhasil date  
 - [x] Antrian Berhasil kembali ke menu awal setelah beberapa detik  
-- [ ] Antrian Seragam Display  
+- [ ] Antrian Seragam Display manual (tanpa print)  
 - [ ] Antrian Seragam List  
+- [ ] Antrian Bendahara ada kutipan kecil dari antrian operator sebelumnya  

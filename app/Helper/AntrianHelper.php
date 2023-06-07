@@ -6,12 +6,14 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 
+use function PHPUnit\Framework\isNull;
+
 class AntrianHelper
 {
   public static function getKodeAntrian(string|null $jenjang): string
   {
     if (is_null($jenjang)) return 'B';
-    if($jenjang === 'seragam') return 'M';
+    if ($jenjang === 'seragam') return 'M';
 
     return strtoupper(substr($jenjang, -1));
   }
@@ -37,11 +39,17 @@ class AntrianHelper
       'sma' => [],
       'smk' => [],
       'bendahara' => [],
+      'seragam' => []
     ];
 
     for ($i = 0; $i < $antrian->count(); $i++) {
       if (is_null($antrian[$i]->jenjang) && $antrian[$i]->kode_antrian === 'B') {
         $arr['bendahara'][] = $antrian[$i];
+        continue;
+      }
+
+      if (is_null($antrian[$i]->jenjang) && $antrian[$i]->kode_antrian === 'M') {
+        $arr['seragam'][] = $antrian[$i];
         continue;
       }
 

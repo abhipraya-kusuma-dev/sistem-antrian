@@ -24,6 +24,7 @@
       <div class="flex mt-10">
         <form action="/laporan/excel" method="post">
           @csrf
+          <input type="date" name="tanggal_pendaftaran" value="{{ $tanggal_pendaftaran }}" class="outline-none border-2 border-black p-2" />
           <button type="submit" class="py-2 px-4 bg-green-600 hover:bg-green-700 text-white">Export Ke Excel</button>
         </form>
         <form action="/laporan/pdf" method="post">
@@ -45,17 +46,19 @@
         'SMP',
         'SMA',
         'SMK',
-        'BENDAHARA'
+        'BENDAHARA',
+        'SERAGAM',
       ],
       datasets: [{
         label: 'Jumlah Antrian',
-        data: [data.sd, data.smp, data.sma, data.smk, data.bendahara],
+        data: [data.sd, data.smp, data.sma, data.smk, data.bendahara, data.seragam],
         backgroundColor: [
           'rgb(255, 99, 132)',
           'rgb(54, 162, 235)',
           'rgb(255, 205, 86)',
           'rgb(200, 162, 235)',
           'rgb(210, 123, 65)',
+          'rgb(219, 73, 5)',
         ],
         hoverOffset: 4
       }],

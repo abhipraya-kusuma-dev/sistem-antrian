@@ -74,6 +74,7 @@ Route::controller(SeragamController::class)->group(function() {
 
 Route::controller(LaporanController::class)->group(function () {
   Route::get('/laporan', 'laporan');
+  Route::post('/laporan/excel', 'saveToExcel');
 });
 
 Route::controller(AuthController::class)->group(function () {
