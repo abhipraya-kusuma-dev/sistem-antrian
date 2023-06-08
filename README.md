@@ -72,3 +72,4 @@ node server.cjs
 - [ ] Antrian Bendahara ada kutipan kecil dari antrian operator sebelumnya  
 - [ ] Bug seragam di display /antrian  
 - [ ] Daftar Antrian Card UI  
+- [ ] Daftar Antrian Real time (jumlah antre)  
