@@ -61,6 +61,7 @@ Route::controller(BendaharaController::class)->group(function () {
   Route::put('/bendahara/antrian/terpanggil', 'nomorAntrianTerpanggil');
 
   Route::post('/bendahara/antrian/lanjut/', 'lanjutAntrian');
+  Route::post('/bendahara/antrian/lanjut/seragam', 'lanjutKeSeragam');
   Route::post('/bendahara/daftar/proses', 'buatAntrianBaru');
   Route::post('/bendahara/antrian/lewati/', 'lewatiAntrian');
 });

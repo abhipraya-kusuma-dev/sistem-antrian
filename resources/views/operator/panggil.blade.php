@@ -59,6 +59,7 @@
   <form action="/operator/antrian/lanjut/bendahara" method="post">
     @csrf
     <input type="hidden" name="antrian_id" value="{{ $antrian->id }}" />
+    <input type="hidden" name="nomor_antrian" value="{{ $antrian->nomor_antrian }}" />
     <input type="hidden" name="antrian_jenjang" value="{{ $antrian->jenjang }}" />
     <button type="submit" id="lanjut-bendahara-btn" class="disabled:text-black/60 text-blue-600 font-bold">Lanjut Ke Bendahara</button>
   </form>

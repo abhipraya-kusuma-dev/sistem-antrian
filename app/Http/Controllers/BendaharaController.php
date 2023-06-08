@@ -63,7 +63,7 @@ class BendaharaController extends Controller
     $data['jenjang'] = NULL;
     $data['audio_path'] = TextToSpeechHelper::getAudioPath($data['nomor_antrian'], $data['jenjang'], $request);
 
-    if(is_null($data['audio_path'])) return redirect('/antrian/daftar')->with('create-error', 'Gagal membuat antrian baru');
+    if (is_null($data['audio_path'])) return redirect('/antrian/daftar')->with('create-error', 'Gagal membuat antrian baru');
 
     $isAntrianCreated = Antrian::create([
       'nomor_antrian' => $data['nomor_antrian'],
@@ -121,5 +121,36 @@ class BendaharaController extends Controller
 
     if (!$isAntrianUpdated) return back()->with('update-error', 'Gagal melewati antrian');
     return $this->lanjutAntrian($request);
+  }
+
+  public function lanjutKeSeragam(Request $request)
+  {
+    $data = $request->validate([
+      'antrian_jenjang' => 'required', // e.g K001
+      'antrian_id' => 'required'
+    ]);
+
+    $antrianSaatIni = DB::table('antrians')
+      ->where('kode_antrian', 'M')
+      ->latest()->first('nomor_antrian');
+
+    $nomorAntrianSaatIni = $antrianSaatIni->nomor_antrian ?? 0;
+    $updateAntrianSaatIni = DB::table('antrians')->where('id', $data['antrian_id'])->update([
+      'terpanggil' => 'sudah'
+    ]);
+
+    if(!$updateAntrianSaatIni) return redirect('/bendahara/antrian/belum')->with('create-error', 'Gagal melakukan pemindahan antrian ke seragam');
+
+    $isAntrianCreated = Antrian::create([
+      'nomor_antrian' => $nomorAntrianSaatIni + 1,
+      'kode_antrian' => 'M',
+      'antrian_jenjang' => $data['antrian_jenjang'],
+      'audio_path' => TextToSpeechHelper::getAudioPath($nomorAntrianSaatIni + 1, 'seragam', $request),
+      'tanggal_pendaftaran' => now('Asia/Jakarta')->format('Y-m-d')
+    ]);
+
+    if (!$isAntrianCreated) return redirect('/bendahara/antrian/belum')->with('create-error', 'Gagal melakukan pemindahan antrian ke seragam');
+
+    return redirect('/bendahara/antrian/belum')->with('create-success', 'Antrian dilanjut ke Seragam dengan nomor ' . $nomorAntrianSaatIni + 1);
   }
 }

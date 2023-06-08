@@ -14,6 +14,7 @@ return new class extends Migration
     Schema::create('antrians', function (Blueprint $table) {
       $table->uuid('id');
       $table->integer('nomor_antrian');
+      $table->string('antrian_jenjang')->nullable();
       $table->date('tanggal_pendaftaran')->default(now('Asia/Jakarta')->format('Y-m-d'));
       $table->enum('jenjang', ['sd', 'smp', 'sma', 'smk'])->nullable();
       $table->enum('kode_antrian', ['D', 'P', 'A', 'K', 'B', 'M']);

@@ -224,6 +224,8 @@
     const keys = Object.keys(res)
     const warna = {{ Js::from($warna) }};
 
+    keys.pop()
+
     keys.forEach((key, idx) => {
       cardContainer.innerHTML += `
         <div style="background-color: ${warna[idx]};" class=" rounded-md text-center  space-y-8 py-4 text-white">

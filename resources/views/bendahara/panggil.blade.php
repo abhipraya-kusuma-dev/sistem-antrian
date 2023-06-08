@@ -20,7 +20,6 @@
   <button class="disabled:text-black/60" type="button" id="panggil-btn" disabled>Panggil</button>
   @else
   <button type="button" id="panggil-btn" class="disabled:text-black/60 text-red-600 font-bold">Panggil</button>
-  @endif
 
   <form action="/bendahara/antrian/lanjut/" method="post">
     @csrf
@@ -40,6 +39,14 @@
     <input type="hidden" name="antrian_id" value="{{ $antrian->id }}" />
     <button type="submit" id="terpanggil-btn" onclick="return confirm('Yakin? gk bisa di un-panggil lho ini')" class="disabled:text-black/60 text-green-600 font-bold">Antrian Sudah Terpanggil</button>
   </form>
+
+  <form action="/bendahara/antrian/lanjut/seragam" method="post">
+    @csrf
+    <input type="hidden" name="antrian_id" value="{{ $antrian->id }}" />
+    <input type="hidden" name="antrian_jenjang" value="{{ $antrian->antrian_jenjang }}" />
+    <button type="submit" id="lanjut-bendahara-btn" class="disabled:text-black/60 text-blue-600 font-bold">Lanjut Ke Seragam</button>
+  </form>
+  @endif
 
 </div>
 
