@@ -31,8 +31,8 @@
     @if(count($semua_antrian))
 
     @foreach($semua_antrian as $antrian)
-    <li class="border-2 border-black text-center">
-      <a href="/operator/antrian/panggil/{{ $antrian->id }}">
+    <li class="w-full">
+      <a class="border-2 border-black inline-block text-center w-full" href="/operator/antrian/panggil/{{ $antrian->id }}">
         <b>{{ $antrian->nomor_antrian }}</b>
       </a>
     </li>

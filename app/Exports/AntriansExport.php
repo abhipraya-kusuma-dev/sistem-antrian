@@ -36,17 +36,6 @@ class AntriansExport implements FromArray, WithHeadings, WithStyles, WithColumnW
   }
   public function styles(Worksheet $sheet)
   {
-    $styleArray = [
-      'borders' => [
-        'outline' => [
-          'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
-          'color' => ['argb' => 'FFFF0000'],
-        ],
-      ],
-    ];
-
-    $sheet->getStyle('A')->applyFromArray($styleArray);
-
     return [
       1 => [
         'font' => [
