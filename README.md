@@ -73,5 +73,4 @@ node server.cjs
 - [ ] Bug seragam di display /antrian  
 - [ ] Daftar Antrian Card UI  
 - [ ] Daftar Antrian Real time (jumlah antre)  
-- [ ] Laporan per minggu  
 - [ ] Warna kolom di excel nya mengikuti warna di laporan  
