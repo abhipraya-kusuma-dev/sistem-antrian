@@ -67,11 +67,12 @@ node server.cjs
 - [ ] Intro dan Outro antrian audio  
 - [x] Antrian berhasil date  
 - [x] Antrian Berhasil kembali ke menu awal setelah beberapa detik  
-- [ ] Antrian Seragam Display manual (tanpa print)  
+- [x] Antrian Seragam daftar dari bendahara (tanpa print)  
+- [ ] Antrian Seragam display  
 - [ ] Antrian Seragam List  
 - [x] Antrian Bendahara ada kutipan kecil dari antrian operator sebelumnya  
 - [x] Antrian Bendahara terkoneksi dengan antrian sebelumnya  
-- [ ] Bug seragam di display /antrian  
-- [ ] Daftar Antrian Card UI  
-- [ ] Daftar Antrian Real time (jumlah antre)  
+- [x] Bug seragam di display /antrian  
+- [ ] Daftar Antrian Card UI dibikin kotak kotak  
+- [ ] Jumlah antre filter yang belum nya aja  
 - [ ] Warna kolom di excel nya mengikuti warna di laporan  
