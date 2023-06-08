@@ -35,6 +35,7 @@
         </div>
         <div id="current-antrian-loket" class="bg-blue-400 p-2 rounded-md">
           <p id="loket_antrian" class="text-5xl uppercase font-semibold text-stroke-2 text-stroke-black">Loket</p>
+          <p id="antrian_jenjang" class="text-5xl uppercase font-semibold text-stroke-2 text-stroke-black hidden">()</p>
         </div>
       </div>
     </div>
@@ -138,6 +139,7 @@
 
   const nomorAntrian = document.getElementById('nomor_antrian')
   const loketAntrian = document.getElementById('loket_antrian')
+  const antrianJenjang = document.getElementById('antrian_jenjang')
   const audio = document.getElementById('audio')
 
   const currentAntrianTitle = document.getElementById('current-antrian-title')
@@ -164,6 +166,12 @@
 
     nomorAntrian.textContent = antrian.nomor_antrian
     loketAntrian.textContent = 'Loket ' + loket.toUpperCase()
+
+    if(antrian.antrian_jenjang) {
+      antrianJenjang.classList.remove('hidden')
+      antrianJenjang.textContent = '(' + antrian.antrian_jenjang + ')'
+    }
+
     audio.src = antrian.audio_path
   }
 

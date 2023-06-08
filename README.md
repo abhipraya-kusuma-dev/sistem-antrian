@@ -69,7 +69,8 @@ node server.cjs
 - [x] Antrian Berhasil kembali ke menu awal setelah beberapa detik  
 - [ ] Antrian Seragam Display manual (tanpa print)  
 - [ ] Antrian Seragam List  
-- [ ] Antrian Bendahara ada kutipan kecil dari antrian operator sebelumnya  
+- [x] Antrian Bendahara ada kutipan kecil dari antrian operator sebelumnya  
+- [x] Antrian Bendahara terkoneksi dengan antrian sebelumnya  
 - [ ] Bug seragam di display /antrian  
 - [ ] Daftar Antrian Card UI  
 - [ ] Daftar Antrian Real time (jumlah antre)  
