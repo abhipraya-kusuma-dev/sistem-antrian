@@ -70,3 +70,5 @@ node server.cjs
 - [ ] Antrian Seragam Display manual (tanpa print)  
 - [ ] Antrian Seragam List  
 - [ ] Antrian Bendahara ada kutipan kecil dari antrian operator sebelumnya  
+- [ ] Bug seragam di display /antrian  
+- [ ] Daftar Antrian Card UI  
