@@ -70,11 +70,11 @@ node server.cjs
 - [x] Antrian Bendahara terkoneksi dengan antrian sebelumnya  
 - [x] Bug seragam di display /antrian  
 - [x] Jumlah antre filter yang belum nya aja  
+- [x] Antrian Seragam display and list SocketIO  
 - [ ] Warna kolom di excel nya mengikuti warna di laporan  
 - [ ] Export ke excel dan pdf per minggu  
 - [ ] Akun operator ada 5
 - [ ] Print Otomatis
 - [ ] Antrian Seragam display UI  
-- [ ] Antrian Seragam display and list SocketIO  
 - [ ] Antrian Seragam List UI  
 - [ ] Daftar Antrian Card UI dibikin kotak kotak  

@@ -16,16 +16,32 @@ io.on('connection', (socket) => {
   socket.on('change antrian display', (antrian) => {
     io.emit('change antrian display', antrian)
   })
+  socket.on('change antrian seragam display', (antrian) => {
+    io.emit('change antrian seragam display', antrian)
+  })
+
   socket.on('skip antrian', (skip) => {
     io.emit('skip antrian', skip)
   })
+
   socket.on('change antrian display loading', (antrian) => {
     io.emit('change antrian display loading', antrian)
   })
   socket.on('change antrian display complete', (antrian) => {
     io.emit('change antrian display complete', antrian)
   })
+
+  socket.on('change antrian seragam display loading', (antrian) => {
+    io.emit('change antrian seragam display loading', antrian)
+  })
+  socket.on('change antrian seragam display complete', (antrian) => {
+    io.emit('change antrian seragam display complete', antrian)
+  })
+
   socket.on('play current antrian audio', (audioPath) => {
     io.emit('play current antrian audio', audioPath)
+  })
+  socket.on('play current antrian seragam audio', (audioPath) => {
+    io.emit('play current antrian seragam audio', audioPath)
   })
 })

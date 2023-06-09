@@ -50,9 +50,51 @@ class SeragamController extends Controller
     ]);
   }
 
+  public function lanjutAntrian(Request $request)
+  {
+    $antrianSaatIni = DB::table('antrians')
+      ->where('id', $request['antrian_id'])
+      ->select('nomor_antrian', 'tanggal_pendaftaran', 'kode_antrian')
+      ->first();
+
+    $antrianSelanjutnya = DB::table('antrians')
+      ->where('tanggal_pendaftaran', $antrianSaatIni->tanggal_pendaftaran)
+      ->where('nomor_antrian', $antrianSaatIni->nomor_antrian + 1)
+      ->where('kode_antrian', $antrianSaatIni->kode_antrian)
+      ->select('*')
+      ->first();
+
+    if (is_null($antrianSelanjutnya)) return back()->with('antrian-mentok', 'Antrian sudah mentok');
+
+    return redirect('/seragam/antrian/panggil/' . $antrianSelanjutnya->id);
+  }
+
+  public function lewatiAntrian(Request $request)
+  {
+    $isAntrianUpdated = Antrian::where('id', $request['antrian_id'])->update([
+      'terpanggil' => 'lewati'
+    ]);
+
+    if (!$isAntrianUpdated) return back()->with('update-error', 'Gagal melewati antrian');
+
+    return $this->lanjutAntrian($request);
+  }
+
+  public function nomorAntrianTerpanggil(Request $request)
+  {
+    $isAntrianUpdated = Antrian::where('id', $request['antrian_id'])->update([
+      'terpanggil' => 'sudah'
+    ]);
+
+    if (!$isAntrianUpdated) return redirect('/seragam/antrian/belum')->with('update-error', 'Gagal melakukan yg tadi');
+
+    return redirect('/seragam/antrian/belum')->with('update-error', "Berhasil melakukan yg tadi");
+  }
+
   public function panggilNomorAntrian(Antrian $antrian)
   {
     $antrian->nomor_antrian = AntrianHelper::generateNomorAntrian($antrian->kode_antrian, $antrian->nomor_antrian);
+    $antrian->audio_path = asset($antrian->audio_path);
 
     return view('seragam.panggil', [
       'antrian' => $antrian

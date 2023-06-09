@@ -35,7 +35,7 @@
   </form>
   @else
   <button type="button" id="panggil-btn" class="disabled:text-black/60 text-red-600 font-bold">Panggil</button>
-  <form action="/operator/antrian/lanjut/" class="block" method="post">
+  <form action="/seragam/antrian/lanjut/" class="block" method="post">
     @csrf
     <input type="hidden" name="antrian_id" value="{{$antrian->id }}" />
     <button type="submit" id="lanjut-btn" class="disabled:text-black/60 text-green-600 font-bold">Antrian Selanjutnya</button>
@@ -54,7 +54,7 @@
   </form>
   @endif
 
-  <a href="/operator/antrian/jenjang/{{ $antrian->jenjang }}/belum" class="text-blue-600 hover:underline">Kembali Ke Menu Tadi</a>
+  <a href="/seragam/antrian/belum" class="text-blue-600 hover:underline">Kembali Ke Menu Tadi</a>
 </div>
 
 <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
@@ -77,10 +77,6 @@
   })
 
   terpanggilBtn.addEventListener('click', () => {
-    socket.emit('skip antrian', 'skip')
-  })
-
-  lanjutBendaharaBtn.addEventListener('click', () => {
     socket.emit('skip antrian', 'skip')
   })
 

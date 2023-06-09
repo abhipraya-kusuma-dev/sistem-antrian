@@ -1,6 +1,5 @@
 <?php
 
-use App\Helper\AntrianHelper;
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BendaharaController;
@@ -74,6 +73,9 @@ Route::controller(SeragamController::class)->group(function() {
   Route::get('/seragam/daftar/berhasil/{antrian:id}', 'daftarAntrianBerhasil');
 
   Route::post('/seragam/daftar/proses', 'buatAntrianBaru');
+  Route::post('/seragam/antrian/lanjut/', 'lanjutAntrian');
+  Route::post('/seragam/antrian/lewati/', 'lewatiAntrian');
+  Route::post('/seragam/antrian/terpanggil', 'nomorAntrianTerpanggil');
 });
 
 Route::controller(LaporanController::class)->group(function () {
