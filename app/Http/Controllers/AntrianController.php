@@ -48,6 +48,7 @@ class AntrianController extends Controller
 
     $antrian = DB::table('antrians')
       ->where('tanggal_pendaftaran', now('Asia/Jakarta')->format('Y-m-d'))
+      ->where('terpanggil', 'belum')
       ->select('*')
       ->get();
 

@@ -54,28 +54,27 @@ node server.cjs
 - [x] Kelola Antrian Bendahara (admin/op)
 - [x] Display Antrian
 - [x] Laporan per hari
-- [ ] Export ke excel dan pdf per minggu  
 - [x] Pisah menu berdasarkan kategori "terpanggil" (kelola antrian)
 - [x] Real time card antrian
 - [x] Suara pada display antrean
 - [x] Warna card antrian saat ini
 - [x] tampilkan jumlah antrian disebelah tombol daftar
-- [ ] Akun operator ada 5
-- [ ] Print Otomatis
 - [x] Regenerate ulang card antrian display setelah pendaftaran berhasil  
 - [x] Optimasi Daftar Antrian  
-- [ ] Intro dan Outro antrian audio  
 - [x] Antrian berhasil date  
 - [x] Antrian Berhasil kembali ke menu awal setelah beberapa detik  
 - [x] Antrian Seragam daftar dari bendahara (tanpa print)  
 - [x] Antrian Seragam display  
-- [ ] Antrian Seragam display UI  
-- [ ] Antrian Seragam display and list SocketIO  
 - [x] Antrian Seragam List  
-- [ ] Antrian Seragam List UI  
 - [x] Antrian Bendahara ada kutipan kecil dari antrian operator sebelumnya  
 - [x] Antrian Bendahara terkoneksi dengan antrian sebelumnya  
 - [x] Bug seragam di display /antrian  
-- [ ] Daftar Antrian Card UI dibikin kotak kotak  
-- [ ] Jumlah antre filter yang belum nya aja  
+- [x] Jumlah antre filter yang belum nya aja  
 - [ ] Warna kolom di excel nya mengikuti warna di laporan  
+- [ ] Export ke excel dan pdf per minggu  
+- [ ] Akun operator ada 5
+- [ ] Print Otomatis
+- [ ] Antrian Seragam display UI  
+- [ ] Antrian Seragam display and list SocketIO  
+- [ ] Antrian Seragam List UI  
+- [ ] Daftar Antrian Card UI dibikin kotak kotak  
