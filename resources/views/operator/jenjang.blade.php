@@ -43,5 +43,10 @@
     @endif
   </ul>
 
+  <div class="mt-2">
+    {{ $semua_antrian->appends($_GET)->onEachSide(2)->links() }}
+  </div>
+
 </div>
+
 @endsection

@@ -64,7 +64,7 @@ Route::controller(BendaharaController::class)->group(function () {
   Route::post('/bendahara/antrian/lewati/', 'lewatiAntrian');
 });
 
-Route::controller(SeragamController::class)->group(function() {
+Route::controller(SeragamController::class)->group(function () {
   Route::get('/seragam', 'display');
   Route::get('/seragam/antrian/{status}', 'antrianSeragam');
   Route::get('/seragam/antrian/panggil/{antrian:id}', 'panggilNomorAntrian');
@@ -89,11 +89,23 @@ Route::controller(AuthController::class)->group(function () {
   Route::post('/logout', 'logout');
 });
 
-Route::get('/update', function() {
+Route::get('/update', function () {
   $antrian = DB::table('antrians')
     ->where('tanggal_pendaftaran', now('Asia/Jakarta')->format('Y-m-d'))
     ->whereNot('terpanggil', 'belum')
     ->select('*')->get();
 
   return $antrian;
+});
+
+Route::get('/test-paginate', function () {
+
+  $data = DB::table('antrians')
+    ->where('tanggal_pendaftaran', now('Asia/Jakarta')->format('Y-m-d'))
+    ->where('terpanggil', 'sudah')
+    ->select()->paginate(10);
+
+  return view('test.paginate', [
+    'data' => $data
+  ]);
 });
