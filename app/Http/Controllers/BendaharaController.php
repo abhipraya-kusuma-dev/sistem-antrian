@@ -131,6 +131,7 @@ class BendaharaController extends Controller
     ]);
 
     $antrianSaatIni = DB::table('antrians')
+      ->where('tanggal_pendaftaran', now('Asia/Jakarta')->format('Y-m-d'))
       ->where('kode_antrian', 'M')
       ->latest()->first('nomor_antrian');
 

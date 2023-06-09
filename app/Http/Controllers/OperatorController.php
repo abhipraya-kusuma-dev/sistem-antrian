@@ -107,6 +107,7 @@ class OperatorController extends Controller
     $data = $request->only('antrian_id', 'nomor_antrian', 'antrian_jenjang');
 
     $antrianSaatIni = DB::table('antrians')
+      ->where('tanggal_pendaftaran', now('Asia/Jakarta')->format('Y-m-d'))
       ->where('kode_antrian', 'B')
       ->orderBy('created_at', 'desc')->first('nomor_antrian');
 

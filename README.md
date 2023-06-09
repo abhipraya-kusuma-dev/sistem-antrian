@@ -68,8 +68,11 @@ node server.cjs
 - [x] Antrian berhasil date  
 - [x] Antrian Berhasil kembali ke menu awal setelah beberapa detik  
 - [x] Antrian Seragam daftar dari bendahara (tanpa print)  
-- [ ] Antrian Seragam display  
-- [ ] Antrian Seragam List  
+- [x] Antrian Seragam display  
+- [ ] Antrian Seragam display UI  
+- [ ] Antrian Seragam display and list SocketIO  
+- [x] Antrian Seragam List  
+- [ ] Antrian Seragam List UI  
 - [x] Antrian Bendahara ada kutipan kecil dari antrian operator sebelumnya  
 - [x] Antrian Bendahara terkoneksi dengan antrian sebelumnya  
 - [x] Bug seragam di display /antrian  

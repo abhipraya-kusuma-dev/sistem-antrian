@@ -10,6 +10,55 @@ use App\Helper\AntrianHelper;
 
 class SeragamController extends Controller
 {
+  public function display()
+  {
+    $seragam = DB::table('antrians')
+      ->where('kode_antrian', 'M')
+      ->where('tanggal_pendaftaran', now('Asia/Jakarta')->format('Y-m-d'))
+      ->where('terpanggil', 'belum')
+      ->orderBy('created_at', 'asc')
+      ->select('*')->first();
+
+    if (!is_null($seragam)) {
+      $seragam->nomor_antrian = AntrianHelper::generateNomorAntrian($seragam->kode_antrian, $seragam->nomor_antrian);
+    }
+
+    return view('seragam.index', [
+      'seragam' => $seragam
+    ]);
+  }
+
+  public function antrianSeragam($status, Request $request)
+  {
+    $tanggal_pendaftaran =  AntrianHelper::getTanggalPendaftaran($request);
+
+    $data = DB::table('antrians')
+      ->where('tanggal_pendaftaran', $tanggal_pendaftaran)
+      ->where('kode_antrian', 'M')
+      ->where('terpanggil', $status)
+      ->orderBy('nomor_antrian', 'asc')
+      ->select('*')->get();
+
+    foreach ($data as $antrian) {
+      $antrian->nomor_antrian = AntrianHelper::generateNomorAntrian($antrian->kode_antrian, $antrian->nomor_antrian);
+    }
+
+    return view('seragam.list', [
+      'data' => $data,
+      'tanggal_pendaftaran' => $tanggal_pendaftaran,
+      'status' => $status
+    ]);
+  }
+
+  public function panggilNomorAntrian(Antrian $antrian)
+  {
+    $antrian->nomor_antrian = AntrianHelper::generateNomorAntrian($antrian->kode_antrian, $antrian->nomor_antrian);
+
+    return view('seragam.panggil', [
+      'antrian' => $antrian
+    ]);
+  }
+
   public function konfirmasiPendaftaran()
   {
     $antrian = DB::table('antrians')

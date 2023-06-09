@@ -8,7 +8,6 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\OperatorController;
 use App\Http\Controllers\SeragamController;
 use Illuminate\Support\Facades\Route;
-use App\Models\Antrian;
 use Illuminate\Support\Facades\DB;
 
 /*
@@ -67,6 +66,10 @@ Route::controller(BendaharaController::class)->group(function () {
 });
 
 Route::controller(SeragamController::class)->group(function() {
+  Route::get('/seragam', 'display');
+  Route::get('/seragam/antrian/{status}', 'antrianSeragam');
+  Route::get('/seragam/antrian/panggil/{antrian:id}', 'panggilNomorAntrian');
+
   Route::get('/seragam/konfirmasi', 'konfirmasiPendaftaran');
   Route::get('/seragam/daftar/berhasil/{antrian:id}', 'daftarAntrianBerhasil');
 
