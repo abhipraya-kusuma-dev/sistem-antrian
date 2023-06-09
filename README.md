@@ -72,6 +72,7 @@ node server.cjs
 - [x] Jumlah antre filter yang belum nya aja  
 - [x] Antrian Seragam display and list SocketIO  
 - [ ] Warna kolom di excel nya mengikuti warna di laporan  
+- [ ] Pagination list antrian  
 - [ ] Export ke excel dan pdf per minggu  
 - [ ] Akun operator ada 5
 - [ ] Print Otomatis
