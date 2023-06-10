@@ -23,8 +23,8 @@
     {{-- Menu tombol --}}
     <div class="grid grid-cols-5 gap-4 w-full px-4">
       @foreach($jenjang as $j)
-      <a href="/antrian/daftar/konfirmasi/{{ $j }}" class="flex w-full flex-col rounded-md text-center space-y-8 p-4  text-white uppercase" style="background-color: {{ $warna[$loop->index] }};">
-        <span class="text-3xl font-bold">{{ $j }}</span>
+      <a href="/antrian/daftar/konfirmasi/{{ $j }}" class="flex w-full flex-col rounded-md text-center space-y-8 py-4 px-2  text-white uppercase" style="background-color: {{ $warna[$loop->index] }};">
+        <span class="text-2xl font-bold">{{ $j }}</span>
         <span class="text-xl text-stroke-0 font-bold"><span>Sisa antrean: </span>{{ count($antrian[$j]) }}</span>
       </a>
       @endforeach
