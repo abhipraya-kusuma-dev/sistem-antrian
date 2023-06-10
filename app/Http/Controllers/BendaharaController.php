@@ -52,6 +52,20 @@ class BendaharaController extends Controller
     ]);
   }
 
+  public function pertanyaanAntrianBendahara()
+  {
+    return view('bendahara.pertanyaan');
+  }
+
+  public function sudahAdaKarcis()
+  {
+    $jenjang = ['sd', 'smp', 'sma', 'smk'];
+
+    return view('bendahara.pilihJenjang', [
+      'jenjang' => $jenjang
+    ]);
+  }
+
   public function buatAntrianBaru(Request $request)
   {
     $request['nomor_antrian'] = (int) $request['nomor_antrian'];
@@ -140,7 +154,7 @@ class BendaharaController extends Controller
       'terpanggil' => 'sudah'
     ]);
 
-    if(!$updateAntrianSaatIni) return redirect('/bendahara/antrian/belum')->with('create-error', 'Gagal melakukan pemindahan antrian ke seragam');
+    if (!$updateAntrianSaatIni) return redirect('/bendahara/antrian/belum')->with('create-error', 'Gagal melakukan pemindahan antrian ke seragam');
 
     $isAntrianCreated = Antrian::create([
       'nomor_antrian' => $nomorAntrianSaatIni + 1,

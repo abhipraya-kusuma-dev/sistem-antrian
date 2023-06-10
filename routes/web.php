@@ -56,6 +56,10 @@ Route::controller(BendaharaController::class)->group(function () {
   Route::get('/bendahara/antrian/panggil/{antrian:id}', 'panggilNomorAntrian');
   Route::get('/bendahara/konfirmasi', 'konfirmasiAntrianBaru');
 
+  Route::get('/bendahara/pertanyaan', 'pertanyaanAntrianBendahara');
+  Route::get('/bendahara/sudah-ada', 'sudahAdaKarcis');
+  Route::get('/bendahara/cek-karcis/{jenjang}', 'cekKarcisYangSudahAda');
+
   Route::put('/bendahara/antrian/terpanggil', 'nomorAntrianTerpanggil');
 
   Route::post('/bendahara/antrian/lanjut/', 'lanjutAntrian');
