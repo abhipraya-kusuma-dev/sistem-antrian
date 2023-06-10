@@ -43,7 +43,7 @@ class AntrianController extends Controller
 
   public function antrianBaru()
   {
-    $jenjang = ['sd', 'smp', 'sma', 'smk'];
+    $jenjang = ['sd', 'smp', 'sma', 'smk', 'bendahara'];
     $warna = ['#ff6384', '#36a2eb', '#FFCD56', '#c8a2eb', '#d27b41'];
 
     $antrian = DB::table('antrians')

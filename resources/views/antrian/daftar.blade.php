@@ -16,21 +16,22 @@
     <p class="text-[#1A508B] font-bold text-3xl uppercase">Antrean PPDB</p>
   </header>
 
-  <main class="flex flex-col items-center space-y-10 p-4 ">
+  <main class="flex flex-col items-center space-y-10  ">
 
     <h1 class="text-5xl font-bold drop-shadow-lg">Pilih Jenjang Antrean</h1>
 
-    <div class="flex flex-col space-y-8 text-center w-full text-4xl text-stroke text-stroke-white">
+    {{-- Menu tombol --}}
+    <div class="grid grid-cols-5 gap-4 w-full px-4">
       @foreach($jenjang as $j)
-      <a href="/antrian/daftar/konfirmasi/{{ $j }}" class="items-center flex justify-between py-3 px-10 font-semibold text-white uppercase rounded-full border-2 shadow-xl shadow-slate-400 border-black " style="background-color: {{ $warna[$loop->index] }};">
-        <span>{{ $j }}</span>
-        <span class="text-sm text-stroke-0 text-black">Jml Antre = {{ count($antrian[$j]) }}</span>
+      <a href="/antrian/daftar/konfirmasi/{{ $j }}" class="flex w-full flex-col rounded-md text-center space-y-8 p-4  text-white uppercase" style="background-color: {{ $warna[$loop->index] }};">
+        <span class="text-3xl font-bold">{{ $j }}</span>
+        <span class="text-xl text-stroke-0 font-bold"><span>Sisa antrean: </span>{{ count($antrian[$j]) }}</span>
       </a>
-      <form></form>
       @endforeach
-      <a href="/antrian/daftar/konfirmasi/bendahara" class="items-center flex justify-between py-3 px-10 font-semibold text-white uppercase rounded-full border-2 shadow-xl shadow-slate-400 border-black " style="background-color: {{ $warna[4] }};"><span>Bendahara</span><span class="text-sm text-stroke-0 text-black">Jml Antre = {{ count($antrian['bendahara']) }}</span></a>
-    </div>
 
+    </div>
+    {{-- yah gitulah --}}
+    <marquee class="w-[60%] h-[100px] text-3xl font-bold drop-shadow-lg">"Karcis jangan sampai hilang 😘😘"</marquee>
   </main>
 
 </div>
