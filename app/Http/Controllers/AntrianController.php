@@ -63,7 +63,7 @@ class AntrianController extends Controller
 
   public function konfirmasiAntrianBaru($jenjang)
   {
-    if ($jenjang === 'bendahara') return redirect('/bendahara/pertanyaan');
+    if ($jenjang === 'bendahara') return redirect('/bendahara/konfirmasi');
 
     $antrianPerJenjangTerbaru = DB::table('antrians')
       ->where('jenjang', $jenjang)

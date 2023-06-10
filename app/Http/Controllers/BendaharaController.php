@@ -12,7 +12,10 @@ class BendaharaController extends Controller
 {
   public function __construct()
   {
-    $this->middleware('auth')->except('konfirmasiAntrianBaru', 'buatAntrianBaru');
+    $this->middleware('auth')->except(
+      'konfirmasiAntrianBaru',
+      'buatAntrianBaru',
+    );
   }
 
   public function antrianBendahara($status, Request $request)
@@ -49,20 +52,6 @@ class BendaharaController extends Controller
 
     return view('bendahara.konfirmasi', [
       'nomorAntrianSaatIni' => $nomorAntrianSebelumnya + 1,
-    ]);
-  }
-
-  public function pertanyaanAntrianBendahara()
-  {
-    return view('bendahara.pertanyaan');
-  }
-
-  public function sudahAdaKarcis()
-  {
-    $jenjang = ['sd', 'smp', 'sma', 'smk'];
-
-    return view('bendahara.pilihJenjang', [
-      'jenjang' => $jenjang
     ]);
   }
 
