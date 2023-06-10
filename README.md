@@ -80,4 +80,3 @@ node server.cjs
 - [ ] Print Otomatis
 - [ ] Antrian Seragam display UI  
 - [ ] Antrian Seragam List UI  
-- [ ] Lagu tulus di display antrian  
