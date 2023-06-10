@@ -80,7 +80,7 @@
     socket.emit('skip antrian', 'skip')
   })
 
-  socket.emit('change antrian seragam display', antrian)
+  // socket.emit('change antrian seragam display', antrian)
 
   socket.on('change antrian seragam display loading', (antrian) => {
     panggilBtn.setAttribute('disabled', 'true')

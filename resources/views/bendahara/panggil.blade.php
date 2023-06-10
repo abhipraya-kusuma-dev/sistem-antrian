@@ -44,7 +44,7 @@
     @csrf
     <input type="hidden" name="antrian_id" value="{{ $antrian->id }}" />
     <input type="hidden" name="antrian_jenjang" value="{{ $antrian->antrian_jenjang }}" />
-    <button type="submit" id="lanjut-bendahara-btn" class="disabled:text-black/60 text-blue-600 font-bold">Lanjut Ke Seragam</button>
+    <button type="submit" id="lanjut-seragam-btn" class="disabled:text-black/60 text-blue-600 font-bold">Lanjut Ke Seragam</button>
   </form>
   @endif
 
@@ -56,6 +56,7 @@
   const lanjutBtn = document.getElementById('lanjut-btn')
   const lewatiBtn = document.getElementById('lewati-btn')
   const terpanggilBtn = document.getElementById('terpanggil-btn')
+  const lanjutSeragamBtn = document.getElementById('lanjut-seragam-btn')
 
   const antrian = {{ Js::from($antrian) }}
 
@@ -73,7 +74,11 @@
     socket.emit('skip antrian', 'skip')
   })
 
-  socket.emit('change antrian display', antrian)
+  lanjutSeragamBtn.addEventListener('click', () => {
+    socket.emit('skip antrian', 'skip')
+  })
+
+  // socket.emit('change antrian display', antrian)
 
   socket.on('change antrian display loading', (antrian) => {
     panggilBtn.setAttribute('disabled', 'true')

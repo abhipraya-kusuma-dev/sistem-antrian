@@ -93,7 +93,9 @@ Route::get('/update', function () {
   $antrian = DB::table('antrians')
     ->where('tanggal_pendaftaran', now('Asia/Jakarta')->format('Y-m-d'))
     ->whereNot('terpanggil', 'belum')
-    ->select('*')->get();
+    ->update([
+      'terpanggil' => 'belum'
+    ]);
 
   return $antrian;
 });
