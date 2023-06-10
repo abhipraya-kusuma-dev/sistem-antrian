@@ -51,14 +51,17 @@
   <div id="card-container" class="grid grid-cols-5 gap-4 mt-4">
     @foreach ($antrian as $antrianKey => $antrianValue)
     <div style="background-color: {{ $warna[$loop->index] }};" class=" rounded-md text-center  space-y-8 py-4 text-white">
-      <p class="text-3xl font-semibold text-stroke text-stroke-black">Antrean</p>
-      <p class="text-5xl font-bold text-stroke text-stroke-black">{{ count($antrian[$antrianKey]) ? $antrian[$antrianKey][0]->nomor_antrian : 'Kosong' }}</p>
-      <hr class="border-2 border-white">
-      <p class="-translate-y-2 text-3xl font-semibold uppercase text-stroke text-stroke-black">Loket {{ $antrianKey }}</p>
+      <p class="-translate-y-2 text-3xl font-semibold uppercase text-stroke text-stroke-black flex flex-col"><span>Loket</span>{{ $antrianKey }}</p>
+      <hr class="-translate-y-8">
+      <p class="text-5xl font-bold text-stroke text-stroke-black -translate-y-8">{{ count($antrian[$antrianKey]) ? $antrian[$antrianKey][0]->nomor_antrian : 'Kosong' }}</p>
     </div>
     @endforeach
   </div>
 
+  {{-- Jangan lupa bawa karcis pepek --}}
+  <marquee class="text-3xl font-bold mt-4 drop-shadow-lg">
+    <pre>"Karcis jangan sampai hilang 😘😘"                          "Jangan Lupa Sholat"                   "WD gratis diweb aku kak. "</pre>
+  </marquee>
 </main>
 <footer class="flex justify-between p-4 fixed inset-x-0 bottom-0 items-center">
   <p>&copy;Copyright Wijayakusuma 2023</p>

@@ -3,13 +3,19 @@
 @section('content')
 <div class="p-8">
 
-  <div>
-    <div class="note bg-blue-400 p-4 text-white">
-      <h1 class="text-xl font-bold"><span class="text-yellow-300">NOTE:</span> Pilih Tanggal Pendaftaran (default tanggal hari ini)</h1>
-    </div>
+  <div class="note bg-blue-400 p-4 text-white">
+    <h1 class="text-xl font-bold"><span class="text-yellow-300">NOTE:</span> Pilih Tanggal Pendaftaran (default tanggal hari ini)</h1>
+  </div>
+
+  <div class="flex justify-between items-center">
     <form class="mt-4">
       <input type="date" name="tanggal_pendaftaran" class="border-2 border-black px-4 py-1.5" value="{{ $tanggal_pendaftaran }}" />
       <button type="submit" class="bg-green-400 text-white px-4 py-1.5 font-semibold">Pilih Tanggal</button>
+    </form>
+    {{-- Logout --}}
+    <form action="/logout" method="post">
+      @csrf
+      <button type="submit">Logout</button>
     </form>
   </div>
 
