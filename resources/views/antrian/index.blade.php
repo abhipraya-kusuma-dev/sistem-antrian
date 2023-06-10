@@ -193,7 +193,6 @@
         'controls': 1,
         'loop': 1,
         'playlist': '5IKEBgT0JLc',
-        'muted': 1
       }
     })
   }
@@ -203,11 +202,11 @@
     socket.emit('change antrian display loading', antrianDisplay)
 
     audio.play()
-    // player.mute()
+    player.mute()
 
     const listener = audio.addEventListener('ended', () => {
       socket.emit('change antrian display complete', antrianDisplay)
-      // player.unMute()
+      player.unMute()
     })
 
     audio.removeEventListener('ended', listener)
