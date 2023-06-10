@@ -80,3 +80,4 @@ node server.cjs
 - [ ] Antrian Seragam List UI  
 - [ ] Daftar Antrian Card UI dibikin kotak kotak  
 - [ ] Daftar Antrian bendahara ada konfirmasi apakah sudah pernah daftar atau belum  
+- [ ] Lagu tulus di display antrian  
