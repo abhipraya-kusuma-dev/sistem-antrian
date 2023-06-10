@@ -59,24 +59,24 @@ node server.cjs
 - [x] Suara pada display antrean
 - [x] Warna card antrian saat ini
 - [x] tampilkan jumlah antrian disebelah tombol daftar
-- [x] Regenerate ulang card antrian display setelah pendaftaran berhasil  
-- [x] Optimasi Daftar Antrian  
-- [x] Antrian berhasil date  
-- [x] Antrian Berhasil kembali ke menu awal setelah beberapa detik  
-- [x] Antrian Seragam daftar dari bendahara (tanpa print)  
-- [x] Antrian Seragam display  
-- [x] Antrian Seragam List  
-- [x] Antrian Bendahara ada kutipan kecil dari antrian operator sebelumnya  
-- [x] Antrian Bendahara terkoneksi dengan antrian sebelumnya  
-- [x] Bug seragam di display /antrian  
-- [x] Jumlah antre filter yang belum nya aja  
-- [x] Antrian Seragam display and list SocketIO  
-- [x] Pagination list antrian  
-- [ ] Warna kolom di excel nya mengikuti warna di laporan  
-- [ ] Export ke excel dan pdf per minggu  
+- [x] Regenerate ulang card antrian display setelah pendaftaran berhasil
+- [x] Optimasi Daftar Antrian
+- [x] Antrian berhasil date
+- [x] Antrian Berhasil kembali ke menu awal setelah beberapa detik
+- [x] Antrian Seragam daftar dari bendahara (tanpa print)
+- [x] Antrian Seragam display
+- [x] Antrian Seragam List
+- [x] Antrian Bendahara ada kutipan kecil dari antrian operator sebelumnya
+- [x] Antrian Bendahara terkoneksi dengan antrian sebelumnya
+- [x] Bug seragam di display /antrian
+- [x] Jumlah antre filter yang belum nya aja
+- [x] Antrian Seragam display and list SocketIO
+- [x] Pagination list antrian
+- [ ] Warna kolom di excel nya mengikuti warna di laporan
+- [ ] Export ke excel dan pdf per minggu
 - [ ] Akun operator ada 5
 - [ ] Print Otomatis
-- [ ] Antrian Seragam display UI  
-- [ ] Antrian Seragam List UI  
-- [ ] Daftar Antrian Card UI dibikin kotak kotak  
-- [ ] Daftar Antrian bendahara ada konfirmasi apakah sudah pernah daftar atau belum  
+- [ ] Antrian Seragam display UI
+- [ ] Antrian Seragam List UI
+- [x] Daftar Antrian Card UI dibikin kotak kotak
+- [ ] Daftar Antrian bendahara ada konfirmasi apakah sudah pernah daftar atau belum
