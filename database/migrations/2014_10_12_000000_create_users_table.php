@@ -14,7 +14,7 @@ return new class extends Migration
     Schema::create('users', function (Blueprint $table) {
       $table->id();
       $table->string('name');
-      $table->enum('role', ['admin', 'operator']);
+      $table->enum('role', ['admin', 'op_sd', 'op_smp', 'op_sma', 'op_smk', 'op_bendahara', 'op_seragam']);
       $table->string('username')->unique();
       $table->string('password');
       $table->rememberToken();

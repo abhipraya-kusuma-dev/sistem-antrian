@@ -73,10 +73,11 @@ node server.cjs
 - [x] Antrian Seragam display and list SocketIO  
 - [x] Pagination list antrian  
 - [x] Daftar Antrian Card UI dibikin kotak kotak  
+- [x] Akun operator ada 5
+- [x] Middleware operator
 - [ ] Warna kolom di excel nya mengikuti warna di laporan  
 - [ ] Export ke excel dan pdf per minggu  
-- [ ] Akun operator ada 5
-- [ ] Middleware operator
 - [ ] Print Otomatis
 - [ ] Antrian Seragam display UI  
 - [ ] Antrian Seragam List UI  
+- [ ] Logout bendahara  

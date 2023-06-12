@@ -19,21 +19,49 @@ class DatabaseSeeder extends Seeder
       'name' => 'Admin',
       'username' => 'admin',
       'role' => 'admin',
-      'password' => bcrypt('hehe1234##')
+      'password' => bcrypt('pwadmin')
     ]);
 
     User::create([
-      'name' => 'Operator1',
-      'username' => 'op1',
-      'role' => 'operator',
-      'password' => bcrypt('hehe1234##')
+      'name' => 'Operator SD',
+      'username' => 'opsd',
+      'role' => 'op_sd',
+      'password' => bcrypt('pwopsd')
     ]);
 
     User::create([
-      'name' => 'Operator2',
-      'username' => 'op2',
-      'role' => 'operator',
-      'password' => bcrypt('hehe1234##')
+      'name' => 'Operator SMP',
+      'username' => 'opsmp',
+      'role' => 'op_smp',
+      'password' => bcrypt('pwopsmp')
+    ]);
+
+    User::create([
+      'name' => 'Operator SMA',
+      'username' => 'opsma',
+      'role' => 'op_sma',
+      'password' => bcrypt('pwopsma')
+    ]);
+
+    User::create([
+      'name' => 'Operator SMK',
+      'username' => 'opsmk',
+      'role' => 'op_smk',
+      'password' => bcrypt('pwopsmk')
+    ]);
+
+    User::create([
+      'name' => 'Operator Bendahara',
+      'username' => 'opbendahara',
+      'role' => 'op_bendahara',
+      'password' => bcrypt('pwopbendahara')
+    ]);
+
+    User::create([
+      'name' => 'Operator Seragam',
+      'username' => 'opseragam',
+      'role' => 'op_seragam',
+      'password' => bcrypt('pwopseragam')
     ]);
   }
 }

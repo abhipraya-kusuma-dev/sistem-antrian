@@ -10,6 +10,11 @@ use App\Helper\AntrianHelper;
 
 class SeragamController extends Controller
 {
+  public function __construct()
+  {
+    $this->middleware(['auth', 'is_seragam'])->except('display');
+  }
+
   public function display()
   {
     $seragam = DB::table('antrians')

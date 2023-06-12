@@ -40,7 +40,7 @@ Route::controller(AntrianController::class)->group(function () {
 
 Route::controller(OperatorController::class)->group(function () {
   // Monitoring Antrian (admin)
-  Route::get('/operator/antrian', 'antrian');
+  // Route::get('/operator/antrian', 'antrian');
   Route::get('/operator/antrian/jenjang/{jenjang}/{status}', 'antrianPerJenjang');
   Route::get('/operator/antrian/panggil/{antrian:id}', 'panggilNomorAntrian');
 

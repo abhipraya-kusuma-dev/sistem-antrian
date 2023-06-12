@@ -28,6 +28,12 @@ class OperatorController extends Controller
   {
     if (is_null($jenjang)) return redirect('/bendahara/antrian');
 
+    $middleware = AntrianHelper::checkRoleMiddleware($jenjang);
+
+    if ($middleware->get('isNotRightOP')) {
+      return redirect('/operator/antrian/jenjang/' . $middleware->get('OPJenjangRole') . '/belum');
+    }
+
     $tanggal_pendaftaran =  AntrianHelper::getTanggalPendaftaran($request);
 
     $antrian = DB::table('antrians')
@@ -51,6 +57,12 @@ class OperatorController extends Controller
 
   public function panggilNomorAntrian(Antrian $antrian)
   {
+    $middleware = AntrianHelper::checkRoleMiddleware($antrian->jenjang);
+
+    if ($middleware->get('isNotRightOP')) {
+      return redirect('/operator/antrian/jenjang/' . $middleware->get('OPJenjangRole') . '/belum');
+    }
+
     if ($antrian->kode_antrian === 'B') return redirect('/bendahara/antrian/panggil/' . $antrian->id);
 
     $antrian->nomor_antrian = AntrianHelper::generateNomorAntrian($antrian->kode_antrian, $antrian->nomor_antrian);
@@ -115,7 +127,7 @@ class OperatorController extends Controller
       'terpanggil' => 'sudah'
     ]);
 
-    if(!$updateAntrianSaatIni) return redirect('/operator/antrian/jenjang/' . $data['antrian_jenjang'] . '/belum')->with('create-error', 'Gagal melakukan pemindahan antrian ke bendahara');
+    if (!$updateAntrianSaatIni) return redirect('/operator/antrian/jenjang/' . $data['antrian_jenjang'] . '/belum')->with('create-error', 'Gagal melakukan pemindahan antrian ke bendahara');
 
     $isAntrianCreated = Antrian::create([
       'nomor_antrian' => $nomorAntrianSaatIni + 1,

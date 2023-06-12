@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 
-use function PHPUnit\Framework\isNull;
-
 class AntrianHelper
 {
   public static function getKodeAntrian(string|null $jenjang): string
@@ -16,6 +14,16 @@ class AntrianHelper
     if ($jenjang === 'seragam') return 'M';
 
     return strtoupper(substr($jenjang, -1));
+  }
+
+  public static function checkRoleMiddleware(string $jenjang)
+  {
+    $getJenjangFromRole = strtolower(substr(auth()->user()->role, 3));
+
+    return collect([
+      'isNotRightOP' => $getJenjangFromRole != $jenjang,
+      'OPJenjangRole' => $getJenjangFromRole
+    ]);
   }
 
   public static function generateNomorAntrian(string $kode_antrian, int $nomor_antrian)

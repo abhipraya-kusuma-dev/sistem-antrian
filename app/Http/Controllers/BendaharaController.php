@@ -12,7 +12,7 @@ class BendaharaController extends Controller
 {
   public function __construct()
   {
-    $this->middleware('auth')->except(
+    $this->middleware(['auth', 'is_bendahara'])->except(
       'konfirmasiAntrianBaru',
       'buatAntrianBaru',
     );
