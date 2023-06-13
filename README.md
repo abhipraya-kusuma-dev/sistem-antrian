@@ -75,8 +75,8 @@ node server.cjs
 - [x] Daftar Antrian Card UI dibikin kotak kotak  
 - [x] Akun operator ada 5
 - [x] Middleware operator
+- [x] Export ke excel dan pdf per minggu  
 - [ ] Warna kolom di excel nya mengikuti warna di laporan  
-- [ ] Export ke excel dan pdf per minggu  
 - [ ] Print Otomatis
 - [ ] Antrian Seragam display UI  
 - [ ] Antrian Seragam List UI  

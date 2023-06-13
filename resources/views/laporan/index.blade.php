@@ -12,7 +12,12 @@
 
   <div class="flex justify-between mt-6">
     <form class="flex flex-col">
-      <input type="date" name="tanggal_pendaftaran" value="{{ $tanggal_pendaftaran }}" class="outline-none border-2 border-black p-2" />
+      <label for="tanggal_pendaftaran_start">Tangga Mulai</label>
+      <input id="tanggal_pendaftaran_start" type="date" name="tanggal_pendaftaran_start" value="{{ $tanggal_pendaftaran_start }}" class="outline-none border-2 border-black p-2" />
+
+      <label for="tanggal_pendaftaran_end">Tanggal Akhir</label>
+      <input id="tanggal_pendaftaran_end" type="date" name="tanggal_pendaftaran_end" value="{{ $tanggal_pendaftaran_end }}" class="outline-none border-2 border-black p-2" />
+
       <button type="submit" class="py-2 px-4 bg-sky-600 hover:bg-sky-700 text-white mt-2">Pilih Tanggal</button>
     </form>
 
@@ -24,7 +29,8 @@
       <div class="flex mt-10">
         <form action="/laporan/excel" method="post">
           @csrf
-          <input type="date" name="tanggal_pendaftaran" value="{{ $tanggal_pendaftaran }}" class="outline-none border-2 border-black p-2" />
+          <input type="hidden" name="tanggal_pendaftaran_start" value="{{ $tanggal_pendaftaran_start }}" class="outline-none border-2 border-black p-2" />
+          <input type="hidden" name="tanggal_pendaftaran_end" value="{{ $tanggal_pendaftaran_end }}" class="outline-none border-2 border-black p-2" />
           <button type="submit" class="py-2 px-4 bg-green-600 hover:bg-green-700 text-white">Export Ke Excel</button>
         </form>
         <form action="/laporan/pdf" method="post">

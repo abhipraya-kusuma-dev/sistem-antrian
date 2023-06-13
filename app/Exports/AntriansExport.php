@@ -4,34 +4,37 @@ namespace App\Exports;
 
 use Illuminate\Support\Facades\DB;
 use App\Helper\AntrianHelper;
-use Maatwebsite\Excel\Concerns\FromArray;
+use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class AntriansExport implements FromArray, WithHeadings, WithStyles, WithColumnWidths
+class AntriansExport implements FromCollection, WithHeadings, WithStyles, WithColumnWidths
 {
-  private string $tanggal_pendaftaran;
+  private string $tanggal_pendaftaran_start;
+  private string $tanggal_pendaftaran_end;
 
   /**
    * @return \Illuminate\Support\Collection
    */
-  public function __construct(string $tanggal_pendaftaran)
+  public function __construct(array $tanggal_pendaftaran)
   {
-    $this->tanggal_pendaftaran = $tanggal_pendaftaran;
+    $this->tanggal_pendaftaran_start = $tanggal_pendaftaran[0];
+    $this->tanggal_pendaftaran_end = $tanggal_pendaftaran[1];
   }
 
   public function columnWidths(): array
   {
     return [
-      'A' => 8,
+      'A' => 28,
       'B' => 8,
       'C' => 8,
       'D' => 8,
-      'E' => 18,
+      'E' => 8,
       'F' => 18,
+      'G' => 18,
     ];
   }
   public function styles(Worksheet $sheet)
@@ -54,6 +57,7 @@ class AntriansExport implements FromArray, WithHeadings, WithStyles, WithColumnW
   public function headings(): array
   {
     return [
+      'TANGGAL_PENDAFTARAN',
       'SD',
       'SMP',
       'SMA',
@@ -63,27 +67,40 @@ class AntriansExport implements FromArray, WithHeadings, WithStyles, WithColumnW
     ];
   }
 
-  public function array(): array
+  public function collection()
   {
     $laporanAntrian = DB::table('antrians')
-      ->where('tanggal_pendaftaran', $this->tanggal_pendaftaran)
+      ->whereBetween('tanggal_pendaftaran', [$this->tanggal_pendaftaran_start, $this->tanggal_pendaftaran_end])
       ->select('*')->get();
 
-    $mappedLaporan = AntrianHelper::groupBasedOnJenjang($laporanAntrian);
+    $mappedLaporan = AntrianHelper::groupBasedOnTanggalPendaftaran($laporanAntrian);
 
-    $arr = [
-      'data' => []
-    ];
+    // $arr = [
+    //   '2023-06-13' => [
+    //     '2023-06-13',
+    //     1, 1, 1, 1, 3, 1
+    //   ],
+    //   '2023-06-10' => [
+    //     '2023-06-10',
+    //     1, 2, 1, 1, 3, 1
+    //   ],
+    // ];
 
-    foreach ($mappedLaporan as $laporan) {
-      if (!count($laporan)) {
-        $arr['data'][] = 'Kosong';
-        continue;
+    $arr = [];
+
+    foreach ($mappedLaporan as $tanggal_pendaftaran => $value) {
+      $arr[$tanggal_pendaftaran][] = $tanggal_pendaftaran;
+
+      foreach ($value as $laporan) {
+        if (!count($laporan)) {
+          $arr[$tanggal_pendaftaran][] = 'Kosong';
+          continue;
+        }
+
+        $arr[$tanggal_pendaftaran][] = count($laporan);
       }
-
-      $arr['data'][] = count($laporan);
     }
 
-    return $arr;
+    return collect($arr);
   }
 }

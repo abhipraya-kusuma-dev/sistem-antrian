@@ -66,4 +66,37 @@ class AntrianHelper
 
     return $arr;
   }
+
+  public static function groupBasedOnTanggalPendaftaran(Collection $antrian)
+  {
+    // Get tanggal_pendaftaran as a key of the complete array soon
+    $tanggal_pendaftaran = [];
+
+    for ($i = 0; $i < $antrian->count(); $i++) {
+      $tanggal_pendaftaran[] = $antrian[$i]->tanggal_pendaftaran;
+    }
+    $tanggal_pendaftaran = [...array_unique($tanggal_pendaftaran)];
+
+    // Push the antrian collection based on tanggal_pendaftaran keys
+    $arr = [];
+    $pointer = 0;
+
+    while ($pointer < count($tanggal_pendaftaran)) {
+      $key = $tanggal_pendaftaran[$pointer];
+
+      for ($i = 0; $i < $antrian->count(); $i++) {
+        if ($antrian[$i]->tanggal_pendaftaran === $tanggal_pendaftaran[$pointer]) {
+
+          $arr[$key][] = $antrian[$i];
+        }
+      }
+
+      // Grouping again the antrian collection based on jenjang
+      $arr[$key] = self::groupBasedOnJenjang(collect($arr[$key]));
+
+      $pointer += 1;
+    }
+
+    return $arr;
+  }
 }

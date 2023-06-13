@@ -6,6 +6,7 @@ use App\Http\Controllers\BendaharaController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\OperatorController;
 use App\Http\Controllers\SeragamController;
+use App\Models\Antrian;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
@@ -91,13 +92,27 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::get('/update', function () {
   $antrian = DB::table('antrians')
-    ->where('tanggal_pendaftaran', now('Asia/Jakarta')->format('Y-m-d'))
+    // ->where('tanggal_pendaftaran', now('Asia/Jakarta')->format('Y-m-d'))
     ->whereNot('terpanggil', 'belum')
     ->update([
       'terpanggil' => 'belum'
     ]);
 
   return $antrian;
+});
+
+Route::get('/test-create', function () {
+  $antrianLama = DB::table('antrians')->where('kode_antrian', 'K')->orderBy('created_at', 'asc')->first('audio_path');
+
+  $isAntrianCreated = Antrian::create([
+    'nomor_antrian' => 1,
+    'jenjang' => 'smk',
+    'kode_antrian' => 'K',
+    'audio_path' => $antrianLama->audio_path,
+    'tanggal_pendaftaran' => now('Asia/Jakarta')->subDays(3)->format('Y-m-d')
+  ]);
+
+  return $isAntrianCreated;
 });
 
 Route::get('/test-paginate', function () {
