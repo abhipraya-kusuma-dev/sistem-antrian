@@ -7,10 +7,18 @@
     <div class="note bg-blue-400 p-4 text-white">
       <h1 class="text-xl font-bold"><span class="text-yellow-300">NOTE:</span> Pilih Tanggal Pendaftaran (default tanggal hari ini)</h1>
     </div>
-    <form class="mt-4">
-      <input type="date" name="tanggal_pendaftaran" class="border-2 border-black px-4 py-1.5" value="{{ $tanggal_pendaftaran }}" />
-      <button type="submit" class="bg-green-400 text-white px-4 py-1.5 font-semibold">Pilih Tanggal</button>
-    </form>
+
+    <div class="flex justify-between items-center">
+      <form class="mt-4">
+        <input type="date" name="tanggal_pendaftaran" class="border-2 border-black px-4 py-1.5" value="{{ $tanggal_pendaftaran }}" />
+        <button type="submit" class="bg-purple-700/80 text-white px-4 py-1.5 font-semibold">Pilih Tanggal</button>
+      </form>
+      {{-- Logout --}}
+      <form action="/logout" method="post">
+        @csrf
+        <button type="submit" class="text-red-400 font-bold text-lg">Logout</button>
+      </form>
+    </div>
   </div>
 
   <nav class="flex space-x-2 mt-8">
@@ -27,7 +35,7 @@
 
   <h2 class="text-2xl mt-2 font-bold">Antrian</h2>
 
-  <ul class="text-green-600 border-2 border-black grid grid-cols-3 gap-4 text-xl p-4 mt-4">
+  <ul class="text-green-600 border-2 border-black grid grid-cols-4 gap-4 text-xl p-4 mt-4">
     @if(count($data))
 
     @foreach($data as $antrian)
