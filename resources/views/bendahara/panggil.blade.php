@@ -74,7 +74,7 @@
       @csrf
       <input type="hidden" name="antrian_id" value="{{ $antrian->id }}" />
       <input type="hidden" name="nomor_antrian" value="{{ $antrian->nomor_antrian }}" />
-      <input type="hidden" name="antrian_jenjang" value="{{ $antrian->jenjang }}" />
+      <input type="hidden" name="antrian_jenjang" value="{{ $antrian->antrian_jenjang }}" />
       <button type="submit" id="lanjut-bendahara-btn" class="disabled:text-black/60 bg-blue-600 text-white font-bold py-2 px-6 rounded-full border-2 border-black">Lanjut Ke Seragam</button>
     </form>
     @endif
