@@ -13,14 +13,21 @@
 
   <div>
     <h1 class="text-2xl font-bold">Pilih Tanggal Pendaftaran (default nya hari ini)</h1>
-    <form class="mt-3 space-x-4">
-      <input type="date" class="border-3 border-solid border-black px-4 py-1.5" name="tanggal_pendaftaran" value="{{ $tanggal_pendaftaran }}"/>
-      <button type="submit" class="bg-green-401 py-1.5 px-6 text-white font-semibold">Pilih Tanggal</button>
-    </form>
+    <div class="flex items-center justify-between mt-3">
+      <div class="flex">
+     <form class="space-x-4">
+      <input type="date" class="border-2 border-solid border-black px-4 py-1.5" name="tanggal_pendaftaran" value="{{ $tanggal_pendaftaran }}"/>
+      <button type="submit" class="bg-green-400 py-1.5 px-6 text-white font-semibold">Pilih Tanggal</button>
+    </div>
+    <div>
+      </form>
     <form method="post" action="/logout">
     @csrf
-    <button type="submit">Logout</button>
-</form>
+      <button type="submit" class="text-red-400 font-bold text-lg">Logout</button>
+    </form>
+    </div>
+
+    </div>
   </div>
 
   <nav class="flex space-x-2 mt-4">
