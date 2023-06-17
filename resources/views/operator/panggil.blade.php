@@ -2,8 +2,12 @@
 
 @section('content')
 @if(session('antrian-mentok'))
-  <p>{{ session('antrian-mentok') }}</p>
-  @endif
+<p class="m-6 py-4 px-6 text-white font-semibold bg-green-400 flex justify-between items-center" id="closeButton">{{ session('antrian-mentok') }}
+  <span onclick="closeButtonClicked()" class="cursor-pointer text-2xl" id="closeButton">&times;</span>
+</p>
+@endif
+
+
 <div class="w-full p-8 flex justify-center space-x-10 h-screen items-center">
 
   <div class="flex flex-col space-y-8">
@@ -127,5 +131,12 @@
     terpanggilBtn.removeAttribute('disabled')
     lanjutBendaharaBtn.removeAttribute('disabled')
   })
+
+  // close button
+  function closeButtonClicked() {
+      // Menyembunyikan elemen yang ingin ditutup
+      var closeButton = document.getElementById("closeButton");
+      closeButton.style.display = "none";
+    }
 </script>
 @endsection
