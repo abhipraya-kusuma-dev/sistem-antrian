@@ -76,10 +76,11 @@ node server.cjs
 - [x] Akun operator ada 5
 - [x] Middleware operator
 - [x] Export ke excel dan pdf per minggu  
-- [ ] Warna kolom di excel nya mengikuti warna di laporan  
-- [ ] Print Otomatis
-- [ ] Antrian Seragam display UI  
-- [ ] Antrian Seragam List UI  
 - [x] FE Bendahara  
 - [x] Logout bendahara  
+- [ ] Warna kolom di excel nya mengikuti warna di laporan  
+- [ ] Print Otomatis
+- [ ] Ngasih tau user nomor antrian dia saat lanjut ke bendahara dan seragam  
+- [ ] Antrian Seragam display UI  
+- [ ] Antrian Seragam List UI  
 - [ ] Logout Seragam  
