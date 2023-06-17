@@ -10,7 +10,7 @@
   <div class="flex justify-between items-center">
     <form class="mt-4">
       <input type="date" name="tanggal_pendaftaran" class="border-2 border-black px-4 py-1.5" value="{{ $tanggal_pendaftaran }}" />
-      <button type="submit" class="bg-green-400 text-white px-4 py-1.5 font-semibold">Pilih Tanggal</button>
+      <button type="submit" class="bg-purple-700/80 text-white px-4 py-1.5 font-semibold">Pilih Tanggal</button>
     </form>
     {{-- Logout --}}
     <form action="/logout" method="post">
@@ -33,12 +33,12 @@
 
   <h2 class="text-2xl mt-2 font-bold">Antrian</h2>
 
-  <ul class="text-green-600 border-2 border-black grid grid-cols-3 gap-4 text-xl p-4 mt-4">
+  <ul class="text-green-600 border-2 border-black grid grid-cols-4 gap-4 text-xl p-4 mt-4">
     @if(count($semua_antrian))
 
     @foreach($semua_antrian as $antrian)
     <li class="w-full">
-      <a class="border-2 border-black inline-block text-center w-full" href="/operator/antrian/panggil/{{ $antrian->id }}">
+      <a class="bg-green-400 text-white py-1.5 inline-block text-center w-full" href="/operator/antrian/panggil/{{ $antrian->id }}">
         <b>{{ $antrian->nomor_antrian }}</b>
       </a>
     </li>

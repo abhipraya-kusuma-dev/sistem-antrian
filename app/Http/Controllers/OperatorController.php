@@ -42,7 +42,7 @@ class OperatorController extends Controller
       ->where('tanggal_pendaftaran', $tanggal_pendaftaran)
       ->where('terpanggil', $status)
       ->orderBy('nomor_antrian', 'asc')
-      ->select('*')->paginate(10);
+      ->select('*')->paginate(12);
 
     for ($i = 0; $i < count($antrian->items()); $i++) {
       $antrian[$i]->nomor_antrian = AntrianHelper::generateNomorAntrian($antrian[$i]->kode_antrian, $antrian[$i]->nomor_antrian);
