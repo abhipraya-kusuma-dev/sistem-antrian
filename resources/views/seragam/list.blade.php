@@ -40,7 +40,7 @@
 
     @foreach($data as $antrian)
     <li class="w-full">
-      <a class="border-2 border-black inline-block text-center w-full" href="/seragam/antrian/panggil/{{ $antrian->id }}">
+      <a class="bg-green-600 text-white py-1.5 inline-block text-center w-full" href="/seragam/antrian/panggil/{{ $antrian->id }}">
         <b>{{ $antrian->nomor_antrian }}</b>
       </a>
     </li>

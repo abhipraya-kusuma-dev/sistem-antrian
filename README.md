@@ -82,5 +82,5 @@ node server.cjs
 - [ ] Print Otomatis
 - [ ] Ngasih tau user nomor antrian dia saat lanjut ke bendahara dan seragam  
 - [ ] Antrian Seragam display UI  
-- [ ] Antrian Seragam List UI  
-- [ ] Logout Seragam  
+- [x] Antrian Seragam List UI  
+- [x] Logout Seragam  
