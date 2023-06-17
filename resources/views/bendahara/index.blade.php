@@ -1,7 +1,7 @@
 @extends('layout.main')
 
 @section('content')
-<div>
+<div class="p-10">
 
   @if(session('update-error'))
   <p>{{ session('update-error') }}</p>
@@ -13,13 +13,17 @@
 
   <div>
     <h1 class="text-2xl font-bold">Pilih Tanggal Pendaftaran (default nya hari ini)</h1>
-    <form class="mt-2">
-      <input type="date" name="tanggal_pendaftaran" value="{{ $tanggal_pendaftaran }}"/>
-      <button type="submit">Pilih Tanggal</button>
+    <form class="mt-3 space-x-4">
+      <input type="date" class="border-3 border-solid border-black px-4 py-1.5" name="tanggal_pendaftaran" value="{{ $tanggal_pendaftaran }}"/>
+      <button type="submit" class="bg-green-401 py-1.5 px-6 text-white font-semibold">Pilih Tanggal</button>
     </form>
+    <form method="post" action="/logout">
+    @csrf
+    <button type="submit">Logout</button>
+</form>
   </div>
 
-  <nav class="flex space-x-2">
+  <nav class="flex space-x-2 mt-4">
     <a href="/bendahara/antrian/belum?tanggal_pendaftaran={{ $tanggal_pendaftaran }}" class="{{ $status === 'belum' ? 'text-blue-600 font-bold' : 'text-blue-600/80' }}">
       Belum Terpanggil
     </a>

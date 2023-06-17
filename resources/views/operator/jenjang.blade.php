@@ -15,7 +15,7 @@
     {{-- Logout --}}
     <form action="/logout" method="post">
       @csrf
-      <button type="submit">Logout</button>
+      <button type="submit" class="text-red-400 font-bold text-lg">Logout</button>
     </form>
   </div>
 
