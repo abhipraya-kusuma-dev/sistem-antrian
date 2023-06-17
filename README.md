@@ -80,6 +80,6 @@ node server.cjs
 - [ ] Print Otomatis
 - [ ] Antrian Seragam display UI  
 - [ ] Antrian Seragam List UI  
-- [ ] FE Bendahara  
-- [ ] Logout bendahara  
+- [x] FE Bendahara  
+- [x] Logout bendahara  
 - [ ] Logout Seragam  
