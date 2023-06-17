@@ -12,7 +12,6 @@
     <p>{{session('login-eror')}}</p>
     @endif
 
-
     <form action="/login" method="post" class="space-y-4 py-4">
       @csrf
 
@@ -40,7 +39,6 @@
       </div>
 
       <button type="submit" class="py-2 w-full bg-green-600 text-lg font-semibold rounded-md text-white">Login</button>
-
     </form>
   </div>
 </div>
