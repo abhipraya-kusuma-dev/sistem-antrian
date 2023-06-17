@@ -76,7 +76,7 @@ Route::controller(SeragamController::class)->group(function () {
   Route::post('/seragam/daftar/proses', 'buatAntrianBaru');
   Route::post('/seragam/antrian/lanjut/', 'lanjutAntrian');
   Route::post('/seragam/antrian/lewati/', 'lewatiAntrian');
-  Route::post('/seragam/antrian/terpanggil', 'nomorAntrianTerpanggil');
+  Route::put('/seragam/antrian/terpanggil', 'nomorAntrianTerpanggil');
 });
 
 Route::controller(LaporanController::class)->group(function () {

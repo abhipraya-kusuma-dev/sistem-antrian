@@ -26,6 +26,7 @@ class OperatorController extends Controller
 
   public function antrianPerJenjang($jenjang, $status, Request $request)
   {
+    if (auth()->user()->role === 'admin') return redirect('/laporan');
     if (is_null($jenjang)) return redirect('/bendahara/antrian');
 
     $middleware = AntrianHelper::checkRoleMiddleware($jenjang);

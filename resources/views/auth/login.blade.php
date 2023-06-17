@@ -7,8 +7,15 @@
 </header>
 <div class="h-screen flex justify-center items-center">
   <div class="border-2 border-solid border-black w-max py-2 px-10 rounded-md shadow-lg">
-    @if(session('login-eror'))
+
+  @if(session('login-eror'))
   <p>{{session('login-eror')}}</p>
+  @endif
+
+  @if($errors->any())
+    @foreach($errors->all() as $error)
+      <p>{{ $error }}</p>
+    @endforeach
   @endif
 
   <form action="/login" method="post" class="space-y-4 py-4">
