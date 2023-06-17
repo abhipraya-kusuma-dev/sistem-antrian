@@ -140,6 +140,6 @@ class OperatorController extends Controller
 
     if (!$isAntrianCreated) return redirect('/operator/antrian/jenjang/' . $data['antrian_jenjang'] . '/belum')->with('create-error', 'Gagal melakukan pemindahan antrian ke bendahara');
 
-    return redirect('/operator/antrian')->with('create-success', 'Antrian dilanjut ke bendahara dengan nomor ' . $nomorAntrianSaatIni + 1);
+    return redirect('/operator/antrian/jenjang/' . $data['antrian_jenjang'] . '/belum')->with('create-success', 'Antrian dilanjut ke bendahara dengan nomor ' . $nomorAntrianSaatIni + 1);
   }
 }
