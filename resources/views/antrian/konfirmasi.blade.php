@@ -2,10 +2,12 @@
 
 @section('content')
 <div class="h-screen flex items-center justify-center">
-  <div class="p-4 border-2 border-black">
-    <h1 class="text-lg">Nomor Antrian anda saat ini adalah</h1>
-    <p class="font-bold text-center text-4xl">Nomor {{ $nomorAntrianSaatIni }}</p>
-
+  <div class="space-y-6 p-4 border-2 border-black">
+    <div>
+      <p class="font-bold text-center text-4xl uppercase">Nomor {{ $nomorAntrianSaatIni }}</p>
+      <p class="uppercase text-center"><span> {{$tanggal}}</span></p>
+    </div>
+    <p class="uppercase font-semibold flex justify-between">Jenjang: <span> {{$jenjang}}</span></p>
     <div class="flex mt-2 space-x-4">
       <a href="/antrian/daftar" class="active:bg-red-800 py-2 px-4 w-1/2 bg-red-500/80 text-center text-white font-bold">Kembali</a>
       <form class="w-1/2" action="/antrian/daftar/proses" method="post">

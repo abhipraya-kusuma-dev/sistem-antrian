@@ -75,7 +75,8 @@ class AntrianController extends Controller
 
     return view('antrian.konfirmasi', [
       'nomorAntrianSaatIni' => $nomorAntrianSebelumnya + 1,
-      'jenjang' => $jenjang
+      'jenjang' => $jenjang,
+      'tanggal' => Carbon::now('Asia/Jakarta')->format('D, d M Y'),
     ]);
   }
 
