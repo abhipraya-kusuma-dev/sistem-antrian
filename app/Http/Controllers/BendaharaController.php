@@ -155,6 +155,6 @@ class BendaharaController extends Controller
 
     if (!$isAntrianCreated) return redirect('/bendahara/antrian/belum')->with('create-error', 'Gagal melakukan pemindahan antrian ke seragam');
 
-    return redirect('/bendahara/antrian/belum')->with('create-success', 'Antrian dilanjut ke Seragam dengan nomor ' . $nomorAntrianSaatIni + 1);
+    return redirect('/bendahara/antrian/belum')->with('create-success', 'Antrian dilanjut ke Seragam dengan nomor antrian ' . AntrianHelper::generateNomorAntrian($isAntrianCreated->kode_antrian, $isAntrianCreated->nomor_antrian));
   }
 }

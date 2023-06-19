@@ -3,6 +3,16 @@
 @section('content')
 <div class="p-8">
 
+  <!-- Lanjut Ke Bendahara Message -->
+  @if(session('create-success'))
+  <p>{{ session('create-success') }}</p>
+  @endif
+
+  @if(session('create-error'))
+  <p>{{ session('create-error') }}</p>
+  @endif
+  <!-- Lanjut Ke Bendahara Message End -->
+
   <div class="note bg-blue-400 p-4 text-white">
     <h1 class="text-xl font-bold"><span class="text-yellow-300">NOTE:</span> Pilih Tanggal Pendaftaran (default tanggal hari ini)</h1>
   </div>

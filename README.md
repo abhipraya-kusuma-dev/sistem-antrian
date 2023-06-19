@@ -78,9 +78,9 @@ node server.cjs
 - [x] Export ke excel dan pdf per minggu  
 - [x] FE Bendahara  
 - [x] Logout bendahara  
-- [ ] Warna kolom di excel nya mengikuti warna di laporan  
-- [ ] Print Otomatis
-- [ ] Ngasih tau user nomor antrian dia saat lanjut ke bendahara dan seragam  
+- [x] Ngasih tau user nomor antrian dia saat lanjut ke bendahara dan seragam  
 - [x] Antrian Seragam display UI  
 - [x] Antrian Seragam List UI  
 - [x] Logout Seragam  
+- [ ] Warna kolom di excel nya mengikuti warna di laporan  
+- [ ] Print Otomatis

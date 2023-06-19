@@ -13,7 +13,7 @@
   <h1 class="text-xl font-bold uppercase">Panggil Peserta</h1>
   <div class="my-2 border-2 border-black py-8 px-8 space-y-4 w-[600px]">
     <p class="flex justify-between text-xl uppercase">Nomor Antrian <b>{{ $antrian->nomor_antrian}}</b></p>
-    <p class="flex justify-between text-xl uppercase">Jenjang <b>{{ $antrian->jenjang}}</b></p>
+    <p class="flex justify-between text-xl uppercase">Dari Antrian <b>{{ $antrian->antrian_jenjang}}</b></p>
     <p class="flex justify-between text-xl uppercase">Tanggal daftaran <b>{{ $antrian->tanggal_pendaftaran }}</b></p>
     <p class="flex justify-between text-xl uppercase">Status <b>{{ $antrian->terpanggil }}</b></p>
   </div>
