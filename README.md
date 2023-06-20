@@ -82,5 +82,7 @@ node server.cjs
 - [x] Antrian Seragam display UI  
 - [x] Antrian Seragam List UI  
 - [x] Logout Seragam  
+- [ ] Data di Antrian Seragam  
+- [ ] UI Notif nomor antrian saat lanjut ke bendahara dan seragam  
 - [ ] Warna kolom di excel nya mengikuti warna di laporan  
-- [ ] Print Otomatis
+- [ ] Print Otomatis  
