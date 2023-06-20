@@ -139,11 +139,6 @@ class BendaharaController extends Controller
       ->latest()->first('nomor_antrian');
 
     $nomorAntrianSaatIni = $antrianSaatIni->nomor_antrian ?? 0;
-    $updateAntrianSaatIni = DB::table('antrians')->where('id', $data['antrian_id'])->update([
-      'terpanggil' => 'sudah'
-    ]);
-
-    if (!$updateAntrianSaatIni) return redirect('/bendahara/antrian/belum')->with('create-error', 'Gagal melakukan pemindahan antrian ke seragam');
 
     $isAntrianCreated = Antrian::create([
       'nomor_antrian' => $nomorAntrianSaatIni + 1,
@@ -155,6 +150,21 @@ class BendaharaController extends Controller
 
     if (!$isAntrianCreated) return redirect('/bendahara/antrian/belum')->with('create-error', 'Gagal melakukan pemindahan antrian ke seragam');
 
-    return redirect('/bendahara/antrian/belum')->with('create-success', 'Antrian dilanjut ke Seragam dengan nomor antrian ' . AntrianHelper::generateNomorAntrian($isAntrianCreated->kode_antrian, $isAntrianCreated->nomor_antrian));
+    $updateAntrianSaatIni = DB::table('antrians')->where('id', $data['antrian_id'])->update([
+      'terpanggil' => 'sudah'
+    ]);
+
+    if (!$updateAntrianSaatIni) return redirect('/bendahara/antrian/belum')->with('create-error', 'Gagal melakukan pemindahan antrian ke seragam');
+
+    return redirect('/bendahara/antrian/lanjut/berhasil/' . $isAntrianCreated->id);
+  }
+
+  public function lanjutKeSeragamBerhasil(Antrian $antrian)
+  {
+    $antrian->nomor_antrian = AntrianHelper::generateNomorAntrian($antrian->kode_antrian, $antrian->nomor_antrian);
+
+    return view('seragam.berhasil', [
+      'antrian' => $antrian
+    ]);
   }
 }

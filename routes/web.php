@@ -44,6 +44,7 @@ Route::controller(OperatorController::class)->group(function () {
   // Route::get('/operator/antrian', 'antrian');
   Route::get('/operator/antrian/jenjang/{jenjang}/{status}', 'antrianPerJenjang');
   Route::get('/operator/antrian/panggil/{antrian:id}', 'panggilNomorAntrian');
+  Route::get('/operator/antrian/lanjut/berhasil/{antrian:id}', 'lanjutKeBendaharaBerhasil');
 
   Route::post('/operator/antrian/lanjut/', 'lanjutAntrian');
   Route::post('/operator/antrian/lewati/', 'lewatiAntrian');
@@ -56,6 +57,7 @@ Route::controller(BendaharaController::class)->group(function () {
   Route::get('/bendahara/antrian/{status}', 'antrianBendahara');
   Route::get('/bendahara/antrian/panggil/{antrian:id}', 'panggilNomorAntrian');
   Route::get('/bendahara/konfirmasi', 'konfirmasiAntrianBaru');
+  Route::get('/bendahara/antrian/lanjut/berhasil/{antrian:id}', 'lanjutKeSeragamBerhasil');
 
   Route::put('/bendahara/antrian/terpanggil', 'nomorAntrianTerpanggil');
 

@@ -4,7 +4,7 @@
 <div class="p-8">
 
   <!-- Lanjut Ke Bendahara Message -->
-  @if(session('create-success'))
+  @if (session('create-success'))
   <p>{{ session('create-success') }}</p>
   @endif
 

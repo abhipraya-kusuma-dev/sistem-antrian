@@ -36,7 +36,7 @@
   socket.emit('skip antrian', 'skip')
 
   setTimeout(() => {
-    window.location.href = `{{ url('/bendahara/antrian/belum') }}`
+    window.location.href = `{{ url('/operator/antrian/jenjang/' . $jenjang . '/belum') }}`
   }, 5000)
 </script>
 @endsection
