@@ -77,7 +77,7 @@ class BendaharaController extends Controller
 
     if (!$isAntrianCreated) return redirect('/antrian/daftar')->with('create-error', 'Gagal membuat antrian baru');
 
-    return redirect('/antrian/daftar')->with('create-success', 'Berhasil membuat antrian baru');
+    return redirect("/antrian/daftar/berhasil/$isAntrianCreated->id");
   }
 
   public function panggilNomorAntrian(Antrian $antrian)

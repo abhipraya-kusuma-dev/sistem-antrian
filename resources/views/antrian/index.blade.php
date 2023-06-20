@@ -235,6 +235,11 @@
     const keys = Object.keys(res)
     const warna = {{ Js::from($warna) }};
 
+    const generateNomorAntrian = (nomor_antrian, jenjang) => {
+      const jenjang = jenjang ? jenjang[0].toUpperCase() : 'B'
+      return jenjang + String(nomor_antrian).padStart(3, '0')
+    }
+
     keys.pop()
 
     keys.forEach((key, idx) => {
