@@ -24,12 +24,24 @@ class SeragamController extends Controller
       ->orderBy('created_at', 'asc')
       ->select('*')->first();
 
+    $terpanggil = DB::table('antrians')
+      ->where('terpanggil', 'sudah')
+      ->where('kode_antrian', 'M')
+      ->select('*')->get();
+
     if (!is_null($seragam)) {
       $seragam->nomor_antrian = AntrianHelper::generateNomorAntrian($seragam->kode_antrian, $seragam->nomor_antrian);
     }
 
+    if (!is_null($terpanggil)) {
+      foreach ($terpanggil as $antrian_terpanggil) {
+        $antrian_terpanggil->nomor_antrian = AntrianHelper::generateNomorAntrian($antrian_terpanggil->kode_antrian, $antrian_terpanggil->nomor_antrian);
+      }
+    }
+
     return view('seragam.index', [
-      'seragam' => $seragam
+      'seragam' => $seragam,
+      'terpanggil' => $terpanggil
     ]);
   }
 

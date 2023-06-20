@@ -27,11 +27,13 @@
       <div class="border-2 border-black p-4 h-1/2 space-y-4 bg-white">
         <h3 class="text-lg  underline font-bold">Terpanggil</h3>
         <ul class="grid grid-cols-4 gap-4">
-          <li class="border-2 border-black p-2 bg-green-400 text-white font-bold text-center">M002</li>
-          <li class="border-2 border-black p-2 bg-green-400 text-white font-bold text-center">M002</li>
-          <li class="border-2 border-black p-2 bg-green-400 text-white font-bold text-center">M002</li>
-          <li class="border-2 border-black p-2 bg-green-400 text-white font-bold text-center">M002</li>
-          <li class="border-2 border-black p-2 bg-green-400 text-white font-bold text-center">M002</li>
+          @if(count($terpanggil))
+            @foreach($terpanggil as $antrian_terpanggil)
+            <li class="border-2 border-black p-2 bg-green-400 text-white font-bold text-center">{{ $antrian_terpanggil->nomor_antrian }}</li>
+            @endforeach
+          @else
+            <li class="border-2 border-black p-2 bg-green-400 text-white font-bold text-center">Kosong</li>
+          @endif
         </ul>
       </div>
       <div class="border-2 font-semibold rounded-lg border-black py-2 bg-white text-slate-700 text-white px-4 h-1/2">
