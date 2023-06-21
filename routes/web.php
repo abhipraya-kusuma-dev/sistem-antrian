@@ -74,6 +74,7 @@ Route::controller(SeragamController::class)->group(function () {
 
   Route::get('/seragam/konfirmasi', 'konfirmasiPendaftaran');
   Route::get('/seragam/daftar/berhasil/{antrian:id}', 'daftarAntrianBerhasil');
+  Route::get('/seragam/terbaru', 'getNewestAntrianData')->name('list_terpanggil');
 
   Route::post('/seragam/daftar/proses', 'buatAntrianBaru');
   Route::post('/seragam/antrian/lanjut/', 'lanjutAntrian');

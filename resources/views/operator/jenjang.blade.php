@@ -22,7 +22,6 @@
       <input type="date" name="tanggal_pendaftaran" class="border-2 border-black px-4 py-1.5" value="{{ $tanggal_pendaftaran }}" />
       <button type="submit" class="bg-purple-700/80 text-white px-4 py-1.5 font-semibold">Pilih Tanggal</button>
     </form>
-    {{-- Logout --}}
     <form action="/logout" method="post">
       @csrf
       <button type="submit" class="text-red-400 font-bold text-lg">Logout</button>

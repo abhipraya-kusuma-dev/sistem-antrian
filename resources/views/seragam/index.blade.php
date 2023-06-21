@@ -26,17 +26,17 @@
     <div class="w-1/2 border-black border-2 p-4 flex flex-col space-y-4 bg-[#FFB84C]">
       <div class="border-2 border-black p-4 h-1/2 space-y-4 bg-white">
         <h3 class="text-lg  underline font-bold">Terpanggil</h3>
-        <ul class="grid grid-cols-4 gap-4">
+        <ul id="list-terpanggil" class="grid grid-cols-4 gap-4">
           @if(count($terpanggil))
-            @foreach($terpanggil as $antrian_terpanggil)
-            <li class="border-2 border-black p-2 bg-green-400 text-white font-bold text-center">{{ $antrian_terpanggil->nomor_antrian }}</li>
-            @endforeach
+          @foreach($terpanggil as $antrian_terpanggil)
+          <li class="border-2 border-black p-2 bg-green-400 text-white font-bold text-center">{{ $antrian_terpanggil->nomor_antrian }}</li>
+          @endforeach
           @else
-            <li class="border-2 border-black p-2 bg-green-400 text-white font-bold text-center">Kosong</li>
+          <li class="border-2 border-black p-2 bg-green-400 text-white font-bold text-center">Kosong</li>
           @endif
         </ul>
       </div>
-      <div class="border-2 font-semibold rounded-lg border-black py-2 bg-white text-slate-700 text-white px-4 h-1/2">
+      <div class="border-2 font-semibold rounded-lg border-black py-2 bg-white text-slate-700 text-black px-4 h-1/2">
         <h3 class="text-lg  underline font-bold text-[#B70404]">INFO:</h3>
         <p>Kegiatan MPLS (Masa Pengenalan Lingkungan Sekolah).Akan dimulai pada tanggal 10 s/d 12 juli 2023. </p>
         <p>Informasi lebih lanjut tentang kegiatan tersebut, silahkan hubungi:</p>
@@ -67,7 +67,6 @@
   })
 
   socket.on('play current antrian seragam audio', (antrianDisplay) => {
-    console.log('hello audio')
     generateAntrianDisplay(antrianDisplay)
     socket.emit('change antrian seragam display loading', antrianDisplay)
 
@@ -78,6 +77,28 @@
     })
 
     audio.removeEventListener('ended', listener)
+  })
+
+  const listTerpanggil = document.getElementById('list-terpanggil')
+
+  const updateListTerpanggil = async () => {
+    const req = await fetch(`{{ route('list_terpanggil') }}`)
+    const res = await req.json()
+
+    listTerpanggil.innerHTML = ''
+
+    if (res.length) {
+      res.forEach((antrian, idx) => {
+        listTerpanggil.innerHTML += `
+        <li class="border-2 border-black p-2 bg-green-400 text-white font-bold text-center">${antrian.nomor_antrian}</li>
+      `
+      })
+    }
+
+  }
+
+  socket.on('skip antrian', async (skip) => {
+    await updateListTerpanggil()
   })
 </script>
 @endsection

@@ -45,6 +45,20 @@ class SeragamController extends Controller
     ]);
   }
 
+  public function getNewestAntrianData()
+  {
+    $antrian = DB::table('antrians')
+      ->where('terpanggil', 'sudah')
+      ->where('kode_antrian', 'M')
+      ->latest()->limit(4 * 2)->get();
+
+    foreach ($antrian as $data) {
+      $data->nomor_antrian = AntrianHelper::generateNomorAntrian($data->kode_antrian, $data->nomor_antrian);
+    }
+
+    return response()->json($antrian);
+  }
+
   public function antrianSeragam($status, Request $request)
   {
     $tanggal_pendaftaran =  AntrianHelper::getTanggalPendaftaran($request);
