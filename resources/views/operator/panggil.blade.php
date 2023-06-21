@@ -48,11 +48,11 @@
   <button type="button" id="panggil-btn" class="disabled:text-black/60 hover:border-b-2 hover:border-white w-[650px] text-white border-2 border-black font-bold py-3 px-4 bg-red-600 hover:bg-red-800 ">Panggil</button>
 
   <div class="flex space-x-4">
-    <form action="/operator/antrian/lanjut/" class="block" method="post">
-      @csrf
-      <input type="hidden" name="antrian_id" value="{{$antrian->id }}" />
-      <button type="submit" id="lanjut-btn" class="disabled:text-black/60 bg-green-600 text-white font-bold border-2 border-black rounded-full py-2 px-6">Antrian Selanjutnya</button>
-    </form>
+    <!-- <form action="/operator/antrian/lanjut/" class="block" method="post"> -->
+    <!--   @csrf -->
+    <!--   <input type="hidden" name="antrian_id" value="{{$antrian->id }}" /> -->
+    <!--   <button type="submit" id="lanjut-btn" class="disabled:text-black/60 bg-green-600 text-white font-bold border-2 border-black rounded-full py-2 px-6">Antrian Selanjutnya</button> -->
+    <!-- </form> -->
 
     <form action="/operator/antrian/lewati/" class="block" method="post">
       @csrf

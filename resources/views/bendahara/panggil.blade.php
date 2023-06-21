@@ -23,11 +23,11 @@
 
   @if($antrian->terpanggil === 'sudah')
   <button class="hidden" type="button" id="panggil-btn">Panggil</button>
-  <form action="/operator/antrian/lanjut/" class="hidden" method="post">
-    @csrf
-    <input type="hidden" name="antrian_id" value="{{$antrian->id }}" />
-    <button type="submit" id="lanjut-btn" class="disabled:text-black/60 text-green-600 font-bold">Antrian Selanjutnya</button>
-  </form>
+  <!-- <form action="/operator/antrian/lanjut/" class="hidden" method="post"> -->
+  <!--   @csrf -->
+  <!--   <input type="hidden" name="antrian_id" value="{{$antrian->id }}" /> -->
+  <!--   <button type="submit" id="lanjut-btn" class="disabled:text-black/60 text-green-600 font-bold">Antrian Selanjutnya</button> -->
+  <!-- </form> -->
   <form action="/operator/antrian/lewati/" class="hidden" method="post">
     @csrf
     <input type="hidden" name="antrian_id" value="{{$antrian->id }}" />
