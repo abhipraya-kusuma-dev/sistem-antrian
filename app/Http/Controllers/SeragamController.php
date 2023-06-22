@@ -27,6 +27,7 @@ class SeragamController extends Controller
     $terpanggil = DB::table('antrians')
       ->where('terpanggil', 'sudah')
       ->where('kode_antrian', 'M')
+      ->where('tanggal_pendaftaran', now('Asia/Jakarta')->format('Y-m-d'))
       ->select('*')->get();
 
     if (!is_null($seragam)) {
@@ -50,6 +51,7 @@ class SeragamController extends Controller
     $antrian = DB::table('antrians')
       ->where('terpanggil', 'sudah')
       ->where('kode_antrian', 'M')
+      ->where('tanggal_pendaftaran', now('Asia/Jakarta')->format('Y-m-d'))
       ->latest()->limit(4 * 2)->get();
 
     foreach ($antrian as $data) {

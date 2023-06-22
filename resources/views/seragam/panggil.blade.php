@@ -45,17 +45,19 @@
     <button type="button" id="panggil-btn" class="disabled:text-black/60 hover:border-b-2 hover:border-white w-[650px] text-white border-2 border-black font-bold py-3 px-4 bg-red-600 hover:bg-red-800 ">Panggil</button>
 
     <div class="flex space-x-4">
-      <form action="/seragam/antrian/lanjut/" class="block" method="post">
-        @csrf
-        <input type="hidden" name="antrian_id" value="{{$antrian->id }}" />
-        <button type="submit" id="lanjut-btn" class="disabled:text-black/60 bg-green-600 text-white font-bold border-2 border-black rounded-full py-2 px-6">Antrian Selanjutnya</button>
-      </form>
+      <!-- <form action="/seragam/antrian/lanjut/" class="block" method="post"> -->
+      <!--   @csrf -->
+      <!--   <input type="hidden" name="antrian_id" value="{{$antrian->id }}" /> -->
+      <!--   <button type="submit" id="lanjut-btn" class="disabled:text-black/60 bg-green-600 text-white font-bold border-2 border-black rounded-full py-2 px-6">Antrian Selanjutnya</button> -->
+      <!-- </form> -->
 
-      <form action="/seragam/antrian/lewati/" class="block" method="post">
-        @csrf
-        <input type="hidden" name="antrian_id" value="{{$antrian->id }}" />
-        <button type="submit" id="lewati-btn" class="disabled:text-black/60 bg-green-600 text-white font-bold border-2 border-black rounded-full py-2 px-6">Lewati Antrian</button>
-      </form>
+      <!-- @if($antrian->terpanggil !== 'lewati') -->
+      <!-- <form action="/seragam/antrian/lewati/" class="block" method="post"> -->
+      <!--   @csrf -->
+      <!--   <input type="hidden" name="antrian_id" value="{{$antrian->id }}" /> -->
+      <!--   <button type="submit" id="lewati-btn" class="disabled:text-black/60 bg-green-600 text-white font-bold border-2 border-black rounded-full py-2 px-6">Lewati Antrian</button> -->
+      <!-- </form> -->
+      <!-- @endif -->
 
       <form action="/seragam/antrian/terpanggil" class="block" method="post">
         @method('PUT')
@@ -74,7 +76,7 @@
 <script>
   const panggilBtn = document.getElementById('panggil-btn')
   const lanjutBtn = document.getElementById('lanjut-btn')
-  const lewatiBtn = document.getElementById('lewati-btn')
+  // const lewatiBtn = document.getElementById('lewati-btn')
   const terpanggilBtn = document.getElementById('terpanggil-btn')
 
   const antrian = {{ Js::from($antrian) }}
@@ -85,9 +87,9 @@
     socket.emit('play current antrian seragam audio', antrian)
   })
 
-  lewatiBtn.addEventListener('click', () => {
-    socket.emit('skip antrian', 'skip')
-  })
+  // lewatiBtn.addEventListener('click', () => {
+  //   socket.emit('skip antrian', 'skip')
+  // })
 
   terpanggilBtn.addEventListener('click', () => {
     socket.emit('skip antrian', 'skip')
