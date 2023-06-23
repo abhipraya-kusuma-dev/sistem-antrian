@@ -11,6 +11,16 @@
   <p>{{ session('update-success') }}</p>
   @endif
 
+  <!-- Lanjut Ke Seragam Message -->
+  @if(session('create-success'))
+  <p>{{ session('create-success') }}</p>
+  @endif
+
+  @if(session('create-error'))
+  <p>{{ session('create-error') }}</p>
+  @endif
+  <!-- Lanjut Ke Seragam Message End -->
+
   <div>
     <div class="note bg-blue-400 p-4 text-white">
       <h1 class="text-xl font-bold"><span class="text-yellow-300">NOTE:</span> Pilih Tanggal Pendaftaran (default tanggal hari ini)</h1>
@@ -48,7 +58,7 @@
 
     @foreach($semua_antrian as $antrian)
     <li class="w-full">
-      <a class="bg-green-400 text-white py-1.5 inline-block text-center w-full"href="/bendahara/antrian/panggil/{{ $antrian->id }}">
+      <a class="bg-green-400 text-white py-1.5 inline-block text-center w-full" href="/bendahara/antrian/panggil/{{ $antrian->id }}">
         <b>{{ $antrian->nomor_antrian }}</b>
       </a>
     </li>

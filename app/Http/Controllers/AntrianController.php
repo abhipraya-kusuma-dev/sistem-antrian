@@ -38,6 +38,12 @@ class AntrianController extends Controller
 
     $antrian = AntrianHelper::groupBasedOnJenjang($antrian);
 
+    foreach ($antrian as $key => $value) {
+      foreach ($value as $antrianData) {
+        $antrianData->nomor_antrian = AntrianHelper::generateNomorAntrian($antrianData->kode_antrian, $antrianData->nomor_antrian);
+      }
+    }
+
     return response()->json($antrian);
   }
 

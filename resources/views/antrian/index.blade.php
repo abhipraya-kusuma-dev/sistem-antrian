@@ -60,7 +60,7 @@
 
   {{-- Jangan lupa bawa karcis pepek --}}
   <marquee class="text-3xl font-bold mt-4 drop-shadow-lg">
-    <pre>"Karcis jangan sampai hilang 😘😘"                          "Jangan Lupa Sholat"                   "WD gratis diweb aku kak. "</pre>
+    <pre>"Karcis jangan sampai hilang 😘😘"</pre>
   </marquee>
 </main>
 <footer class="flex justify-between p-4 fixed inset-x-0 bottom-0 items-center">
@@ -251,6 +251,7 @@
 
   socket.on('skip antrian', async (skip) => {
     await updateCardContainer()
+    console.log('update')
   })
 
 </script>
