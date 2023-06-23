@@ -99,14 +99,12 @@
 
   socket.on('change antrian seragam display loading', (antrian) => {
     panggilBtn.setAttribute('disabled', 'true')
-    lanjutBtn.setAttribute('disabled', 'true')
     lewatiBtn.setAttribute('disabled', 'true')
     terpanggilBtn.setAttribute('disabled', 'true')
   })
 
   socket.on('change antrian seragam display complete', (antrian) => {
     panggilBtn.removeAttribute('disabled')
-    lanjutBtn.removeAttribute('disabled')
     lewatiBtn.removeAttribute('disabled')
     terpanggilBtn.removeAttribute('disabled')
   })

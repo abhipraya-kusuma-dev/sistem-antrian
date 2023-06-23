@@ -91,8 +91,7 @@
 <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 <script>
   const panggilBtn = document.getElementById('panggil-btn')
-  const lanjutBtn = document.getElementById('lanjut-btn')
-  // const lewatiBtn = document.getElementById('lewati-btn')
+  const lewatiBtn = document.getElementById('lewati-btn')
   const terpanggilBtn = document.getElementById('terpanggil-btn')
   const lanjutBendaharaBtn = document.getElementById('lanjut-bendahara-btn')
 
@@ -104,9 +103,11 @@
     socket.emit('play current antrian audio', antrian)
   })
 
-  // lewatiBtn.addEventListener('click', () => {
-  //   socket.emit('skip antrian', 'skip')
-  // })
+  if(lewatiBtn) {
+    lewatiBtn.addEventListener('click', () => {
+      socket.emit('skip antrian', 'skip')
+    })
+  }
 
   terpanggilBtn.addEventListener('click', () => {
     socket.emit('skip antrian', 'skip')
@@ -120,7 +121,6 @@
 
   socket.on('change antrian display loading', (antrian) => {
     panggilBtn.setAttribute('disabled', 'true')
-    lanjutBtn.setAttribute('disabled', 'true')
     lewatiBtn.setAttribute('disabled', 'true')
     terpanggilBtn.setAttribute('disabled', 'true')
     lanjutBendaharaBtn.setAttribute('disabled', 'true')
@@ -128,7 +128,6 @@
 
   socket.on('change antrian display complete', (antrian) => {
     panggilBtn.removeAttribute('disabled')
-    lanjutBtn.removeAttribute('disabled')
     lewatiBtn.removeAttribute('disabled')
     terpanggilBtn.removeAttribute('disabled')
     lanjutBendaharaBtn.removeAttribute('disabled')

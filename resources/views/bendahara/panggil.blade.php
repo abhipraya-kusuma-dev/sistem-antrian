@@ -78,7 +78,7 @@
       <input type="hidden" name="antrian_id" value="{{ $antrian->id }}" />
       <input type="hidden" name="nomor_antrian" value="{{ $antrian->nomor_antrian }}" />
       <input type="hidden" name="antrian_jenjang" value="{{ $antrian->antrian_jenjang }}" />
-      <button type="submit" id="lanjut-bendahara-btn" class="disabled:text-black/60 bg-blue-600 text-white font-bold py-2 px-6 rounded-full border-2 border-black">Lanjut Ke Seragam</button>
+      <button type="submit" id="lanjut-seragam-btn" class="disabled:text-black/60 bg-blue-600 text-white font-bold py-2 px-6 rounded-full border-2 border-black">Lanjut Ke Seragam</button>
     </form>
     @endif
 
@@ -91,8 +91,7 @@
 <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 <script>
   const panggilBtn = document.getElementById('panggil-btn')
-  const lanjutBtn = document.getElementById('lanjut-btn')
-  // const lewatiBtn = document.getElementById('lewati-btn')
+  const lewatiBtn = document.getElementById('lewati-btn')
   const terpanggilBtn = document.getElementById('terpanggil-btn')
   const lanjutSeragamBtn = document.getElementById('lanjut-seragam-btn')
 
@@ -104,9 +103,11 @@
     socket.emit('play current antrian audio', antrian)
   })
 
-  // lewatiBtn.addEventListener('click', () => {
-  //   socket.emit('skip antrian', 'skip')
-  // })
+  if(lewatiBtn) {
+    lewatiBtn.addEventListener('click', () => {
+      socket.emit('skip antrian', 'skip')
+    })
+  }
 
   terpanggilBtn.addEventListener('click', () => {
     socket.emit('skip antrian', 'skip')
@@ -120,16 +121,16 @@
 
   socket.on('change antrian display loading', (antrian) => {
     panggilBtn.setAttribute('disabled', 'true')
-    lanjutBtn.setAttribute('disabled', 'true')
     lewatiBtn.setAttribute('disabled', 'true')
     terpanggilBtn.setAttribute('disabled', 'true')
+    lanjutSeragamBtn.setAttribute('disabled', 'true')
   })
 
   socket.on('change antrian display complete', (antrian) => {
     panggilBtn.removeAttribute('disabled')
-    lanjutBtn.removeAttribute('disabled')
     lewatiBtn.removeAttribute('disabled')
     terpanggilBtn.removeAttribute('disabled')
+    lanjutSeragamBtn.removeAttribute('disabled')
   })
 </script>
 @endsection
