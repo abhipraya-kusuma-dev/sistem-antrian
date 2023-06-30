@@ -121,7 +121,7 @@ class SeragamController extends Controller
 
     if (!$isAntrianUpdated) return redirect('/seragam/antrian/belum')->with('update-error', 'Gagal melakukan yg tadi');
 
-    return redirect('/seragam/antrian/belum')->with('update-error', "Berhasil melakukan yg tadi");
+    return $this->lanjutAntrian($request);
   }
 
   public function panggilNomorAntrian(Antrian $antrian)

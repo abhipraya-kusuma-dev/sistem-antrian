@@ -97,8 +97,10 @@ class BendaharaController extends Controller
     ]);
 
     if (!$isAntrianUpdated) return redirect('/bendahara/antrian/belum')->with('update-error', 'Gagal melakukan yg tadi');
-    return redirect('/bendahara/antrian/belum')->with('update-success', 'Berhasil melakukan yg tadi');
+
+    return $this->lanjutAntrian($request);
   }
+
   public function lanjutAntrian(Request $request)
   {
     $antrianSaatIni = DB::table('antrians')
@@ -114,6 +116,7 @@ class BendaharaController extends Controller
       ->select('*')->first();
 
     if (is_null($antrianSelanjutnya)) return back()->with('antrian-mentok', 'Antrian sudah mentok');
+
     return redirect('/bendahara/antrian/panggil/' . $antrianSelanjutnya->id);
   }
   public function lewatiAntrian(Request $request)
@@ -123,6 +126,7 @@ class BendaharaController extends Controller
     ]);
 
     if (!$isAntrianUpdated) return back()->with('update-error', 'Gagal melewati antrian');
+
     return $this->lanjutAntrian($request);
   }
 

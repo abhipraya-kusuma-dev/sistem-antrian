@@ -7,7 +7,6 @@
 </p>
 @endif
 
-
 <div class="w-full p-8 flex justify-center space-x-10 h-screen items-center">
 
   <div class="flex flex-col space-y-8">

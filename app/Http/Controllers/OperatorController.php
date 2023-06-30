@@ -111,7 +111,7 @@ class OperatorController extends Controller
 
     if (!$isAntrianUpdated) return redirect('/operator/antrian/jenjang/' . $request['antrian_jenjang'] . '/belum')->with('update-error', 'Gagal melakukan yg tadi');
 
-    return redirect('/operator/antrian/jenjang/' . $request['antrian_jenjang'] . '/belum')->with('update-error', "Berhasil melakukan yg tadi");
+    return $this->lanjutAntrian($request);
   }
 
   public function lanjutKeBendahara(Request $request)
