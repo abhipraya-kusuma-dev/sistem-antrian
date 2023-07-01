@@ -10,6 +10,8 @@ use App\Models\Antrian;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Str;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -128,4 +130,14 @@ Route::get('/test-paginate', function () {
   return view('test.paginate', [
     'data' => $data
   ]);
+});
+
+Route::get('/test-jeda', function () {
+  $kode_nomor_antrian = 'K001';
+  $splitted = str_split($kode_nomor_antrian);
+
+  $splitted[0] = $splitted[0] . ' ';
+  $kode_nomor_antrian = join('', $splitted);
+
+  return $kode_nomor_antrian;
 });

@@ -20,7 +20,7 @@ class TextToSpeechHelper
     ])->post('https://play.ht/api/v1/convert', [
       'content' => [$text],
       'voice' => 'id-ID-Standard-A',
-      'globalSpeed' => '70%'
+      'globalSpeed' => '65%'
     ]);
 
     $data = $response->json();
@@ -65,6 +65,16 @@ class TextToSpeechHelper
     return 'storage/audio/' . $fileName;
   }
 
+  public static function insertSpaceBeforeNumber(string $kode_nomor_antrian)
+  {
+    $splitted = str_split($kode_nomor_antrian);
+
+    $splitted[0] = $splitted[0] . ' ';
+    $kode_nomor_antrian = join('', $splitted);
+
+    return $kode_nomor_antrian;
+  }
+
   public static function getAudioPath(int $nomor_antrian, string|null $jenjang, Request $request)
   {
     $kode_antrian = AntrianHelper::getKodeAntrian($jenjang);
@@ -79,6 +89,8 @@ class TextToSpeechHelper
 
     $loket = is_null($jenjang) ? 'Bendahara' : strtoupper($jenjang);
     $loket = $jenjang === 'seragam' ? 'Seragam' : $loket;
+
+    $kode_nomor_antrian = self::insertSpaceBeforeNumber($kode_nomor_antrian);
 
     $audio_path = $antrian->audio_path ?? self::transformTextToSpeech('Antrian nomor ' . $kode_nomor_antrian . ' menuju loket ' . $loket, $request);
 
