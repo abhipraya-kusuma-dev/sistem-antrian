@@ -10,7 +10,11 @@
       <p>Jl. Bandengan Utara 80, Penjaringan, Jakarta Utara, DKI Jakarta</p>
     </div>
   </div>
+
+  <audio hidden id="intro" src="{{ asset('/audio/intro.mp3') }}"></audio>
   <audio hidden id="audio"></audio>
+  <audio hidden id="outro" src="{{ asset('/audio/outro.mp3') }}"></audio>
+
   <div class="w-full flex space-x-4 px-4">
     <div class="border-2 border-black bg-[#9376E0] text-white p-4 w-1/2 h-[calc(100vh-230px)] flex flex-col justify-center items-center ">
       <h1 class="text-xl font-bold">Antrian</h1>
@@ -55,7 +59,14 @@
   const socket = io(`{{ env('SOCKET_IO_SERVER') }}`)
 
   const nomorAntrian = document.getElementById('nomor_antrian')
+
+  const intro = document.getElementById('intro')
+  intro.volume = 0.4
+
   const audio = document.getElementById('audio')
+
+  const outro = document.getElementById('outro')
+  outro.volume = 0.4
 
   function generateAntrianDisplay(antrian) {
     nomorAntrian.textContent = antrian.nomor_antrian
@@ -70,13 +81,23 @@
     generateAntrianDisplay(antrianDisplay)
     socket.emit('change antrian seragam display loading', antrianDisplay)
 
-    audio.play()
+    intro.play()
 
-    const listener = audio.addEventListener('ended', () => {
-      socket.emit('change antrian seragam display complete', antrianDisplay)
+    const introListener = intro.addEventListener('ended', () => {
+      audio.play()
     })
 
-    audio.removeEventListener('ended', listener)
+    const audioListener = audio.addEventListener('ended', () => {
+      outro.play()
+    })
+
+    const outroListener = outro.addEventListener('ended', () => {
+      socket.emit('change antrian display complete', antrianDisplay)
+    })
+
+    intro.removeEventListener('ended', introListener)
+    audio.removeEventListener('ended', audioListener)
+    outro.removeEventListener('ended', outroListener)
   })
 
   const listTerpanggil = document.getElementById('list-terpanggil')
