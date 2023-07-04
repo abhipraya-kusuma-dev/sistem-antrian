@@ -3,6 +3,10 @@
 @section('content')
 <div class="p-4">
 
+    <form action='/logout' class="flex justify-end" method='post'>
+      @csrf
+      <button type="submit" class="text-red-600 font-bold hover:text-red-700">Logout</button>
+    </form>
 
   <div class="flex justify-between mt-14">
     <div class=" flex space-y-4 flex-col justify-center w-full">
@@ -17,10 +21,6 @@
       </label>
 
       <button type="submit" class="py-2 px-4 bg-sky-600 font-semibold border-2 border-black hover:bg-sky-700 text-white mt-2">Pilih Tanggal</button>
-    </form>
-    <form action='/logout'class="border-2 border-black w-max" method='post'>
-      @csrf
-      <button type="submit" class="bg-red-600 py-1.5 px-8 text-white font-bold hover:text-red-700">Logout</button>
     </form>
     </div>
     <div class="flex flex-col items-center">

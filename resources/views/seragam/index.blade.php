@@ -13,12 +13,12 @@
   <audio hidden id="audio"></audio>
   <div class="w-full flex space-x-4 px-4">
     <div class="border-2 border-black bg-[#9376E0] text-white p-4 w-1/2 h-[calc(100vh-230px)] flex flex-col justify-center items-center ">
-      <h1 class="text-xl font-bold">Antrian</h1>
+      <h1 class="text-2xl font-bold">Antrian</h1>
 
       @if(!is_null($seragam))
-      <h2 class="text-7xl font-bold text-[#F6FFA6]" id="nomor_antrian">{{ $seragam->nomor_antrian }}</h2>
+      <h2 class="text-8xl font-bold text-[#F6FFA6]" id="nomor_antrian">{{ $seragam->nomor_antrian }}</h2>
       @else
-      <h2 class="text-7xl font-bold" id="nomor_antrian">Kosong</h2>
+      <h2 class="text-8xl text-black font-bold" id="nomor_antrian">Kosong</h2>
       @endif
 
       <p class="text-3xl">Ruangan <span class="t-2 font-bold text-[#EE966A]">Seragam</span></p>
@@ -38,7 +38,7 @@
       </div>
       <div class="border-2 font-semibold rounded-lg border-black py-2 bg-white text-slate-700 text-black px-4 h-1/2">
         <h3 class="text-lg  underline font-bold text-[#B70404]">INFO:</h3>
-        <p>Kegiatan MPLS (Masa Pengenalan Lingkungan Sekolah).Akan dimulai pada tanggal 10 s/d 12 juli 2023. </p>
+        <p>Kegiatan MPLS (Masa Pengenalan Lingkungan Sekolah).Akan dimulai pada tanggal 12 s/d 14 juli 2023. </p>
         <p>Informasi lebih lanjut tentang kegiatan tersebut, silahkan hubungi:</p>
         <ul class="list-disc px-4 py-2">
           <li>Pak Yurike(SMP): 0821 2269 0561 </li>
