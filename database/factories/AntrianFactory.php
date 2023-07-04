@@ -18,11 +18,13 @@ class AntrianFactory extends Factory
    */
   public function definition(): array
   {
+    $nomor_antrian = self::$nomor_antrian++;
+
     return [
-      'nomor_antrian'  => self::$nomor_antrian++,
+      'nomor_antrian'  => $nomor_antrian,
       'tanggal_pendaftaran' => now('Asia/Jakarta')->format('Y-m-d'),
       'kode_antrian' => 'M',
-      'audio_path' => TextToSpeechHelper::getAudioPath(self::$nomor_antrian, 'seragam')
+      'audio_path' => TextToSpeechHelper::getAudioPath($nomor_antrian, 'seragam')
     ];
   }
 }

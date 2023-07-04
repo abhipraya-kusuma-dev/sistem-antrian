@@ -12,7 +12,12 @@ class SeragamController extends Controller
 {
   public function __construct()
   {
-    $this->middleware(['auth', 'is_seragam'])->except('display');
+    $this->middleware(['auth', 'is_seragam'])->except([
+      'display',
+      'konfirmasiPendaftaran',
+      'daftarAntrianBerhasil',
+      'buatAntrianBaru'
+    ]);
   }
 
   public function display()
