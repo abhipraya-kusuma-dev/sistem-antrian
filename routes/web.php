@@ -1,5 +1,6 @@
 <?php
 
+use App\Helper\TextToSpeechHelper;
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BendaharaController;
@@ -7,6 +8,8 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\OperatorController;
 use App\Http\Controllers\SeragamController;
 use App\Models\Antrian;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
@@ -106,38 +109,36 @@ Route::get('/update', function () {
   return $antrian;
 });
 
-Route::get('/test-create', function () {
-  $antrianLama = DB::table('antrians')->where('kode_antrian', 'K')->orderBy('created_at', 'asc')->first('audio_path');
+Route::get('/create-5-data', function (Request $request) {
+  // $start = 1;
+  //
+  // $latestAntrianNumber = DB::table('antrians')
+  //   ->where('kode_antrian', 'M')
+  //   ->where('terpanggil', 'belum')
+  //   ->where('tanggal_pendaftaran', Carbon::now('Asia/Jakarta')->format('Y-m-d'))
+  //   ->orderBy('created_at', 'desc')->first('nomor_antrian');
+  //
+  // $start = $latestAntrianNumber->nomor_antrian ?? $start;
+  //
+  // while ($start <= 2) {
+  //   $isCreated = DB::table('antrians')
+  //     ->insert([
+  //       'nomor_antrian' => $start,
+  //       'tanggal_pendaftaran' => now('Asia/Jakarta')->format('Y-m-d'),
+  //       'kode_antrian' => 'M',
+  //       'audio_path' => TextToSpeechHelper::getAudioPath($start, 'seragam', $request)
+  //     ]);
+  //
+  //   if(!$isCreated) break;
+  //
+  //   $start += 1;
+  // }
 
-  $isAntrianCreated = Antrian::create([
-    'nomor_antrian' => 1,
-    'jenjang' => 'smk',
-    'kode_antrian' => 'K',
-    'audio_path' => $antrianLama->audio_path,
-    'tanggal_pendaftaran' => now('Asia/Jakarta')->subDays(3)->format('Y-m-d')
-  ]);
-
-  return $isAntrianCreated;
-});
-
-Route::get('/test-paginate', function () {
-
-  $data = DB::table('antrians')
+  $antrianSeragam = DB::table('antrians')
+    ->where('kode_antrian', 'M')
     ->where('tanggal_pendaftaran', now('Asia/Jakarta')->format('Y-m-d'))
-    ->where('terpanggil', 'sudah')
-    ->select()->paginate(10);
+    ->where('terpanggil', 'belum')
+    ->select()->get();
 
-  return view('test.paginate', [
-    'data' => $data
-  ]);
-});
-
-Route::get('/test-jeda', function () {
-  $kode_nomor_antrian = 'K001';
-  $splitted = str_split($kode_nomor_antrian);
-
-  $splitted[0] = $splitted[0] . ' ';
-  $kode_nomor_antrian = join('', $splitted);
-
-  return $kode_nomor_antrian;
+  return $antrianSeragam;
 });

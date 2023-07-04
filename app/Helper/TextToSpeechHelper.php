@@ -51,9 +51,9 @@ class TextToSpeechHelper
     return self::getDownloadUrl($transcriptionId);
   }
 
-  private static function transformTextToSpeech(string $text, Request $request)
+  private static function transformTextToSpeech(string $text)
   {
-    $transcriptionId = $request->cookie('transcriptionId') ?? self::getTranscriptionID($text);
+    $transcriptionId = self::getTranscriptionID($text);
     $audioUrl = self::getDownloadUrl($transcriptionId);
 
     $fileName = Str::random() . '.mp3';
@@ -75,7 +75,7 @@ class TextToSpeechHelper
     return $kode_nomor_antrian;
   }
 
-  public static function getAudioPath(int $nomor_antrian, string|null $jenjang, Request $request)
+  public static function getAudioPath(int $nomor_antrian, string|null $jenjang)
   {
     $kode_antrian = AntrianHelper::getKodeAntrian($jenjang);
     $kode_nomor_antrian = AntrianHelper::generateNomorAntrian($kode_antrian, $nomor_antrian);
@@ -92,7 +92,7 @@ class TextToSpeechHelper
 
     $kode_nomor_antrian = self::insertSpaceBeforeNumber($kode_nomor_antrian);
 
-    $audio_path = $antrian->audio_path ?? self::transformTextToSpeech('Antrian nomor ' . $kode_nomor_antrian . ' menuju loket ' . $loket, $request);
+    $audio_path = $antrian->audio_path ?? self::transformTextToSpeech('Antrian nomor ' . $kode_nomor_antrian . ' menuju loket ' . $loket);
 
     return $audio_path;
   }

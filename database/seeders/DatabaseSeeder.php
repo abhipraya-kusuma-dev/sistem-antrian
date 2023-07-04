@@ -63,5 +63,7 @@ class DatabaseSeeder extends Seeder
       'role' => 'op_seragam',
       'password' => bcrypt('pwopseragam')
     ]);
+
+    Antrian::factory(5)->create();
   }
 }
