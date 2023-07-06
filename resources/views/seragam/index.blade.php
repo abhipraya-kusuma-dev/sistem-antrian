@@ -92,7 +92,7 @@
     })
 
     const outroListener = outro.addEventListener('ended', () => {
-      socket.emit('change antrian display complete', antrianDisplay)
+      socket.emit('change antrian seragam display complete', antrianDisplay)
     })
 
     intro.removeEventListener('ended', introListener)
