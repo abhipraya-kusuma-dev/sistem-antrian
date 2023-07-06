@@ -20,9 +20,9 @@
       <h1 class="text-5xl font-black">Antrian</h1>
 
       @if(!is_null($seragam))
-      <h2 class="text-7xl font-bold text-[#F6FFA6]" id="nomor_antrian">{{ $seragam->nomor_antrian }}</h2>
+      <h2 class="text-[150px] font-bold text-[#F6FFA6]" id="nomor_antrian">{{ $seragam->nomor_antrian }}</h2>
       @else
-      <h2 class="text-9xl font-bold" id="nomor_antrian">Kosong</h2>
+      <h2 class="text-[150px] font-bold" id="nomor_antrian">Kosong</h2>
       @endif
 
       <p class="text-5xl font-bold mt-4">Ruangan <span class="t-2 font-bold text-white">Ukur Seragam</span></p>
@@ -30,7 +30,7 @@
     <div class="w-1/2 border-black border-2 p-4 flex flex-col space-y-4 bg-[#FFB84C]">
       <div class="border-2 border-black p-4 h-1/2 space-y-4 bg-white">
         <h3 class="text-xl underline font-bold">Terpanggil</h3>
-        <ul id="list-terpanggil" class="grid grid-cols-4 gap-4 text-lg">
+        <ul id="list-terpanggil" class="grid grid-cols-4 gap-4 text-lg text-black">
           @if(count($terpanggil))
           @foreach($terpanggil as $antrian_terpanggil)
           <li class="border-2 border-black p-2 bg-green-400 text-black font-bold text-center">{{ $antrian_terpanggil->nomor_antrian }}</li>
@@ -111,7 +111,7 @@
     if (res.length) {
       res.forEach((antrian, idx) => {
         listTerpanggil.innerHTML += `
-        <li class="border-2 border-black p-2 bg-green-400 text-white font-bold text-center">${antrian.nomor_antrian}</li>
+        <li class="border-2 border-black p-2 bg-green-400 text-black font-bold text-center">${antrian.nomor_antrian}</li>
       `
       })
     }
