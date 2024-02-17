@@ -3,9 +3,7 @@
 @section('content')
 <header class="flex p-3 px-6 justify-between shadow-md items-center">
 
-  <audio hidden id="intro" src="{{ asset('/audio/intro.mp3') }}"></audio>
   <audio hidden id="audio"></audio>
-  <audio hidden id="outro" src="{{ asset('/audio/outro.mp3') }}"></audio>
 
   <div class="flex items-center space-x-4">
     <img src="{{ asset('wk.png') }}" class="w-20" alt="wk.png">
@@ -146,13 +144,7 @@
   const loketAntrian = document.getElementById('loket_antrian')
   const antrianJenjang = document.getElementById('antrian_jenjang')
 
-  const intro = document.getElementById('intro')
-  intro.volume = 0.4
-
   const audio = document.getElementById('audio')
-
-  const outro = document.getElementById('outro')
-  outro.volume = 0.4
 
   const currentAntrianTitle = document.getElementById('current-antrian-title')
   const currentAntrianNomor = document.getElementById('current-antrian-nomor')
@@ -213,26 +205,15 @@
     generateAntrianDisplay(antrianDisplay)
     socket.emit('change antrian display loading', antrianDisplay)
 
-    intro.play()
     player.mute()
-
-    const introListener = intro.addEventListener('ended', () => {
-      audio.play()
-    })
+    audio.play()
 
     const audioListener = audio.addEventListener('ended', () => {
-      outro.play()
-    })
-
-    const outroListener = outro.addEventListener('ended', () => {
       socket.emit('change antrian display complete', antrianDisplay)
       player.unMute()
     })
 
-    intro.removeEventListener('ended', introListener)
     audio.removeEventListener('ended', audioListener)
-    outro.removeEventListener('ended', outroListener)
-
   })
 
 

@@ -64,6 +64,6 @@ class DatabaseSeeder extends Seeder
       'password' => bcrypt('pwopseragam')
     ]);
 
-    // Antrian::factory(100)->create();
+    // Antrian::factory(10)->create();
   }
 }

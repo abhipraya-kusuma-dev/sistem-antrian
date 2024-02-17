@@ -110,30 +110,6 @@ Route::get('/update', function () {
 });
 
 Route::get('/create-5-data', function (Request $request) {
-  // $start = 1;
-  //
-  // $latestAntrianNumber = DB::table('antrians')
-  //   ->where('kode_antrian', 'M')
-  //   ->where('terpanggil', 'belum')
-  //   ->where('tanggal_pendaftaran', Carbon::now('Asia/Jakarta')->format('Y-m-d'))
-  //   ->orderBy('created_at', 'desc')->first('nomor_antrian');
-  //
-  // $start = $latestAntrianNumber->nomor_antrian ?? $start;
-  //
-  // while ($start <= 2) {
-  //   $isCreated = DB::table('antrians')
-  //     ->insert([
-  //       'nomor_antrian' => $start,
-  //       'tanggal_pendaftaran' => now('Asia/Jakarta')->format('Y-m-d'),
-  //       'kode_antrian' => 'M',
-  //       'audio_path' => TextToSpeechHelper::getAudioPath($start, 'seragam', $request)
-  //     ]);
-  //
-  //   if(!$isCreated) break;
-  //
-  //   $start += 1;
-  // }
-
   $antrianSeragam = DB::table('antrians')
     ->where('kode_antrian', 'M')
     ->where('tanggal_pendaftaran', now('Asia/Jakarta')->format('Y-m-d'))
@@ -141,4 +117,9 @@ Route::get('/create-5-data', function (Request $request) {
     ->select()->get();
 
   return $antrianSeragam;
+});
+
+Route::get('/test-generate-audio', function (Request $request) {
+  $query = $request->query();
+  // dd(TextToSpeechHelper::generateAudioFile($query['kode_antrian'], $query['nomor_antrian'], $query['loket']));
 });

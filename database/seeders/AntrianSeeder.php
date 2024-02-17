@@ -13,6 +13,6 @@ class AntrianSeeder extends Seeder
    */
   public function run(): void
   {
-    Antrian::factory(150)->create();
+    // Antrian::factory(10)->create();
   }
 }

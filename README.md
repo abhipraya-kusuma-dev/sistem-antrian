@@ -85,3 +85,5 @@ node server.cjs
 - [x] Data di Antrian Seragam  
 - [ ] Warna kolom di excel nya mengikuti warna di laporan  
 - [ ] Print Otomatis  
+
+- [ ] Rekaman angka 0-9 dan "Nomor antrian ... menuju loket (x)" secara manual
