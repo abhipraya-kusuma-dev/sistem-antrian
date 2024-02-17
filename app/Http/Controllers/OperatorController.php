@@ -114,37 +114,37 @@ class OperatorController extends Controller
     return $this->lanjutAntrian($request);
   }
 
-  public function lanjutKeBendahara(Request $request)
+  public function lanjutKeSeragam(Request $request)
   {
     $data = $request->only('antrian_id', 'nomor_antrian', 'antrian_jenjang');
 
     $antrianSaatIni = DB::table('antrians')
       ->where('tanggal_pendaftaran', now('Asia/Jakarta')->format('Y-m-d'))
-      ->where('kode_antrian', 'B')
-      ->orderBy('created_at', 'desc')->first('nomor_antrian');
+      ->where('kode_antrian', 'M')
+      ->latest()->first('nomor_antrian');
 
     $nomorAntrianSaatIni = $antrianSaatIni->nomor_antrian ?? 0;
 
     $isAntrianCreated = Antrian::create([
       'nomor_antrian' => $nomorAntrianSaatIni + 1,
-      'kode_antrian' => 'B',
+      'kode_antrian' => 'M',
       'antrian_jenjang' => $data['nomor_antrian'],
-      'audio_path' => TextToSpeechHelper::getAudioPath($nomorAntrianSaatIni + 1, NULL, $request),
+      'audio_path' => TextToSpeechHelper::getAudioPath($nomorAntrianSaatIni + 1, 'seragam'),
       'tanggal_pendaftaran' => now('Asia/Jakarta')->format('Y-m-d')
     ]);
 
-    if (!$isAntrianCreated) return redirect('/operator/antrian/jenjang/' . $data['antrian_jenjang'] . '/belum')->with('create-error', 'Gagal melakukan pemindahan antrian ke bendahara');
+    if (!$isAntrianCreated) return redirect('/operator/antrian/jenjang/' . $data['antrian_jenjang'] . '/belum')->with('create-error', 'Gagal melakukan pemindahan antrian ke seragam');
 
     $updateAntrianSaatIni = DB::table('antrians')->where('id', $request['antrian_id'])->update([
       'terpanggil' => 'sudah'
     ]);
 
-    if (!$updateAntrianSaatIni) return redirect('/operator/antrian/jenjang/' . $data['antrian_jenjang'] . '/belum')->with('create-error', 'Gagal melakukan pemindahan antrian ke bendahara');
+    if (!$updateAntrianSaatIni) return redirect('/operator/antrian/jenjang/' . $data['antrian_jenjang'] . '/belum')->with('create-error', 'Gagal melakukan pemindahan antrian ke seragam');
 
     return redirect('/operator/antrian/lanjut/berhasil/' . $isAntrianCreated->id);
   }
 
-  public function lanjutKeBendaharaBerhasil(Antrian $antrian)
+  public function lanjutKeSeragamBerhasil(Antrian $antrian)
   {
     $antrian->nomor_antrian = AntrianHelper::generateNomorAntrian($antrian->kode_antrian, $antrian->nomor_antrian);
     $jenjang = DB::table('antrians')

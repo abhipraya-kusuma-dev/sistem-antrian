@@ -148,7 +148,7 @@ class BendaharaController extends Controller
       'nomor_antrian' => $nomorAntrianSaatIni + 1,
       'kode_antrian' => 'M',
       'antrian_jenjang' => $data['antrian_jenjang'],
-      'audio_path' => TextToSpeechHelper::getAudioPath($nomorAntrianSaatIni + 1, 'seragam', $request),
+      'audio_path' => TextToSpeechHelper::getAudioPath($nomorAntrianSaatIni + 1, 'seragam'),
       'tanggal_pendaftaran' => now('Asia/Jakarta')->format('Y-m-d')
     ]);
 

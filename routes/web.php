@@ -49,11 +49,11 @@ Route::controller(OperatorController::class)->group(function () {
   // Route::get('/operator/antrian', 'antrian');
   Route::get('/operator/antrian/jenjang/{jenjang}/{status}', 'antrianPerJenjang');
   Route::get('/operator/antrian/panggil/{antrian:id}', 'panggilNomorAntrian');
-  Route::get('/operator/antrian/lanjut/berhasil/{antrian:id}', 'lanjutKeBendaharaBerhasil');
+  Route::get('/operator/antrian/lanjut/berhasil/{antrian:id}', 'lanjutKeSeragamBerhasil');
 
   Route::post('/operator/antrian/lanjut/', 'lanjutAntrian');
   Route::post('/operator/antrian/lewati/', 'lewatiAntrian');
-  Route::post('/operator/antrian/lanjut/bendahara', 'lanjutKeBendahara');
+  Route::post('/operator/antrian/lanjut/seragam', 'lanjutKeSeragam');
 
   Route::put('/operator/antrian/terpanggil', 'nomorAntrianTerpanggil');
 });
