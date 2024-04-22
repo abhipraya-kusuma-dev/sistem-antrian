@@ -3,20 +3,20 @@
 namespace App\Helper;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use App\Helper\AntrianHelper;
 use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 use FFMpeg\Format\Audio\Mp3;
+use ProtoneMedia\LaravelFFMpeg\Exporters\EncodingException;
 
 class TextToSpeechHelper
 {
   private static function generateAudioFile(string $kode_antrian, string $nomor_antrian, string $loket)
   {
-    $intro = 'public/audio/template/greetings/intro.mp3';
-    $outro = 'public/audio/template/greetings/outro.mp3';
+    $intro = 'audio/template/greetings/intro.mp3';
+    // $outro = 'public/audio/template/greetings/outro.mp3';
 
-    $antrian_nomor_n = 'public/audio/template/greetings/antrian_nomor_n.mp3';
-    $kode_antrian_audio = "public/audio/template/kode/$kode_antrian.mp3";
+    $antrian_nomor_n = 'audio/template/greetings/antrian_nomor_n.mp3';
+    $kode_antrian_audio = "audio/template/kode/$kode_antrian.mp3";
 
     // $slowed_antrian_nomor_n = FFMpeg::fromDisk('local')
     //   ->open($antrian_nomor_n)
@@ -26,23 +26,31 @@ class TextToSpeechHelper
     $audio_storage_paths = [];
 
     foreach ($nomor_antrian_array as $nomor) {
-      $audio_storage_paths[] = "public/audio/template/number/$nomor.mp3";
+      $audio_storage_paths[] = "audio/template/number/$nomor.mp3";
     }
 
-    $loket_audio = "public/audio/template/loket/$loket.mp3";
+    $loket_audio = "audio/template/loket/$loket.mp3";
 
-    $filename = Str::random() . ".mp3";
+    $filename = "$kode_antrian$nomor_antrian-" . now()->format('Y-m-d') . ".mp3";
 
-    $output_path = "public/audio/antrian/" . $filename;
+    $output_path = "audio/antrian/" . $filename;
 
-    FFMpeg::fromDisk('local')
-      ->open([$intro, $antrian_nomor_n, $kode_antrian_audio, ...$audio_storage_paths, $loket_audio, $outro])
-      ->export()
-      ->inFormat(new Mp3)
-      ->concatWithTranscoding(false, true)
-      ->save($output_path);
+    try {
+      FFMpeg::fromDisk('public')
+        ->open([$intro, $antrian_nomor_n, $kode_antrian_audio, ...$audio_storage_paths, $loket_audio])
+        ->export()
+        ->toDisk('public')
+        ->inFormat(new Mp3)
+        ->concatWithoutTranscoding()
+        ->save($output_path);
 
-    return 'storage/audio/antrian/' . $filename;
+      return 'storage/audio/antrian/' . $filename;
+    } catch (EncodingException $e) {
+      dd([
+        'command' => $e->getCommand(),
+        'error' => $e->getErrorOutput(),
+      ]);
+    }
   }
 
   public static function getAudioPath(int $nomor_antrian, string|null $jenjang)
