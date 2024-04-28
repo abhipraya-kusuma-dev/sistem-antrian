@@ -24,6 +24,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("skip antrian", (skip) => {
+    console.log(skip);
     io.emit("skip antrian", skip);
   });
 
