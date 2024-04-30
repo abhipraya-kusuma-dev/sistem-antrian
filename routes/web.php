@@ -1,19 +1,14 @@
 <?php
 
-use App\Helper\TextToSpeechHelper;
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BendaharaController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\OperatorController;
 use App\Http\Controllers\SeragamController;
-use App\Models\Antrian;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
-
-use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
