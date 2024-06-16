@@ -2,7 +2,7 @@
 
 @section('content')
 <header class="flex space-y-4 p-6 flex-col w-full fixed items-center">
-  <img src="wk.png" class="w-16 md:w-20" alt="logo-wk">
+  <img src="{{ asset('wk.png') }}" class="w-16 md:w-20" alt="logo-wk">
   <h1 class="text-2xl md:text-4xl  font-semibold uppercase text-[#1a5088] -translate-y-1">Antrean SWK</h1>
 </header>
 <div class="h-screen flex justify-center items-center ">
