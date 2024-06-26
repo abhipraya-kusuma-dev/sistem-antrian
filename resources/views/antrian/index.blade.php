@@ -189,20 +189,20 @@
         const socket = io(`{{ env('SOCKET_IO_SERVER') }}`)
 
         function generateAntrianDisplay(antrian) {
-            const loket = antrian.jenjang ?? 'Bendahara'
+            const loket = antrian.jenjang ?? 'Seragam'
             const indexWarnaJenjang = {
                 sd: 0,
                 smp: 1,
                 sma: 2,
                 smk: 3,
-                bendahara: 4
+                seragam: 4
             }
 
             const warna = {{ Js::from($warna) }}
 
-            currentAntrianTitle.style.backgroundColor = warna[indexWarnaJenjang[antrian.jenjang ?? 'bendahara']]
-            currentAntrianNomor.style.backgroundColor = warna[indexWarnaJenjang[antrian.jenjang ?? 'bendahara']]
-            currentAntrianLoket.style.backgroundColor = warna[indexWarnaJenjang[antrian.jenjang ?? 'bendahara']]
+            currentAntrianTitle.style.backgroundColor = warna[indexWarnaJenjang[antrian.jenjang ?? 'seragam']]
+            currentAntrianNomor.style.backgroundColor = warna[indexWarnaJenjang[antrian.jenjang ?? 'seragam']]
+            currentAntrianLoket.style.backgroundColor = warna[indexWarnaJenjang[antrian.jenjang ?? 'seragam']]
 
             nomorAntrian.textContent = antrian.nomor_antrian
             loketAntrian.textContent = 'Loket ' + loket.toUpperCase()

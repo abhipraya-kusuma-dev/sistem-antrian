@@ -18,7 +18,7 @@ class AntrianController extends Controller
     $warna = ['#ff6384', '#36a2eb', '#FFCD56', '#c8a2eb', '#d27b41'];
 
     $antrian = collect(json_decode($this->getNewestAntrianData()->content()))->all();
-    unset($antrian['seragam']);
+    unset($antrian['bendahara']);
 
     return view('antrian.index', [
       'warna' => $warna,
