@@ -93,7 +93,7 @@
       `
     });
 
-    return htmlList;
+    return htmlList.join('');
   }
 
   socket.on('new antrian created', function() {
