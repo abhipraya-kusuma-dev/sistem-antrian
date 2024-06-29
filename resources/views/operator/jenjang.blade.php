@@ -108,7 +108,7 @@
     fetch(baseUrl + 'api/antrian' + query)
       .then(res => res.json())
       .then(res => {
-        const { semua_antrian } = res.data;
+        const { semua_antrian } = res;
 
         renderAntrianList(semua_antrian);
       })
