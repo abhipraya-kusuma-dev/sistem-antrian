@@ -42,7 +42,7 @@
 
   <h2 class="text-2xl mt-2 font-bold">Antrian</h2>
 
-  <ul class="text-green-600 border-2 border-black grid grid-cols-4 gap-4 text-xl p-4 mt-4">
+  <ul id="antrian-list" class="text-green-600 border-2 border-black grid grid-cols-4 gap-4 text-xl p-4 mt-4">
     @if(count($semua_antrian))
 
     @foreach($semua_antrian as $antrian)
@@ -64,4 +64,56 @@
 
 </div>
 
+<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+<script>
+  const antrianListContainer = document.getElementById('antrian-list');
+  const socket = io(`{{ env('SOCKET_IO_SERVER') }}`)
+
+  function escapeHtml(string) {
+    return String(string)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+  }
+
+  const renderAntrianList = (updatedAntrianList) => {
+    if(updatedAntrianList.length < 1) {
+      return `<li>Tidak ada data</li>`;
+    }
+
+    const htmlList = updatedAntrianList.map((antrian) => {
+      return `
+          <li class="w-full">
+            <a class="bg-green-400 text-white py-1.5 inline-block text-center w-full" href="/operator/antrian/panggil/${escapeHtml(antrian.id)}">
+              <b>${escapeHtml(antrian.nomor_antrian)}</b>
+            </a>
+          </li>
+      `
+    });
+
+    return htmlList;
+  }
+
+  socket.on('new antrian created', function() {
+    const baseUrl = `{{ asset('') }}`;
+    
+    const jenjang = `{{ $jenjang }}`;
+    const tanggalPendaftaran = `{{ $tanggal_pendaftaran }}`;
+
+    const query = `?jenjang=${jenjang}&tanggal_pendaftaran=${tanggalPendaftaran}`;
+
+    fetch(baseUrl + 'api/antrian' + query)
+      .then(res => res.json())
+      .then(res => {
+        const { semua_antrian } = res.data;
+
+        renderAntrianList(semua_antrian);
+      })
+      .catch(err => {
+        console.error(err); // Buat debuging aja
+      })
+  })
+</script>
 @endsection
