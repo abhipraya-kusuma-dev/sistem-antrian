@@ -5,7 +5,7 @@
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    @vite('resources/css/app.css')
-   <title>Laravel</title>
+   <title>Sistem Antrian PPDB SWK</title>
 
    <!-- Fonts -->
    <link rel="preconnect" href="https://fonts.bunny.net">
