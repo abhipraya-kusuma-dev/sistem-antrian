@@ -209,7 +209,7 @@
 
             if (antrian.antrian_jenjang) {
                 antrianJenjang.classList.remove('hidden')
-                antrianJenjang.textContent = '(' + antrian.antrian_jenjang + ')'
+                antrianJenjang.textContent = '(' + antrian.antrian_jenjang ?? 'Seragam' + ')'
             }
 
             console.log(antrian)

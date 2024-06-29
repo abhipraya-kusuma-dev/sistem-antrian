@@ -23,6 +23,7 @@
 
         socket.on('connect', () => {
             socket.emit('skip antrian', 'skip')
+            socket.emit('new antrian created')
             console.log(socket)
         })
 
