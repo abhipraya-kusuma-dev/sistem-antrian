@@ -110,7 +110,7 @@
       .then(res => {
         const { semua_antrian } = res;
 
-        renderAntrianList(semua_antrian);
+        antrianListContainer.innerHTML = renderAntrianList(semua_antrian);
       })
       .catch(err => {
         console.error(err); // Buat debuging aja
