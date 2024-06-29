@@ -25,6 +25,7 @@ Route::get('/antrian', function(Request $request) {
     try {
       $tanggal_pendaftaran =  AntrianHelper::getTanggalPendaftaran($request);
       $jenjang = $request->query('jenjang');
+      $status = $request->query('status');
 
       $antrian = DB::table('antrians')
         ->where('jenjang', $jenjang)

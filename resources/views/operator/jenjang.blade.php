@@ -100,9 +100,10 @@
     const baseUrl = `{{ asset('') }}`;
     
     const jenjang = `{{ $jenjang }}`;
+    const status = `{{ $status }}`;
     const tanggalPendaftaran = `{{ $tanggal_pendaftaran }}`;
 
-    const query = `?jenjang=${jenjang}&tanggal_pendaftaran=${tanggalPendaftaran}`;
+    const query = `?jenjang=${jenjang}&tanggal_pendaftaran=${tanggalPendaftaran}&status=${status}`;
 
     fetch(baseUrl + 'api/antrian' + query)
       .then(res => res.json())
