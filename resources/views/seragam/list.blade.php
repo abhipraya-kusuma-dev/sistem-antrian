@@ -72,7 +72,7 @@
       return `<li>Tidak ada data</li>`;
     }
 
-    const htmlList = updatedAntrianList.data.map((antrian) => {
+    const htmlList = updatedAntrianList.map((antrian) => {
       return `
           <li class="w-full">
             <a class="bg-green-400 text-white py-1.5 inline-block text-center w-full" href="/operator/antrian/panggil/${escapeHtml(antrian.id)}">
