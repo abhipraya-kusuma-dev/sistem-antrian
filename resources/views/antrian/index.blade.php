@@ -283,7 +283,9 @@
             keys.forEach((key, idx) => {
                 cardContainer.innerHTML += `
         <div style="background-color: ${warna[idx]};" class=" rounded-md text-center  space-y-8 py-4 text-white">
-          <p class="text-3xl font-semibold text-stroke text-stroke-black">Antrean</p>
+          <p class="-translate-y-2 text-3xl font-semibold uppercase text-stroke text-stroke-black flex flex-col">
+            <span>Loket</span>${key}
+          </p>
           <p class="text-5xl font-bold text-stroke text-stroke-black">${res[key].length ? res[key][0].nomor_antrian : 'Kosong'}</p>
         </div>
       `
