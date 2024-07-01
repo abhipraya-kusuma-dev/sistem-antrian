@@ -33,7 +33,9 @@
   window.print();
 
   const socket = io(`{{ env('SOCKET_IO_SERVER') }}`)
+
   socket.emit('skip antrian', 'skip')
+  socket.emit('new antrian created')
 
   setTimeout(() => {
     // window.location.href = `{{ url('/bendahara/antrian/belum') }}`

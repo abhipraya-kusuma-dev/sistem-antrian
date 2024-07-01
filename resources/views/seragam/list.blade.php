@@ -98,7 +98,7 @@
       .then(res => {
         const { semua_antrian } = res;
 
-        antrianListContainer.innerHTML = renderAntrianList(semua_antrian);
+        antrianSeragamContainerList.innerHTML = renderAntrianList(semua_antrian);
       })
       .catch(err => {
         console.error(err); // Buat debuging aja
