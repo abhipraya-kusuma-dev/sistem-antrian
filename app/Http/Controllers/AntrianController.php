@@ -49,8 +49,8 @@ class AntrianController extends Controller
 
   public function antrianBaru()
   {
-    $jenjang = ['sd', 'smp', 'sma', 'smk', 'bendahara', 'seragam'];
-    $warna = ['#ff6384', '#36a2eb', '#FFCD56', '#c8a2eb', '#d27b41', '#a7a2ea'];
+    $jenjang = ['sd', 'smp', 'sma', 'smk', 'seragam'];
+    $warna = ['#ff6384', '#36a2eb', '#FFCD56', '#c8a2eb', '#a7a2ea'];
 
     $antrian = DB::table('antrians')
       ->where('tanggal_pendaftaran', now('Asia/Jakarta')->format('Y-m-d'))
