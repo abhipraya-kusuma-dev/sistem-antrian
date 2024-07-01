@@ -52,6 +52,7 @@ Route::get('/antrian', function(Request $request) {
 Route::get('/antrian-seragam', function(Request $request) {
     try {
       $tanggal_pendaftaran =  AntrianHelper::getTanggalPendaftaran($request);
+      $status = $request->query('status');
 
       $data = DB::table('antrians')
         ->where('tanggal_pendaftaran', $tanggal_pendaftaran)
