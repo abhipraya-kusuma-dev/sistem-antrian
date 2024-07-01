@@ -46,15 +46,17 @@ class AntrianHelper
       'smp' => [],
       'sma' => [],
       'smk' => [],
-      'bendahara' => [],
+      // 'bendahara' => [],
       'seragam' => []
     ];
 
     for ($i = 0; $i < $antrian->count(); $i++) {
+      /*
       if (is_null($antrian[$i]->jenjang) && $antrian[$i]->kode_antrian === 'B') {
         $arr['bendahara'][] = $antrian[$i];
         continue;
       }
+       */
 
       if (is_null($antrian[$i]->jenjang) && $antrian[$i]->kode_antrian === 'M') {
         $arr['seragam'][] = $antrian[$i];

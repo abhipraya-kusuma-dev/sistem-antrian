@@ -271,6 +271,8 @@
             const req = await fetch(`{{ route('new_antrian') }}`)
             const res = await req.json()
 
+            console.log(res)
+
             cardContainer.innerHTML = ''
 
             const keys = Object.keys(res)
