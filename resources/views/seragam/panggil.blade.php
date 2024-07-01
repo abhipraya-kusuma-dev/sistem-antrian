@@ -84,7 +84,7 @@
   const socket = io(`{{ env('SOCKET_IO_SERVER') }}`)
 
   panggilBtn.addEventListener('click', () => {
-    socket.emit('play current antrian seragam audio', antrian)
+    socket.emit('play current antrian audio', antrian)
   })
 
   // lewatiBtn.addEventListener('click', () => {
@@ -97,13 +97,13 @@
 
   // socket.emit('change antrian seragam display', antrian)
 
-  socket.on('change antrian seragam display loading', (antrian) => {
+  socket.on('change antrian display loading', (antrian) => {
     panggilBtn.setAttribute('disabled', 'true')
     lewatiBtn.setAttribute('disabled', 'true')
     terpanggilBtn.setAttribute('disabled', 'true')
   })
 
-  socket.on('change antrian seragam display complete', (antrian) => {
+  socket.on('change antrian display complete', (antrian) => {
     panggilBtn.removeAttribute('disabled')
     lewatiBtn.removeAttribute('disabled')
     terpanggilBtn.removeAttribute('disabled')
