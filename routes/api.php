@@ -48,3 +48,29 @@ Route::get('/antrian', function(Request $request) {
       ]);
     }
 });
+
+Route::get('/antrian-seragam', function(Request $request) {
+    try {
+      $tanggal_pendaftaran =  AntrianHelper::getTanggalPendaftaran($request);
+
+      $data = DB::table('antrians')
+        ->where('tanggal_pendaftaran', $tanggal_pendaftaran)
+        ->where('kode_antrian', 'M')
+        ->where('terpanggil', $status)
+        ->orderBy('nomor_antrian', 'asc')
+        ->select('*')->get();
+
+      foreach ($data as $antrian) {
+        $antrian->nomor_antrian = AntrianHelper::generateNomorAntrian($antrian->kode_antrian, $antrian->nomor_antrian);
+      }
+
+      return response()->json([
+          'semua_antrian' => $data
+      ]);
+    } catch(Exception $e) {
+      return response()->json([
+        'error' => $e->getMessage(),
+        'semua_antrian' => []
+      ]);
+    }
+});
