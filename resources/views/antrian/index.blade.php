@@ -286,6 +286,7 @@
           <p class="-translate-y-2 text-3xl font-semibold uppercase text-stroke text-stroke-black flex flex-col">
             <span>Loket</span>${key}
           </p>
+          <hr class="-translate-y-8">
           <p class="text-5xl font-bold text-stroke text-stroke-black">${res[key].length ? res[key][0].nomor_antrian : 'Kosong'}</p>
         </div>
       `
