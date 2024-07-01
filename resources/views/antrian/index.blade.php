@@ -278,7 +278,7 @@
             const keys = Object.keys(res)
             const warna = {{ Js::from($warna) }};
 
-            keys.pop()
+            // keys.pop()
 
             keys.forEach((key, idx) => {
                 cardContainer.innerHTML += `
