@@ -287,7 +287,7 @@
             <span>Loket</span>${key}
           </p>
           <hr class="-translate-y-8">
-          <p class="text-5xl font-bold text-stroke text-stroke-black">${res[key].length ? res[key][0].nomor_antrian : 'Kosong'}</p>
+          <p class="text-5xl font-bold text-stroke text-stroke-black -translate-y-8">${res[key].length ? res[key][0].nomor_antrian : 'Kosong'}</p>
         </div>
       `
             })
