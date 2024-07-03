@@ -1,5 +1,10 @@
 # Sistem Antrian
 
+## Prerequisite
+
+1. php 8.2
+2. ffmpeg
+
 ## Run On Your Local Machine
 
 ```
@@ -18,12 +23,11 @@ php artisan key:generate
 # Migration (Don't forget to fill the database credentials in .env first)
 php artisan migrate:fresh --seed
 
-# Setup API Authentication from play.ht to your .env
-# AUTHORIZATION='YOUR_SECRET_KEY'
-# USER_ID='YOUR_USER_ID'
-
 # Link storage to public folder (add 'FILESYSTEM_DISK=public' at your .env) and
 php artisan storage:link
+
+# Move audio template
+mv public/audio storage/app/public
 
 # Setup socket io
 # add this to your .env files
@@ -59,31 +63,31 @@ node server.cjs
 - [x] Suara pada display antrean
 - [x] Warna card antrian saat ini
 - [x] tampilkan jumlah antrian disebelah tombol daftar
-- [x] Regenerate ulang card antrian display setelah pendaftaran berhasil  
-- [x] Optimasi Daftar Antrian  
-- [x] Antrian berhasil date  
-- [x] Antrian Berhasil kembali ke menu awal setelah beberapa detik  
-- [x] Antrian Seragam daftar dari bendahara (tanpa print)  
-- [x] Antrian Seragam display  
-- [x] Antrian Seragam List  
-- [x] Antrian Bendahara ada kutipan kecil dari antrian operator sebelumnya  
-- [x] Antrian Bendahara terkoneksi dengan antrian sebelumnya  
-- [x] Bug seragam di display /antrian  
-- [x] Jumlah antre filter yang belum nya aja  
-- [x] Antrian Seragam display and list SocketIO  
-- [x] Pagination list antrian  
-- [x] Daftar Antrian Card UI dibikin kotak kotak  
+- [x] Regenerate ulang card antrian display setelah pendaftaran berhasil
+- [x] Optimasi Daftar Antrian
+- [x] Antrian berhasil date
+- [x] Antrian Berhasil kembali ke menu awal setelah beberapa detik
+- [x] Antrian Seragam daftar dari bendahara (tanpa print)
+- [x] Antrian Seragam display
+- [x] Antrian Seragam List
+- [x] Antrian Bendahara ada kutipan kecil dari antrian operator sebelumnya
+- [x] Antrian Bendahara terkoneksi dengan antrian sebelumnya
+- [x] Bug seragam di display /antrian
+- [x] Jumlah antre filter yang belum nya aja
+- [x] Antrian Seragam display and list SocketIO
+- [x] Pagination list antrian
+- [x] Daftar Antrian Card UI dibikin kotak kotak
 - [x] Akun operator ada 5
 - [x] Middleware operator
-- [x] Export ke excel dan pdf per minggu  
-- [x] FE Bendahara  
-- [x] Logout bendahara  
-- [x] Ngasih tau user nomor antrian dia saat lanjut ke bendahara dan seragam  
-- [x] Antrian Seragam display UI  
-- [x] Antrian Seragam List UI  
-- [x] Logout Seragam  
-- [x] Data di Antrian Seragam  
-- [ ] Warna kolom di excel nya mengikuti warna di laporan  
-- [ ] Print Otomatis  
+- [x] Export ke excel dan pdf per minggu
+- [x] FE Bendahara
+- [x] Logout bendahara
+- [x] Ngasih tau user nomor antrian dia saat lanjut ke bendahara dan seragam
+- [x] Antrian Seragam display UI
+- [x] Antrian Seragam List UI
+- [x] Logout Seragam
+- [x] Data di Antrian Seragam
+- [ ] Warna kolom di excel nya mengikuti warna di laporan
+- [ ] Print Otomatis
 
 - [ ] Rekaman angka 0-9 dan "Nomor antrian ... menuju loket (x)" secara manual

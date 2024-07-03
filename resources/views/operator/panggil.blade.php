@@ -2,7 +2,8 @@
 
 @section('content')
 @if(session('antrian-mentok'))
-<p class="m-6 py-4 px-6 text-white font-semibold bg-green-400 flex justify-between items-center" id="closeButton">{{ session('antrian-mentok') }}
+<p class="m-6 py-4 px-6 text-white font-semibold bg-green-400 flex justify-between items-center" id="closeButton">{{
+  session('antrian-mentok') }}
   <span onclick="closeButtonClicked()" class="cursor-pointer text-2xl" id="closeButton">&times;</span>
 </p>
 @endif
@@ -17,7 +18,8 @@
       <p class="flex justify-between text-xl uppercase">Tanggal daftaran <b>{{ $antrian->tanggal_pendaftaran }}</b></p>
       <p class="flex justify-between text-xl uppercase">Status <b>{{ $antrian->terpanggil }}</b></p>
     </div>
-    <a href="/operator/antrian/jenjang/{{ $antrian->jenjang }}/belum" class="bg-blue-600 text-white w-max rounded-full hover:underline py-2 px-4 font-semibold">Kembali Ke Menu Tadi</a>
+    <a href="/operator/antrian/jenjang/{{ $antrian->jenjang }}/belum"
+      class="bg-blue-600 text-white w-max rounded-full hover:underline py-2 px-4 font-semibold">Kembali Ke Menu Tadi</a>
 
   </div>
 
@@ -26,12 +28,14 @@
   <form action="/operator/antrian/lanjut/" class="hidden" method="post">
     @csrf
     <input type="hidden" name="antrian_id" value="{{$antrian->id }}" />
-    <button type="submit" id="lanjut-btn" class="disabled:text-black/60 text-green-600 font-bold">Antrian Selanjutnya</button>
+    <button type="submit" id="lanjut-btn" class="disabled:text-black/60 text-green-600 font-bold">Antrian
+      Selanjutnya</button>
   </form>
   <form action="/operator/antrian/lewati/" class="hidden" method="post">
     @csrf
     <input type="hidden" name="antrian_id" value="{{$antrian->id }}" />
-    <button type="submit" id="lewati-btn" class="disabled:text-black/60 text-green-600 font-bold">Lewati Antrian</button>
+    <button type="submit" id="lewati-btn" class="disabled:text-black/60 text-green-600 font-bold">Lewati
+      Antrian</button>
   </form>
 
   <form action="/operator/antrian/terpanggil" class="hidden" method="post">
@@ -39,12 +43,14 @@
     @csrf
     <input type="hidden" name="antrian_id" value="{{ $antrian->id }}" />
     <input type="hidden" name="antrian_jenjang" value="{{ $antrian->jenjang }}" />
-    <button type="submit" id="terpanggil-btn" onclick="return confirm('Yakin? gk bisa di un-panggil lho ini')" class="disabled:text-black/60 text-green-600 font-bold">Antrian Sudah Terpanggil</button>
+    <button type="submit" id="terpanggil-btn" onclick="return confirm('Yakin? gk bisa di un-panggil lho ini')"
+      class="disabled:text-black/60 text-green-600 font-bold">Antrian Sudah Terpanggil</button>
   </form>
   @else
   <div class="flex flex-col -translate-y-8 space-y-4">
 
-    <button type="button" id="panggil-btn" class="disabled:text-black/60 hover:border-b-2 hover:border-white w-[650px] text-white border-2 border-black font-bold py-3 px-4 bg-red-600 hover:bg-red-800 ">Panggil</button>
+    <button type="button" id="panggil-btn"
+      class="disabled:text-black/60 hover:border-b-2 hover:border-white w-[650px] text-white border-2 border-black font-bold py-3 px-4 bg-red-600 hover:bg-red-800 ">Panggil</button>
 
     <div class="flex space-x-4">
       <!-- <form action="/operator/antrian/lanjut/" class="block" method="post"> -->
@@ -57,7 +63,9 @@
       <form action="/operator/antrian/lewati/" class="block" method="post">
         @csrf
         <input type="hidden" name="antrian_id" value="{{$antrian->id }}" />
-        <button type="submit" id="lewati-btn" class="disabled:text-black/60 bg-green-600 text-white font-bold border-2 border-black rounded-full py-2 px-6">Lewati Antrian</button>
+        <button type="submit" id="lewati-btn"
+          class="disabled:text-black/60 bg-green-600 text-white font-bold border-2 border-black rounded-full py-2 px-6">Lewati
+          Antrian</button>
       </form>
       @endif
 
@@ -66,19 +74,23 @@
         @csrf
         <input type="hidden" name="antrian_id" value="{{ $antrian->id }}" />
         <input type="hidden" name="antrian_jenjang" value="{{ $antrian->jenjang }}" />
-        <button type="submit" id="terpanggil-btn" onclick="return confirm('Yakin? gk bisa di un-panggil lho ini')" class="disabled:text-black/60 bg-green-600 text-white font-bold border-2 border-black rounded-full py-2 px-6">Antrian Sudah Terpanggil</button>
+        <button type="submit" id="terpanggil-btn" onclick="return confirm('Yakin? gk bisa di un-panggil lho ini')"
+          class="disabled:text-black/60 bg-green-600 text-white font-bold border-2 border-black rounded-full py-2 px-6">Antrian
+          Sudah Terpanggil</button>
       </form>
     </div>
 
     <div>
 
-      <form action="/operator/antrian/lanjut/seragam" method="post">
+      {{-- <form action="/operator/antrian/lanjut/seragam" method="post">
         @csrf
         <input type="hidden" name="antrian_id" value="{{ $antrian->id }}" />
         <input type="hidden" name="nomor_antrian" value="{{ $antrian->nomor_antrian }}" />
         <input type="hidden" name="antrian_jenjang" value="{{ $antrian->jenjang }}" />
-        <button type="submit" id="lanjut-seragam-btn" class="disabled:text-black/60 bg-blue-600 text-white font-bold py-2 px-6 rounded-full border-2 border-black">Lanjut Ke Seragam</button>
-      </form>
+        <button type="submit" id="lanjut-seragam-btn"
+          class="disabled:text-black/60 bg-blue-600 text-white font-bold py-2 px-6 rounded-full border-2 border-black">Lanjut
+          Ke Seragam</button>
+      </form> --}}
       @endif
 
     </div>
