@@ -26,8 +26,11 @@ php artisan migrate:fresh --seed
 # Link storage to public folder (add 'FILESYSTEM_DISK=public' at your .env) and
 php artisan storage:link
 
+# Install ffmpeg
+choco install ffmpeg
+
 # Move audio template
-mv public/audio storage/app/public
+cp -r .\public\audio .\storage\app\public
 
 # Setup socket io
 # add this to your .env files
