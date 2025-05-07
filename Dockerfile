@@ -33,6 +33,7 @@ RUN apk add --no-cache \
     freetype-dev \
     oniguruma-dev \
     libzip-dev \
+    libcurl \
     postgresql-dev \
     icu-dev \
     zlib-dev \
