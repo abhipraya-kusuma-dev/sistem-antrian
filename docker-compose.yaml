@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      target: backend
+    container_name: sistem-antrian-be
+    volumes:
+      - .:/var/www
+    depends_on:
+      - pgsql
+
+  socket:
+    build:
+      context: .
+      target: socket
+    container_name: sistem-antrian-socket-server
+    ports:
+      - "3000:3000"
+
+  webserver:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - app
+
+  pgsql:
+    image: postgres:15-alpine
+    container_name: pgsql
+    environment:
+      POSTGRES_DB: sistem_antrian
+      POSTGRES_USER: adm-antrian-swk
+      POSTGRES_PASSWORD: hehe1234
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  pgdata:
