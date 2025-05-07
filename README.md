@@ -7,7 +7,7 @@
 
 ## Run On Your Local Machine
 
-```
+```bash
 # Clone Repo
 git clone https://github.com/AdiCahyaSaputra/sistem-antrian
 cd sistem-antrian
@@ -40,6 +40,49 @@ cp -r .\public\audio .\storage\app\public
 php artisan ser
 npm run dev
 node server.cjs
+```
+
+### Run using `docker-compose.yaml`
+
+```bash
+# Clone Repo
+git clone https://github.com/AdiCahyaSaputra/sistem-antrian
+cd sistem-antrian
+
+# Setup Laravel .env
+cp -r .env.example .env
+
+# Detonate the bomb
+docker-compose up -d --build
+```
+
+### Set `.env`
+
+```env
+DB_CONNECTION=pgsql
+DB_HOST=pgsql
+DB_PORT=5432
+DB_DATABASE=sistem_antrian
+DB_USERNAME=adm-antrian-swk # based on docker-compose file
+DB_PASSWORD=hehe1234 # based on docker-compose file
+
+SOCKET_IO_SERVER='localhost:3000'
+
+```
+
+### PHP Arisan
+
+```bash
+docker exec -it sistem-antrian-be php artisan key:generate
+docker exec -it sistem-antrian-be php artisan migrate:fresh --seed
+
+# Un-symlink
+docker exec -it sistem-antrian-be rm /var/www/public/storage
+
+# Symlink
+docker exec -it sistem-antrian-be ln -s /var/www/storage/app/public /var/www/public/storage
+
+# Open http://localhost
 ```
 
 ## People Behind This Project

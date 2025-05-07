@@ -28,6 +28,7 @@ FROM php:8.2-fpm-alpine as backend
 RUN apk add --no-cache \
     bash \
     curl-dev \
+    ffmpeg \
     libpng-dev \
     libjpeg-turbo-dev \
     freetype-dev \
