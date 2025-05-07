@@ -6,6 +6,8 @@ services:
       context: .
       target: backend
     container_name: sistem-antrian-be
+    ports:
+      - "8000:8000"
     volumes:
       - .:/var/www
     depends_on:
@@ -18,17 +20,6 @@ services:
     container_name: sistem-antrian-socket-server
     ports:
       - "3000:3000"
-
-  webserver:
-    image: nginx:alpine
-    container_name: nginx
-    ports:
-      - "80:80"
-    volumes:
-      - .:/var/www
-      - ./docker/nginx/conf.d:/etc/nginx/conf.d
-    depends_on:
-      - app
 
   pgsql:
     image: postgres:15-alpine
