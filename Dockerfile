@@ -27,13 +27,12 @@ FROM php:8.2-fpm-alpine as backend
 # Install system dependencies
 RUN apk add --no-cache \
     bash \
-    curl \
+    curl-dev \
     libpng-dev \
     libjpeg-turbo-dev \
     freetype-dev \
     oniguruma-dev \
     libzip-dev \
-    libcurl \
     postgresql-dev \
     icu-dev \
     zlib-dev \
