@@ -82,6 +82,7 @@ COPY --from=frontend /app/node_modules ./node_modules
 RUN composer install --no-dev --optimize-autoloader && \
     php artisan config:clear && \
     php artisan cache:clear && \
+    php artisan storage:link && \
     php artisan octane:install --server=swoole
 
 # Install Laravel Octane Swoole extension

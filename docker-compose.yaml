@@ -23,18 +23,16 @@ services:
       - "3000:3000"
 
   pgsql:
-    image: postgres:15-alpine
+    image: postgres:latest
     container_name: SA_DB
     env_file:
       - ./docker/env/.env.prod
     environment:
-      POSTGRES_DB: ${DB_DATABASE}
-      POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5433:5432"
 
 volumes:
   pgdata:
