@@ -20,6 +20,7 @@ return new class extends Migration
       $table->enum('kode_antrian', ['D', 'P', 'A', 'K', 'B', 'M']);
       $table->enum('terpanggil', ['belum', 'sudah', 'lewati'])->default('belum');
       $table->string('audio_path')->nullable();
+      $table->timestamp('dipanggil_saat')->nullable();
       $table->timestamps();
     });
   }

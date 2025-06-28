@@ -106,7 +106,8 @@ class OperatorController extends Controller
   public function nomorAntrianTerpanggil(Request $request)
   {
     $isAntrianUpdated = Antrian::where('id', $request['antrian_id'])->update([
-      'terpanggil' => 'sudah'
+      'terpanggil' => 'sudah',
+      'dipanggil_saat' => now()
     ]);
 
     if (!$isAntrianUpdated) return redirect('/operator/antrian/jenjang/' . $request['antrian_jenjang'] . '/belum')->with('update-error', 'Gagal melakukan yg tadi');

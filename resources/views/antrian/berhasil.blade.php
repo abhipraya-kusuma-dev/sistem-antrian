@@ -11,7 +11,7 @@
                 <h1 class="font-bold text-5xl text-black/80">{{ $antrian->nomor_antrian }}</h1>
                 <P class="text-3xl font-bold text-black/70">LOKET <br> {{ strtoupper($antrian->jenjang) }}</P>
             </div>
-            <p id="calender" class="mt-2 text-xs">Sabtu, 20 juni 2023 / 10:30</p>
+            <p id="calender" class="mt-2 text-xs">{{Carbon\Carbon::now()->format('l, d  M Y')}}</p>
             <p class="font-bold text-center mt-2 text-xs">"Karcis jangan sampai hilang ^_^"</p>
         </div>
     </div>
@@ -37,7 +37,7 @@
 
         moment.locale('id');
         calender.textContent = generateKalender(moment().format('LLLL')) +
-            ` {{ \Carbon\Carbon::now('Asia/Jakarta')->format('H:m') }}`;
+            ` {{ \Carbon\Carbon::now('Asia/Jakarta')->format('H:i') }}`;
 
         window.print();
 
