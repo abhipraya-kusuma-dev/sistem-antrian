@@ -52,15 +52,20 @@
 
         <div id="card-container" class="grid grid-cols-5 gap-4 mt-4">
             @foreach ($antrian as $antrianKey => $antrianValue)
-                <div style="background-color: {{ $warna[$loop->index] }};"
+            @if ($antrianKey !== 'estimasi')
+               <div style="background-color: {{ $warna[$loop->index] }};"
                     class=" rounded-md text-center  space-y-8 py-4 text-white">
                     <p class="-translate-y-2 text-3xl font-semibold uppercase text-stroke text-stroke-black flex flex-col">
                         <span>Loket</span>{{ $antrianKey }}
                     </p>
                     <hr class="-translate-y-8">
-                    <p class="text-5xl font-bold text-stroke text-stroke-black -translate-y-8">
+                    <div class="-translate-y-8">
+                    <p class="text-5xl font-bold text-stroke text-stroke-black ">
                         {{ count($antrian[$antrianKey]) ? $antrian[$antrianKey][0]->nomor_antrian : 'Kosong' }}</p>
+                       <p class="estimasi mt-6 text-stroke-black text-stroke text-xl font-bold">estimasi: {{ $estimasi[$antrianKey]['formatted'] ?? '5 Menit' }}</p>
+                    </div>
                 </div>
+            @endif
             @endforeach
         </div>
 
@@ -70,7 +75,7 @@
         </marquee>
     </main>
     <footer class="flex justify-between p-4 fixed inset-x-0 bottom-0 items-center">
-        <p>&copy;Abhiprayakusuma-Dev.2024</p>
+        <p>&copy;Abhiprayakusuma-Dev.{{Carbon\Carbon::now()->format('Y')}}</p>
         <div class="flex items-center space-x-8 ">
             <div class="flex space-x-4 items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="1em" height="1em">
@@ -185,6 +190,7 @@
         const currentAntrianTitle = document.getElementById('current-antrian-title')
         const currentAntrianNomor = document.getElementById('current-antrian-nomor')
         const currentAntrianLoket = document.getElementById('current-antrian-loket')
+         const estimatedTime = document.getElementById('estimasi')
 
         const socket = io(`{{ env('SOCKET_IO_SERVER') }}`)
 
@@ -203,6 +209,7 @@
             currentAntrianTitle.style.backgroundColor = warna[indexWarnaJenjang[antrian.jenjang ?? 'seragam']]
             currentAntrianNomor.style.backgroundColor = warna[indexWarnaJenjang[antrian.jenjang ?? 'seragam']]
             currentAntrianLoket.style.backgroundColor = warna[indexWarnaJenjang[antrian.jenjang ?? 'seragam']]
+
 
             nomorAntrian.textContent = antrian.nomor_antrian
             loketAntrian.textContent = 'Loket ' + loket.toUpperCase()
@@ -278,18 +285,23 @@
             const keys = Object.keys(res)
             const warna = {{ Js::from($warna) }};
 
+
             // keys.pop()
 
             keys.forEach((key, idx) => {
-                cardContainer.innerHTML += `
+              if(key !== 'estimasi'){
+                       cardContainer.innerHTML += `
         <div style="background-color: ${warna[idx]};" class=" rounded-md text-center  space-y-8 py-4 text-white">
           <p class="-translate-y-2 text-3xl font-semibold uppercase text-stroke text-stroke-black flex flex-col">
             <span>Loket</span>${key}
           </p>
           <hr class="-translate-y-8">
           <p class="text-5xl font-bold text-stroke text-stroke-black -translate-y-8">${res[key].length ? res[key][0].nomor_antrian : 'Kosong'}</p>
+           <p class="estimasi">estimasi: ${res['estimasi'][key] ? res['estimasi'][key]['formatted'] : '5 menit'}</p>
         </div>
       `
+              }
+
             })
         }
 

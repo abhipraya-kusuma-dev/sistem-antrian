@@ -37,9 +37,61 @@ Route::get('/antrian', function (Request $request) {
     for ($i = 0; $i < count($antrian->items()); $i++) {
       $antrian[$i]->nomor_antrian = AntrianHelper::generateNomorAntrian($antrian[$i]->kode_antrian, $antrian[$i]->nomor_antrian);
     }
+$antrianDipanggil = Antrian::whereNotNull('dipanggil_saat')
+    ->whereDate('tanggal_pendaftaran', Carbon::today('Asia/Jakarta'))
+    ->where('terpanggil', 'sudah')
+    ->orderBy('dipanggil_saat')
+    ->get()
+     ->groupBy(function ($item) {
+        return $item->jenjang ?? 'seragam';
+    });
+    $estimasi = [];
+
+    foreach ($antrianDipanggil as $jenjang => $group) {
+    $timestamps = [];
+
+    foreach ($group as $item) {
+        if (!empty($item->dipanggil_saat)) {
+            $parsed = Carbon::parse($item->dipanggil_saat);
+            $timestamps[] = $parsed;
+        }
+    }
+
+    $timestamps = collect($timestamps)->sortBy(fn($ts) => $ts->timestamp)->values()->all();
+
+    logger("Final timestamps for $jenjang:");
+    foreach ($timestamps as $t) {
+        logger(" - " . $t->toDateTimeString());
+    }
+
+    $totalGapInSeconds = 0;
+    $gapCount = 0;
+
+    for ($i = 1; $i < count($timestamps); $i++) {
+        $diff = $timestamps[$i]->diffInSeconds($timestamps[$i - 1]);
+        logger("Diff between {$timestamps[$i - 1]->toDateTimeString()} and {$timestamps[$i]->toDateTimeString()} = $diff seconds");
+
+        $totalGapInSeconds += $diff;
+        $gapCount++;
+    }
+
+    logger("GAP COUNT for $jenjang: $gapCount");
+    logger("TOTAL GAP SECONDS for $jenjang: $totalGapInSeconds");
+
+    $averageGap = $gapCount > 0 ? $totalGapInSeconds / $gapCount : 0;
+    $formattedAverage = $gapCount > 0
+        ? CarbonInterval::seconds((int) $averageGap)->cascade()->forHumans()
+        : '5 Menit';
+
+    $estimasi[$jenjang] = [
+        'average_in_second' => (int) $averageGap,
+        'formatted' => $formattedAverage
+    ];
+}
 
     return response()->json([
-      'semua_antrian' => $antrian
+      'semua_antrian' => $antrian,
+      'estimasi' => $estimasi
     ]);
   } catch (Exception $e) {
     return response()->json([

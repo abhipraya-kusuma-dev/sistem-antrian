@@ -7,6 +7,8 @@ use App\Models\Antrian;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Helper\AntrianHelper;
+use Carbon\Carbon;
+use Carbon\Carboninterval;
 
 class SeragamController extends Controller
 {
@@ -45,9 +47,42 @@ class SeragamController extends Controller
       }
     }
 
+    $estimasi=[];
+
+    foreach($terpanggil as $data){
+      if(!empty($data->dipanggil_saat)){
+        $parsed = Carbon::parse($data->dipanggil_saat);
+        $timestamps[]= $parsed;
+      }
+
+          $timestamps = collect($timestamps)->sortBy(fn($ts) => $ts->timestamp)->values()->all();
+
+          $totalGapInSeconds = 0;
+          $gapCount = 0;
+          for ($i = 1; $i < count($timestamps); $i++) {
+        $diff = $timestamps[$i]->diffInSeconds($timestamps[$i - 1]);
+        logger("Diff between {$timestamps[$i - 1]->toDateTimeString()} and {$timestamps[$i]->toDateTimeString()} = $diff seconds");
+
+        $totalGapInSeconds += $diff;
+        $gapCount++;
+    }
+
+
+    $averageGap = $gapCount > 0 ? $totalGapInSeconds / $gapCount : 0;
+    $formattedAverage = $gapCount > 0
+        ? CarbonInterval::seconds((int) $averageGap)->cascade()->forHumans()
+        : 'Belum cukup data';
+
+    $estimasi = [
+        'average_in_second' => (int) $averageGap,
+        'formatted' => $formattedAverage
+    ];
+    }
+
     return view('seragam.index', [
       'seragam' => $seragam,
-      'terpanggil' => $terpanggil
+      'terpanggil' => $terpanggil,
+      'estimasi'=>$estimasi
     ]);
   }
 
@@ -121,7 +156,8 @@ class SeragamController extends Controller
   public function nomorAntrianTerpanggil(Request $request)
   {
     $isAntrianUpdated = Antrian::where('id', $request['antrian_id'])->update([
-      'terpanggil' => 'sudah'
+      'terpanggil' => 'sudah',
+      'dipanggil_saat'=> now()
     ]);
 
     if (!$isAntrianUpdated) return redirect('/seragam/antrian/belum')->with('update-error', 'Gagal melakukan yg tadi');

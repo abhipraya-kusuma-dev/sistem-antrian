@@ -26,6 +26,7 @@
       @endif
 
       <p class="text-5xl font-bold mt-4">Ruangan <span class="t-2 font-bold text-white">Ukur Seragam</span></p>
+
     </div>
     <div class="w-1/2 border-black border-2 p-4 flex flex-col space-y-4 bg-[#FFB84C]">
       <div class="border-2 border-black p-4 h-1/2 space-y-4 bg-white">
