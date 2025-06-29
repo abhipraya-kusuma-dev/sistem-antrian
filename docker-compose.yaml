@@ -9,7 +9,6 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - .:/var/www
       - ./docker/env/.env.prod:/var/www/.env
     depends_on:
       - pgsql
