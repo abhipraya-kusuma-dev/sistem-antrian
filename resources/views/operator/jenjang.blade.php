@@ -58,7 +58,7 @@
     @endif
   </ul>
 
-  <div class="mt-2">
+  <div class="mt-2" id="next-page">
     {{ $semua_antrian->appends($_GET)->onEachSide(2)->links() }}
   </div>
 
@@ -96,25 +96,35 @@
     return htmlList.join('');
   }
 
-  socket.on('new antrian created', function() {
-    const baseUrl = `{{ asset('') }}`;
-    
-    const jenjang = `{{ $jenjang }}`;
-    const status = `{{ $status }}`;
-    const tanggalPendaftaran = `{{ $tanggal_pendaftaran }}`;
 
-    const query = `?jenjang=${jenjang}&tanggal_pendaftaran=${tanggalPendaftaran}&status=${status}`;
+      socket.on("new antrian created", function () {
+  const updateCardContainer = async () => {
+    try {
+      const currentUrl = window.location.href; // exact page user is on
 
-    fetch(baseUrl + 'api/antrian' + query)
-      .then(res => res.json())
-      .then(res => {
-        const { semua_antrian } = res;
+      const res = await fetch(currentUrl);
+      const html = await res.text();
 
-        antrianListContainer.innerHTML = renderAntrianList(semua_antrian);
-      })
-      .catch(err => {
-        console.error(err); // Buat debuging aja
-      })
-  })
+      // Create a dummy DOM to parse the returned HTML
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+
+      // Find the updated antrian list from the fetched HTML
+      const newAntrianList = doc.querySelector('#antrian-list');
+      const nextPage = doc.querySelector('#next-page');
+
+      // Replace the current list
+      const antrianListContainer = document.getElementById('antrian-list');
+      antrianListContainer.innerHTML = newAntrianList.innerHTML;
+      const nextPageContainer = document.getElementById('next-page');
+      nextPageContainer.innerHTML = nextPage.innerHTML;
+
+    } catch (error) {
+      console.error('Failed to update antrian list:', error);
+    }
+  };
+
+  updateCardContainer();
+});
 </script>
 @endsection
