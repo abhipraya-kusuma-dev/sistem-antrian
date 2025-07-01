@@ -48,4 +48,9 @@ io.on("connection", (socket) => {
   socket.on("play current antrian seragam audio", (audioPath) => {
     io.emit("play current antrian seragam audio", audioPath);
   });
+
+  socket.on("new antrian created", () => {
+    console.log('hi there')
+    io.emit("new antrian created");
+  });
 });
