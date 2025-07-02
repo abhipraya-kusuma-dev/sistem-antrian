@@ -29,9 +29,12 @@ io.on("connection", (socket) => {
   });
 
   socket.on("change antrian display loading", (antrian) => {
+        console.log("loading")
     io.emit("change antrian display loading", antrian);
+
   });
   socket.on("change antrian display complete", (antrian) => {
+        console.log("working")
     io.emit("change antrian display complete", antrian);
   });
 
@@ -50,7 +53,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("new antrian created", () => {
-    console.log('hi there')
     io.emit("new antrian created");
   });
 });

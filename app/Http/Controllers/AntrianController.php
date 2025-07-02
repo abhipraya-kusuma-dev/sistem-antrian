@@ -21,6 +21,7 @@ class AntrianController extends Controller
     $warna = ['#ff6384', '#36a2eb', '#FFCD56', '#c8a2eb', '#d27b41', '#d27b41'];
     $antrian = collect(json_decode($this->getNewestAntrianData()->content()))->all();
 
+
     $antrianDipanggil = Antrian::whereNotNull('dipanggil_saat')
     ->whereDate('tanggal_pendaftaran', Carbon::today('Asia/Jakarta'))
     ->where('terpanggil', 'sudah')
@@ -28,7 +29,10 @@ class AntrianController extends Controller
     ->get()
      ->groupBy(function ($item) {
         return $item->jenjang ?? 'seragam';
+
     });
+
+textToSpeechHelper::getAudioPath(1, "sd");
     $estimasi = [];
 
     foreach ($antrianDipanggil as $jenjang => $group) {

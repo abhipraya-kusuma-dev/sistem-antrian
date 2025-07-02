@@ -104,7 +104,7 @@
   const panggilBtn = document.getElementById('panggil-btn')
   const lewatiBtn = document.getElementById('lewati-btn')
   const terpanggilBtn = document.getElementById('terpanggil-btn')
-  const lanjutSeragamBtn = document.getElementById('lanjut-seragam-btn')
+  // const lanjutSeragamBtn = document.getElementById('lanjut-seragam-btn')
 
   const antrian = {{ Js::from($antrian) }}
 
@@ -124,24 +124,26 @@
     socket.emit('skip antrian', 'skip')
   })
 
-  lanjutSeragamBtn.addEventListener('click', () => {
-    socket.emit('skip antrian', 'skip')
-  })
+  // lanjutSeragamBtn.addEventListener('click', () => {
+  //   socket.emit('skip antrian', 'skip')
+  // })
 
   // socket.emit('change antrian display', antrian)
 
-  socket.on('change antrian display loading', (antrian) => {
-    panggilBtn.setAttribute('disabled', 'true')
+  socket.on("change antrian display loading", (antrian) => {
     lewatiBtn.setAttribute('disabled', 'true')
     terpanggilBtn.setAttribute('disabled', 'true')
-    lanjutSeragamBtn.setAttribute('disabled', 'true')
+    // lanjutSeragamBtn.setAttribute('disabled', 'true')
+            panggilBtn.setAttribute('disabled', 'true')
+    console.log("hi'S")
   })
 
-  socket.on('change antrian display complete', (antrian) => {
+  socket.on("change antrian display complete", (antrian) => {
     panggilBtn.removeAttribute('disabled')
     lewatiBtn.removeAttribute('disabled')
     terpanggilBtn.removeAttribute('disabled')
-    lanjutSeragamBtn.removeAttribute('disabled')
+    // lanjutSeragamBtn.removeAttribute('disabled')
+    console.log("hi'SS")
   })
 
   // close button

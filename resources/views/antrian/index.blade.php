@@ -254,7 +254,6 @@
 
             // player.mute()
             audio.play()
-
             const audioListener = audio.addEventListener('ended', () => {
                 socket.emit('change antrian display complete', antrianDisplay)
                 // player.unMute()
