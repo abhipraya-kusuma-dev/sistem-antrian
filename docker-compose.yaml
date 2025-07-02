@@ -5,9 +5,11 @@ services:
     build:
       context: .
       target: backend
-    container_name: sistem-antrian-be
+    container_name: SA_BE
+    ports:
+      - "8000:8000"
     volumes:
-      - .:/var/www
+      - ./docker/env/.env.prod:/var/www/.env
     depends_on:
       - pgsql
 
@@ -15,32 +17,21 @@ services:
     build:
       context: .
       target: socket
-    container_name: sistem-antrian-socket-server
+    container_name: SA_SOCKET
     ports:
       - "3000:3000"
 
-  webserver:
-    image: nginx:alpine
-    container_name: nginx
-    ports:
-      - "80:80"
-    volumes:
-      - .:/var/www
-      - ./docker/nginx/conf.d:/etc/nginx/conf.d
-    depends_on:
-      - app
-
   pgsql:
-    image: postgres:15-alpine
-    container_name: pgsql
+    image: postgres:latest
+    container_name: SA_DB
+    env_file:
+      - ./docker/env/.env.prod
     environment:
-      POSTGRES_DB: sistem_antrian
-      POSTGRES_USER: adm-antrian-swk
-      POSTGRES_PASSWORD: hehe1234
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5433:5432"
 
 volumes:
   pgdata:

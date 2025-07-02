@@ -53,6 +53,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("new antrian created", () => {
+    console.log("hi there");
     io.emit("new antrian created");
   });
 });

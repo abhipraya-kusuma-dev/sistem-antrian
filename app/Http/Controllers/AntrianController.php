@@ -16,79 +16,81 @@ class AntrianController extends Controller
 {
   public function index()
   {
-  Carbon::setLocale('id');
+    Carbon::setLocale('id');
 
     $warna = ['#ff6384', '#36a2eb', '#FFCD56', '#c8a2eb', '#d27b41', '#d27b41'];
     $antrian = collect(json_decode($this->getNewestAntrianData()->content()))->all();
 
 
     $antrianDipanggil = Antrian::whereNotNull('dipanggil_saat')
-    ->whereDate('tanggal_pendaftaran', Carbon::today('Asia/Jakarta'))
-    ->where('terpanggil', 'sudah')
-    ->orderBy('dipanggil_saat')
-    ->get()
-     ->groupBy(function ($item) {
+      ->whereDate('tanggal_pendaftaran', Carbon::today('Asia/Jakarta'))
+      ->where('terpanggil', 'sudah')
+      ->orderBy('dipanggil_saat')
+      ->get()
+      ->groupBy(function ($item) {
         return $item->jenjang ?? 'seragam';
+<<<<<<< HEAD
 
     });
 
 textToSpeechHelper::getAudioPath(1, "sd");
+=======
+      });
+>>>>>>> octane
     $estimasi = [];
 
     foreach ($antrianDipanggil as $jenjang => $group) {
-    $timestamps = [];
+      $timestamps = [];
 
-    foreach ($group as $item) {
+      foreach ($group as $item) {
         if (!empty($item->dipanggil_saat)) {
-            $parsed = Carbon::parse($item->dipanggil_saat);
-            $timestamps[] = $parsed;
+          $parsed = Carbon::parse($item->dipanggil_saat);
+          $timestamps[] = $parsed;
         }
-    }
+      }
 
-    $timestamps = collect($timestamps)->sortBy(fn($ts) => $ts->timestamp)->values()->all();
+      $timestamps = collect($timestamps)->sortBy(fn($ts) => $ts->timestamp)->values()->all();
 
-    logger("Final timestamps for $jenjang:");
-    foreach ($timestamps as $t) {
+      logger("Final timestamps for $jenjang:");
+      foreach ($timestamps as $t) {
         logger(" - " . $t->toDateTimeString());
-    }
+      }
 
-    $totalGapInSeconds = 0;
-    $gapCount = 0;
+      $totalGapInSeconds = 0;
+      $gapCount = 0;
 
-    for ($i = 1; $i < count($timestamps); $i++) {
+      for ($i = 1; $i < count($timestamps); $i++) {
         $diff = $timestamps[$i]->diffInSeconds($timestamps[$i - 1]);
         logger("Diff between {$timestamps[$i - 1]->toDateTimeString()} and {$timestamps[$i]->toDateTimeString()} = $diff seconds");
 
         $totalGapInSeconds += $diff;
         $gapCount++;
-    }
+      }
 
-    logger("GAP COUNT for $jenjang: $gapCount");
-    logger("TOTAL GAP SECONDS for $jenjang: $totalGapInSeconds");
+      logger("GAP COUNT for $jenjang: $gapCount");
+      logger("TOTAL GAP SECONDS for $jenjang: $totalGapInSeconds");
 
-    $averageGap = $gapCount > 0 ? $totalGapInSeconds / $gapCount : 0;
-    $formattedAverage = $gapCount > 0
+      $averageGap = $gapCount > 0 ? $totalGapInSeconds / $gapCount : 0;
+      $formattedAverage = $gapCount > 0
         ? CarbonInterval::seconds((int) $averageGap)->cascade()->forHumans()
         : '5 Menit';
 
-    $estimasi[$jenjang] = [
+      $estimasi[$jenjang] = [
         'average_in_second' => (int) $averageGap,
         'formatted' => $formattedAverage
-    ];
-}
-
-
+      ];
+    }
 
     return view('antrian.index', [
-        'warna' => $warna,
-        'tanggal' => Carbon::now('Asia/Jakarta')->format('D, d M Y'),
-        'antrian' => $antrian,
-        'estimasi' => $estimasi
+      'warna' => $warna,
+      'tanggal' => Carbon::now('Asia/Jakarta')->format('D, d M Y'),
+      'antrian' => $antrian,
+      'estimasi' => $estimasi
     ]);
   }
   public function getNewestAntrianData()
   {
-      Carbon::setLocale('id');
+    Carbon::setLocale('id');
     $antrian = DB::table('antrians')
       ->where('tanggal_pendaftaran', now('Asia/Jakarta')->format('Y-m-d'))
       ->where('terpanggil', 'belum')
@@ -103,58 +105,58 @@ textToSpeechHelper::getAudioPath(1, "sd");
         $antrianData->nomor_antrian = AntrianHelper::generateNomorAntrian($antrianData->kode_antrian, $antrianData->nomor_antrian);
       }
     }
-   $antrianDipanggil = Antrian::whereNotNull('dipanggil_saat')
-    ->whereDate('tanggal_pendaftaran', Carbon::today('Asia/Jakarta'))
-    ->where('terpanggil', 'sudah')
-    ->orderBy('dipanggil_saat')
-    ->get()
-     ->groupBy(function ($item) {
+    $antrianDipanggil = Antrian::whereNotNull('dipanggil_saat')
+      ->whereDate('tanggal_pendaftaran', Carbon::today('Asia/Jakarta'))
+      ->where('terpanggil', 'sudah')
+      ->orderBy('dipanggil_saat')
+      ->get()
+      ->groupBy(function ($item) {
         return $item->jenjang ?? 'seragam';
-    });
+      });
     $estimasi = [];
 
     foreach ($antrianDipanggil as $jenjang => $group) {
-    $timestamps = [];
+      $timestamps = [];
 
-    foreach ($group as $item) {
+      foreach ($group as $item) {
         if (!empty($item->dipanggil_saat)) {
-            $parsed = Carbon::parse($item->dipanggil_saat);
-            $timestamps[] = $parsed;
+          $parsed = Carbon::parse($item->dipanggil_saat);
+          $timestamps[] = $parsed;
         }
-    }
+      }
 
-    $timestamps = collect($timestamps)->sortBy(fn($ts) => $ts->timestamp)->values()->all();
+      $timestamps = collect($timestamps)->sortBy(fn($ts) => $ts->timestamp)->values()->all();
 
-    logger("Final timestamps for $jenjang:");
-    foreach ($timestamps as $t) {
+      logger("Final timestamps for $jenjang:");
+      foreach ($timestamps as $t) {
         logger(" - " . $t->toDateTimeString());
-    }
+      }
 
-    $totalGapInSeconds = 0;
-    $gapCount = 0;
+      $totalGapInSeconds = 0;
+      $gapCount = 0;
 
-    for ($i = 1; $i < count($timestamps); $i++) {
+      for ($i = 1; $i < count($timestamps); $i++) {
         $diff = $timestamps[$i]->diffInSeconds($timestamps[$i - 1]);
         logger("Diff between {$timestamps[$i - 1]->toDateTimeString()} and {$timestamps[$i]->toDateTimeString()} = $diff seconds");
 
         $totalGapInSeconds += $diff;
         $gapCount++;
-    }
+      }
 
-    logger("GAP COUNT for $jenjang: $gapCount");
-    logger("TOTAL GAP SECONDS for $jenjang: $totalGapInSeconds");
+      logger("GAP COUNT for $jenjang: $gapCount");
+      logger("TOTAL GAP SECONDS for $jenjang: $totalGapInSeconds");
 
-    $averageGap = $gapCount > 0 ? $totalGapInSeconds / $gapCount : 0;
-    $formattedAverage = $gapCount > 0
+      $averageGap = $gapCount > 0 ? $totalGapInSeconds / $gapCount : 0;
+      $formattedAverage = $gapCount > 0
         ? CarbonInterval::seconds((int) $averageGap)->cascade()->forHumans()
         : '5 Menit';
 
-    $estimasi[$jenjang] = [
+      $estimasi[$jenjang] = [
         'average_in_second' => (int) $averageGap,
         'formatted' => $formattedAverage
-    ];
-}
-  $antrian['estimasi'] = $estimasi;
+      ];
+    }
+    $antrian['estimasi'] = $estimasi;
     return response()->json($antrian);
   }
 

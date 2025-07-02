@@ -40,7 +40,13 @@ RUN apk add --no-cache \
     libxml2-dev \
     git \
     unzip \
-    openssl-dev
+    openssl-dev \
+    supervisor \
+    shadow \
+    tzdata \
+    make \
+    g++ \
+    autoconf
 
 # Install PHP extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
@@ -50,11 +56,13 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
     gd \
     intl \
     mbstring \
-    pdo_mysql \
     pdo_pgsql \
     pgsql \
     zip \
-    opcache
+    opcache \
+    pcntl
+
+RUN echo "disable_functions =" > /usr/local/etc/php/conf.d/00-clear-disabled.ini
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -72,14 +80,20 @@ COPY --from=frontend /app/node_modules ./node_modules
 
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader && \
-    php artisan config:cache && \
-    php artisan route:cache
+    php artisan config:clear && \
+    php artisan cache:clear && \
+    php artisan storage:link && \
+    php artisan octane:install --server=swoole
+
+# Install Laravel Octane Swoole extension
+RUN pecl install swoole && \
+    docker-php-ext-enable swoole
 
 # Permissions
 RUN chown -R www-data:www-data /var/www && chmod -R 755 /var/www
 
-EXPOSE 9000
-CMD ["php-fpm"]
+EXPOSE 8000
+CMD ["php", "artisan", "octane:start", "--server=swoole", "--host=0.0.0.0", "--port=8000"]
 
 
 # ============================

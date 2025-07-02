@@ -23,11 +23,6 @@
 
 
     <main class="p-6">
-        <!-- <audio controls> -->
-        <!--     <source src="http://10.20.30.25:8000/storage/audio/antrian/EHI6BeGUroe9ZPJQ.mp3" type="audio/mpeg"> -->
-        <!--     Your browser does not support the audio element. -->
-        <!-- </audio> -->
-
         <div class="grid grid-cols-12 gap-4">
             <div class="flex col-span-12">
                 <div class="flex flex-col w-full text-center space-y-2 text-white">
@@ -224,30 +219,6 @@
             audio.src = antrian.audio_path
         }
 
-        /**
-        const tag = document.createElement('script')
-        tag.src = "https://www.youtube.com/iframe_api"
-
-        const firstScriptTag = document.getElementsByTagName('script')[0]
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
-
-        let player;
-
-        function onYouTubeIframeAPIReady() {
-          player = new YT.Player('yt-video', {
-            // width: '640',
-            // height: '390',
-            videoId: '5IKEBgT0JLc',
-            playerVars: {
-              'autoplay': 1,
-              'controls': 1,
-              'loop': 1,
-              'playlist': '5IKEBgT0JLc',
-            }
-          })
-        }
-        */
-
         socket.on('play current antrian audio', (antrianDisplay) => {
             generateAntrianDisplay(antrianDisplay)
             socket.emit('change antrian display loading', antrianDisplay)
@@ -284,21 +255,18 @@
             const keys = Object.keys(res)
             const warna = {{ Js::from($warna) }};
 
-
-            // keys.pop()
-
             keys.forEach((key, idx) => {
               if(key !== 'estimasi'){
-                       cardContainer.innerHTML += `
-        <div style="background-color: ${warna[idx]};" class=" rounded-md text-center  space-y-8 py-4 text-white">
-          <p class="-translate-y-2 text-3xl font-semibold uppercase text-stroke text-stroke-black flex flex-col">
-            <span>Loket</span>${key}
-          </p>
-          <hr class="-translate-y-8">
-          <p class="text-5xl font-bold text-stroke text-stroke-black -translate-y-8">${res[key].length ? res[key][0].nomor_antrian : 'Kosong'}</p>
-           <p class="estimasi">estimasi: ${res['estimasi'][key] ? res['estimasi'][key]['formatted'] : '5 menit'}</p>
-        </div>
-      `
+                cardContainer.innerHTML += `
+                  <div style="background-color: ${warna[idx]};" class=" rounded-md text-center  space-y-8 py-4 text-white">
+                    <p class="-translate-y-2 text-3xl font-semibold uppercase text-stroke text-stroke-black flex flex-col">
+                      <span>Loket</span>${key}
+                    </p>
+                    <hr class="-translate-y-8">
+                    <p class="text-5xl font-bold text-stroke text-stroke-black -translate-y-8">${res[key].length ? res[key][0].nomor_antrian : 'Kosong'}</p>
+                    <p class="estimasi">estimasi: ${res['estimasi'][key] ? res['estimasi'][key]['formatted'] : '5 menit'}</p>
+                  </div>
+                `
               }
 
             })
