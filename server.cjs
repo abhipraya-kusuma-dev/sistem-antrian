@@ -29,12 +29,11 @@ io.on("connection", (socket) => {
   });
 
   socket.on("change antrian display loading", (antrian) => {
-        console.log("loading")
+    console.log("loading");
     io.emit("change antrian display loading", antrian);
-
   });
   socket.on("change antrian display complete", (antrian) => {
-        console.log("working")
+    console.log("working");
     io.emit("change antrian display complete", antrian);
   });
 
