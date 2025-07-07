@@ -30,7 +30,6 @@ class AntrianController extends Controller
       ->groupBy(function ($item) {
         return $item->jenjang ?? 'seragam';
       });
-
     $estimasi = [];
 
     foreach ($antrianDipanggil as $jenjang => $group) {
