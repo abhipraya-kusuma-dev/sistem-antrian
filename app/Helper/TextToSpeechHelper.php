@@ -27,33 +27,32 @@ class TextToSpeechHelper
 
   private static function generateAudioFile(string $kode_antrian, string $nomor_antrian, string $loket)
   {
-    $intro = public_path('storage/audio/template/greetings/intro.mp3');
-    $outro = public_path('storage/audio/template/greetings/outro.mp3');
-    $antrian_nomor_n = public_path('storage/audio/template/greetings/antrian_nomor_n.mp3');
+    $intro = public_path('audio/template/greetings/intro.mp3');
+    $outro = public_path('audio/template/greetings/outro.mp3');
+    $antrian_nomor_n = public_path('audio/template/greetings/antrian_nomor_n.mp3');
 
-    $kode_antrian_audio = public_path("storage/audio/template/kode/$kode_antrian.mp3");
+    $kode_antrian_audio = public_path("audio/template/kode/$kode_antrian.mp3");
 
     $nomor_antrian_array = collect(str_split($nomor_antrian))->map(function ($nomor) {
-      return public_path("storage/audio/template/number/$nomor.mp3");
+        return public_path("audio/template/number/$nomor.mp3");
     })->toArray();
 
-    $loket_audio = public_path("storage/audio/template/loket/$loket.mp3");
+    $loket_audio = public_path("audio/template/loket/$loket.mp3");
 
     $paths = [$intro, $antrian_nomor_n, $kode_antrian_audio, ...$nomor_antrian_array, $loket_audio, $outro];
 
     $FFMPEGInputCommand = self::generateFFMPEGInputCommand($paths);
 
     $filename = Str::random() . ".mp3";
-    $output_path = public_path("storage/audio/antrian/" . $filename);
+    $output_path = public_path("audio/antrian/" . $filename);
 
     $command = "ffmpeg " . $FFMPEGInputCommand['input_command'] . "-filter_complex \"[0:a][1:a]concat=n=" . $FFMPEGInputCommand['concat_n'] . ":v=0:a=1[out]\" -map \"[out]\" $output_path";
 
     try {
-      exec($command);
-
-      return '/storage/audio/antrian/' . $filename;
+        exec($command);
+        return '/audio/antrian/' . $filename;
     } catch (Exception $e) {
-      dd($e->getMessage());
+        dd($e->getMessage());
     }
   }
 
