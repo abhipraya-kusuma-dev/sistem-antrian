@@ -1,8 +1,11 @@
 @extends('layout.main')
 
 @section('content')
-    @if (session('antrian-mentok'))
-        {{ session('antrian-mentok') }}
+ @if (session('antrian-mentok'))
+        <p class="m-6 py-4 px-6 text-white font-semibold bg-green-400 flex justify-between items-center" id="alertbox">
+            {{ session('antrian-mentok') }}
+            <span onclick="closeButtonClicked()" class="cursor-pointer text-2xl" id="closeButton">&times;</span>
+        </p>
     @endif
 
     <div class="w-full p-8 flex justify-center space-x-10 h-screen items-center">
@@ -131,11 +134,8 @@
             console.log("hi'SS")
         })
 
-        // close button
         function closeButtonClicked() {
-            // Menyembunyikan elemen yang ingin ditutup
-            var closeButton = document.getElementById("closeButton");
-            closeButton.style.display = "none";
+document.getElementById('alertbox').style.display = 'none';
         }
     </script>
 @endsection
