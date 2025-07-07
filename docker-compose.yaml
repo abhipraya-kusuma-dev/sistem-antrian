@@ -24,8 +24,6 @@ services:
   pgsql:
     image: postgres:latest
     container_name: SA_DB
-    env_file:
-      - ./docker/env/.env.prod
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:

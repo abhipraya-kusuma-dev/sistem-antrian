@@ -1,4 +1,4 @@
-name: Cerita nya ini CI/CD Sistem Antrian
+name: cerita nya ini ci/cd sistem antrian
 
 on:
   push:
@@ -10,9 +10,11 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
-      - name: Pull and build Docker
+      - name: pull and build docker
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: |
-          cp C:\Users\SMAKA-SERVER\ppdb\sistem-antrian\docker\env\.env.prod C:\Users\SMAKA-SERVER\ppdb\actions-runner-sa\_work\sistem-antrian\sistem-antrian\docker\env\.env.prod
+          cp c:\users\smaka-server\ppdb\sistem-antrian\docker\env\.env.prod c:\users\smaka-server\ppdb\actions-runner-sa\_work\sistem-antrian\sistem-antrian\docker\env\.env.prod
           ls
           git pull
           docker-compose up -d --build
