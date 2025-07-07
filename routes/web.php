@@ -70,7 +70,7 @@ Route::controller(BendaharaController::class)->group(function () {
 Route::controller(SeragamController::class)->group(function () {
   Route::get('/seragam', 'display');
   Route::get('/seragam/antrian/{status}', 'antrianSeragam');
-  Route::get('/seragam/antrian/panggil/{antrian:id}', 'panggilNomorAntrian');
+  Route::get('/seragam/antrian/panggil/{antrian:id}', 'panggilNomorAntrian')->name('seragam.panggil');
 
   Route::get('/seragam/konfirmasi', 'konfirmasiPendaftaran');
   Route::get('/seragam/daftar/berhasil/{antrian:id}', 'daftarAntrianBerhasil');

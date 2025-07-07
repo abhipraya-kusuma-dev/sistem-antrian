@@ -137,7 +137,8 @@ class SeragamController extends Controller
       ->select('*')
       ->first();
 
-    if (is_null($antrianSelanjutnya)) return back()->with('antrian-mentok', 'Antrian sudah mentok');
+    if (is_null($antrianSelanjutnya)) return redirect('/seragam/antrian/panggil/' . $request->antrian_id)
+    ->with('antrian-mentok', 'Antrian sudah mentok');
 
     return redirect('/seragam/antrian/panggil/' . $antrianSelanjutnya->id);
   }
