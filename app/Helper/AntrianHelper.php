@@ -19,7 +19,7 @@ class AntrianHelper
   public static function checkRoleMiddleware(string $jenjang)
   {
     $getJenjangFromRole = strtolower(substr(auth()->user()->role, 3));
-$jenjang = $jenjang ?? 'seragam';
+    $jenjang = $jenjang ?? 'seragam';
     return collect([
       'isNotRightOP' => $getJenjangFromRole != $jenjang,
       'OPJenjangRole' => $getJenjangFromRole
