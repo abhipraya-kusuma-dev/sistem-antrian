@@ -27,13 +27,14 @@
   <!--   <input type="hidden" name="antrian_id" value="{{$antrian->id }}" /> -->
   <!--   <button type="submit" id="lanjut-btn" class="disabled:text-black/60 text-green-600 font-bold">Antrian Selanjutnya</button> -->
   <!-- </form> -->
+  @if($antrian->terpanggil !== 'lewati' && $antrian->terpanggil !== 'sudah')
   <form action="/operator/antrian/lewati/" method="post">
     @csrf
     <input type="hidden" name="antrian_id" value="{{$antrian->id }}" />
     <button type="submit" id="lewati-btn" class="disabled:text-black/60 text-green-600 font-bold">Lewati
       Antrian</button>
   </form>
-
+@endif
   <form action="/operator/antrian/terpanggil" class="hidden" method="post">
     @method('PUT')
     @csrf

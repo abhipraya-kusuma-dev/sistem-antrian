@@ -59,7 +59,7 @@
       <!--   <button type="submit" id="lanjut-btn" class="disabled:text-black/60 bg-green-600 text-white font-bold border-2 border-black rounded-full py-2 px-6">Antrian Selanjutnya</button> -->
       <!-- </form> -->
 
-      @if($antrian->terpanggil !== 'lewati')
+      @if(!in_array($antrian->terpanggil, ['lewati', 'sudah']))
       <form action="/operator/antrian/lewati/" class="block" method="post">
         @csrf
         <input type="hidden" name="antrian_id" value="{{$antrian->id }}" />

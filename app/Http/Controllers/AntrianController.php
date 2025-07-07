@@ -29,14 +29,7 @@ class AntrianController extends Controller
       ->get()
       ->groupBy(function ($item) {
         return $item->jenjang ?? 'seragam';
-<<<<<<< HEAD
-
-    });
-
-textToSpeechHelper::getAudioPath(1, "sd");
-=======
       });
->>>>>>> octane
     $estimasi = [];
 
     foreach ($antrianDipanggil as $jenjang => $group) {
