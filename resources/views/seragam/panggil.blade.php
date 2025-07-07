@@ -2,7 +2,7 @@
 
 @section('content')
 @if(session('antrian-mentok'))
-<p>{{ session('antrian-mentok') }}</p>
+{{ session('antrian-mentok') }}
 @endif
 
 <div class="w-full p-8 flex justify-center space-x-10 h-screen items-center">
@@ -84,9 +84,9 @@
 <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 <script>
   const panggilBtn = document.getElementById('panggil-btn')
-  const lanjutBtn = document.getElementById('lanjut-btn')
   const lewatiBtn = document.getElementById('lewati-btn')
   const terpanggilBtn = document.getElementById('terpanggil-btn')
+  // const lanjutSeragamBtn = document.getElementById('lanjut-seragam-btn')
 
   const antrian = {{ Js::from($antrian) }}
 
@@ -96,26 +96,43 @@
     socket.emit('play current antrian audio', antrian)
   })
 
-  lewatiBtn.addEventListener('click', () => {
-    socket.emit('skip antrian', 'skip')
-  })
+  if (lewatiBtn) {
+    lewatiBtn.addEventListener('click', () => {
+      socket.emit('skip antrian', 'skip')
+    })
+  }
 
   terpanggilBtn.addEventListener('click', () => {
     socket.emit('skip antrian', 'skip')
   })
 
-  // socket.emit('change antrian seragam display', antrian)
+  // lanjutSeragamBtn.addEventListener('click', () => {
+  //   socket.emit('skip antrian', 'skip')
+  // })
 
-  socket.on('change antrian display loading', (antrian) => {
-    panggilBtn.setAttribute('disabled', 'true')
+  // socket.emit('change antrian display', antrian)
+
+  socket.on("change antrian display loading", (antrian) => {
     lewatiBtn.setAttribute('disabled', 'true')
     terpanggilBtn.setAttribute('disabled', 'true')
+    // lanjutSeragamBtn.setAttribute('disabled', 'true')
+            panggilBtn.setAttribute('disabled', 'true')
+    console.log("hi'S")
   })
 
-  socket.on('change antrian display complete', (antrian) => {
+  socket.on("change antrian display complete", (antrian) => {
     panggilBtn.removeAttribute('disabled')
     lewatiBtn.removeAttribute('disabled')
     terpanggilBtn.removeAttribute('disabled')
+    // lanjutSeragamBtn.removeAttribute('disabled')
+    console.log("hi'SS")
   })
+
+  // close button
+  function closeButtonClicked() {
+    // Menyembunyikan elemen yang ingin ditutup
+    var closeButton = document.getElementById("closeButton");
+    closeButton.style.display = "none";
+  }
 </script>
 @endsection

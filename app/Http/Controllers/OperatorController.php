@@ -58,7 +58,7 @@ class OperatorController extends Controller
 
   public function panggilNomorAntrian(Antrian $antrian)
   {
-    $middleware = AntrianHelper::checkRoleMiddleware($antrian->jenjang);
+    $middleware = AntrianHelper::checkRoleMiddleware($antrian->jenjang ?? 'seragam');
 
     if ($middleware->get('isNotRightOP')) {
       return redirect('/operator/antrian/jenjang/' . $middleware->get('OPJenjangRole') . '/belum');

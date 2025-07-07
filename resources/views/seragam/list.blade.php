@@ -75,7 +75,7 @@
     const htmlList = updatedAntrianList.map((antrian) => {
       return `
           <li class="w-full">
-            <a class="bg-green-400 text-white py-1.5 inline-block text-center w-full" href="/operator/antrian/panggil/${escapeHtml(antrian.id)}">
+            <a class="bg-green-400 text-white py-1.5 inline-block text-center w-full" href="/seragam/antrian/panggil/${escapeHtml(antrian.id)}">
               <b>${escapeHtml(antrian.nomor_antrian)}</b>
             </a>
           </li>
@@ -87,7 +87,7 @@
 
   socket.on('new antrian created', function() {
     const baseUrl = `{{ asset('') }}`;
-    
+
     const status = `{{ $status }}`;
     const tanggalPendaftaran = `{{ $tanggal_pendaftaran }}`;
 
@@ -104,5 +104,6 @@
         console.error(err); // Buat debuging aja
       })
   })
+
 </script>
 @endsection
