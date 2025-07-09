@@ -28,7 +28,7 @@
   }
 
   moment.locale('id');
-  calender.textContent = generateKalender(moment().format('LLLL')) + ` {{ \Carbon\Carbon::now('Asia/Jakarta')->format('H:m') }}`;
+  calender.textContent = generateKalender(moment().format('LLLL')) + ` {{ \Carbon\Carbon::now('Asia/Jakarta')->format('H:i') }}`;
 
   window.print();
 
