@@ -16,7 +16,8 @@
                 <p class="flex justify-between text-xl uppercase">Nomor Antrian <b>{{ $antrian->nomor_antrian }}</b></p>
                 <p class="flex justify-between text-xl uppercase">Jenjang <b>{{ $antrian->jenjang }}</b></p>
                 <p class="flex justify-between text-xl uppercase">Tanggal daftaran
-                    <b>{{ $antrian->tanggal_pendaftaran }}</b></p>
+                    <b>{{ $antrian->tanggal_pendaftaran }}</b>
+                </p>
                 <p class="flex justify-between text-xl uppercase">Status <b>{{ $antrian->terpanggil }}</b></p>
             </div>
             <a href="/operator/antrian/jenjang/{{ $antrian->jenjang }}/belum"
@@ -104,59 +105,59 @@
 
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
     <script>
-      document.addEventListener('DOMContentLoaded', function () {
-    // All your JavaScript goes here
+        document.addEventListener('DOMContentLoaded', function() {
+            // All your JavaScript goes here
 
 
-        const panggilBtn = document.getElementById('panggil-btn')
-        const lewatiBtn = document.getElementById('lewati-btn')
-        const terpanggilBtn = document.getElementById('terpanggil-btn')
-        // const lanjutSeragamBtn = document.getElementById('lanjut-seragam-btn')
+            const panggilBtn = document.getElementById('panggil-btn')
+            const lewatiBtn = document.getElementById('lewati-btn')
+            const terpanggilBtn = document.getElementById('terpanggil-btn')
+            // const lanjutSeragamBtn = document.getElementById('lanjut-seragam-btn')
 
-        const antrian = {{ Js::from($antrian) }}
+            const antrian = {{ Js::from($antrian) }}
 
-        const socket = io(`{{ env('SOCKET_IO_SERVER') }}`)
+            const socket = io(`{{ env('SOCKET_IO_SERVER') }}`)
 
-        panggilBtn.addEventListener('click', () => {
-            socket.emit('play current antrian audio', antrian)
-        })
+            panggilBtn.addEventListener('click', () => {
+                socket.emit('play current antrian audio', antrian)
+            })
 
-        if (lewatiBtn) {
-            lewatiBtn.addEventListener('click', () => {
+            if (lewatiBtn) {
+                lewatiBtn.addEventListener('click', () => {
+                    socket.emit('skip antrian', 'skip')
+                })
+            }
+
+            terpanggilBtn.addEventListener('click', () => {
                 socket.emit('skip antrian', 'skip')
             })
-        }
 
-        terpanggilBtn.addEventListener('click', () => {
-            socket.emit('skip antrian', 'skip')
-        })
+            // lanjutSeragamBtn.addEventListener('click', () => {
+            //   socket.emit('skip antrian', 'skip')
+            // })
 
-        // lanjutSeragamBtn.addEventListener('click', () => {
-        //   socket.emit('skip antrian', 'skip')
-        // })
+            // socket.emit('change antrian display', antrian)
+            socket.on("change antrian display loading", (antrian) => {
+                if (lewatiBtn) lewatiBtn.setAttribute('disabled', 'true');
+                if (terpanggilBtn) terpanggilBtn.setAttribute('disabled', 'true');
+                if (panggilBtn) panggilBtn.setAttribute('disabled', 'true');
+                console.log("loading...");
+            });
 
-        // socket.emit('change antrian display', antrian)
-socket.on("change antrian display loading", (antrian) => {
-    if (lewatiBtn) lewatiBtn.setAttribute('disabled', 'true');
-    if (terpanggilBtn) terpanggilBtn.setAttribute('disabled', 'true');
-    if (panggilBtn) panggilBtn.setAttribute('disabled', 'true');
-    console.log("loading...");
-});
-
-socket.on("change antrian display complete", (antrian) => {
-    if (panggilBtn) panggilBtn.removeAttribute('disabled');
-    if (lewatiBtn) lewatiBtn.removeAttribute('disabled');
-    if (terpanggilBtn) terpanggilBtn.removeAttribute('disabled');
-    console.log("done loading");
-});
+            socket.on("change antrian display complete", (antrian) => {
+                if (panggilBtn) panggilBtn.removeAttribute('disabled');
+                if (lewatiBtn) lewatiBtn.removeAttribute('disabled');
+                if (terpanggilBtn) terpanggilBtn.removeAttribute('disabled');
+                console.log("done loading");
+            });
 
 
-        // close button
-        function closeButtonClicked() {
-            // Menyembunyikan elemen yang ingin ditutup
-            var closeButton = document.getElementById("closeButton");
-            closeButton.style.display = "none";
-        }
+            // close button
+            function closeButtonClicked() {
+                // Menyembunyikan elemen yang ingin ditutup
+                var closeButton = document.getElementById("closeButton");
+                closeButton.style.display = "none";
+            }
         });
     </script>
 @endsection
