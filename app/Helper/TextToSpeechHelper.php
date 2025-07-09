@@ -34,7 +34,7 @@ class TextToSpeechHelper
     $kode_antrian_audio = public_path("audio/template/kode/$kode_antrian.mp3");
 
     $nomor_antrian_array = collect(str_split($nomor_antrian))->map(function ($nomor) {
-        return public_path("audio/template/number/$nomor.mp3");
+      return public_path("audio/template/number/$nomor.mp3");
     })->toArray();
 
     $loket_audio = public_path("audio/template/loket/$loket.mp3");
@@ -49,10 +49,10 @@ class TextToSpeechHelper
     $command = "ffmpeg " . $FFMPEGInputCommand['input_command'] . "-filter_complex \"[0:a][1:a]concat=n=" . $FFMPEGInputCommand['concat_n'] . ":v=0:a=1[out]\" -map \"[out]\" $output_path";
 
     try {
-        exec($command);
-        return '/audio/antrian/' . $filename;
+      exec($command);
+      return '/audio/antrian/' . $filename;
     } catch (Exception $e) {
-        dd($e->getMessage());
+      dd($e->getMessage());
     }
   }
 
@@ -65,7 +65,8 @@ class TextToSpeechHelper
 
     $nomor_antrian = $nomor_antrian < 100 ? ($nomor_antrian < 10 ? '00' . $nomor_antrian : '0' . $nomor_antrian) : $nomor_antrian;
 
-   $audio_path = self::generateAudioFile(strtoupper($kode_antrian), $nomor_antrian, strtolower($loket));
+    $audio_path = self::generateAudioFile(strtoupper($kode_antrian), $nomor_antrian, strtolower($loket));
+
     return $audio_path;
   }
 }
