@@ -60,20 +60,12 @@ class TextToSpeechHelper
   {
     $kode_antrian = AntrianHelper::getKodeAntrian($jenjang);
 
-    $antrian = DB::table('antrians')
-      ->where('nomor_antrian', $nomor_antrian)
-      ->where('kode_antrian', $kode_antrian)
-      ->whereNotNull('audio_path')
-      ->orderBy('tanggal_pendaftaran', 'asc')
-      ->first('audio_path');
-
     $loket = is_null($jenjang) ? 'Bendahara' : strtoupper($jenjang);
     $loket = $jenjang === 'seragam' ? 'Seragam' : $loket;
 
     $nomor_antrian = $nomor_antrian < 100 ? ($nomor_antrian < 10 ? '00' . $nomor_antrian : '0' . $nomor_antrian) : $nomor_antrian;
 
-    $audio_path = $antrian->audio_path ?? self::generateAudioFile(strtoupper($kode_antrian), $nomor_antrian, strtolower($loket));
-
+   $audio_path = self::generateAudioFile(strtoupper($kode_antrian), $nomor_antrian, strtolower($loket));
     return $audio_path;
   }
 }
