@@ -1,7 +1,7 @@
 @extends('layout.main')
 
 @section('content')
- @if (session('antrian-mentok'))
+    @if (session('antrian-mentok'))
         <p class="m-6 py-4 px-6 text-white font-semibold bg-green-400 flex justify-between items-center" id="alertbox">
             {{ session('antrian-mentok') }}
             <span onclick="closeButtonClicked()" class="cursor-pointer text-2xl" id="closeButton">&times;</span>
@@ -15,7 +15,8 @@
             <div class="my-2 border-2 border-black py-8 px-8 space-y-4 w-[600px]">
                 <p class="flex justify-between text-xl uppercase">Nomor Antrian <b>{{ $antrian->nomor_antrian }}</b></p>
                 <p class="flex justify-between text-xl uppercase">Dari Antrian <b>{{ $antrian->antrian_jenjang }}</b></p>
-                <p class="flex justify-between text-xl uppercase">Tanggal daftaran <b>{{ $antrian->tanggal_pendaftaran }}</b>
+                <p class="flex justify-between text-xl uppercase">Tanggal daftaran
+                    <b>{{ $antrian->tanggal_pendaftaran }}</b>
                 </p>
                 <p class="flex justify-between text-xl uppercase">Status <b>{{ $antrian->terpanggil }}</b></p>
             </div>
@@ -119,23 +120,22 @@
         // socket.emit('change antrian display', antrian)
 
         socket.on("change antrian display loading", (antrian) => {
-            lewatiBtn.setAttribute('disabled', 'true')
-            terpanggilBtn.setAttribute('disabled', 'true')
-            // lanjutSeragamBtn.setAttribute('disabled', 'true')
-            panggilBtn.setAttribute('disabled', 'true')
-            console.log("hi'S")
-        })
+            if (lewatiBtn) lewatiBtn.setAttribute('disabled', 'true');
+            if (terpanggilBtn) terpanggilBtn.setAttribute('disabled', 'true');
+            if (panggilBtn) panggilBtn.setAttribute('disabled', 'true');
+            console.log("loading...");
+        });
 
         socket.on("change antrian display complete", (antrian) => {
-            panggilBtn.removeAttribute('disabled')
-            lewatiBtn.removeAttribute('disabled')
-            terpanggilBtn.removeAttribute('disabled')
-            // lanjutSeragamBtn.removeAttribute('disabled')
-            console.log("hi'SS")
-        })
+            if (panggilBtn) panggilBtn.removeAttribute('disabled');
+            if (lewatiBtn) lewatiBtn.removeAttribute('disabled');
+            if (terpanggilBtn) terpanggilBtn.removeAttribute('disabled');
+            console.log("done loading");
+        });
+
 
         function closeButtonClicked() {
-document.getElementById('alertbox').style.display = 'none';
+            document.getElementById('alertbox').style.display = 'none';
         }
     </script>
 @endsection

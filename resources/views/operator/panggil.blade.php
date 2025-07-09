@@ -105,55 +105,65 @@
 
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
     <script>
-        const panggilBtn = document.getElementById('panggil-btn')
-        const lewatiBtn = document.getElementById('lewati-btn')
-        const terpanggilBtn = document.getElementById('terpanggil-btn')
-        // const lanjutSeragamBtn = document.getElementById('lanjut-seragam-btn')
+        document.addEventListener('DOMContentLoaded', function() {
+            // All your JavaScript goes here
 
-        const antrian = {{ Js::from($antrian) }}
 
-        const socket = io(`{{ env('SOCKET_IO_SERVER') }}`)
+            const panggilBtn = document.getElementById('panggil-btn')
+            const lewatiBtn = document.getElementById('lewati-btn')
+            const terpanggilBtn = document.getElementById('terpanggil-btn')
+            // const lanjutSeragamBtn = document.getElementById('lanjut-seragam-btn')
 
-        panggilBtn.addEventListener('click', () => {
-            socket.emit('play current antrian audio', antrian)
-        })
+            const antrian = {{ Js::from($antrian) }}
 
-        if (lewatiBtn) {
-            lewatiBtn.addEventListener('click', () => {
+            const socket = io(`{{ env('SOCKET_IO_SERVER') }}`)
+
+            panggilBtn.addEventListener('click', () => {
+                socket.emit('play current antrian audio', antrian)
+            })
+
+            if (lewatiBtn) {
+                lewatiBtn.addEventListener('click', () => {
+                    socket.emit('skip antrian', 'skip')
+                })
+            }
+
+            terpanggilBtn.addEventListener('click', () => {
                 socket.emit('skip antrian', 'skip')
             })
-        }
 
-        terpanggilBtn.addEventListener('click', () => {
-            socket.emit('skip antrian', 'skip')
-        })
+            // lanjutSeragamBtn.addEventListener('click', () => {
+            //   socket.emit('skip antrian', 'skip')
+            // })
 
-        // lanjutSeragamBtn.addEventListener('click', () => {
-        //   socket.emit('skip antrian', 'skip')
-        // })
+            // socket.emit('change antrian display', antrian)
+            socket.on("change antrian display loading", (antrian) => {
+                if (lewatiBtn) lewatiBtn.setAttribute('disabled', 'true');
+                if (terpanggilBtn) terpanggilBtn.setAttribute('disabled', 'true');
+                if (panggilBtn) panggilBtn.setAttribute('disabled', 'true');
+                console.log("loading...");
+            });
 
-        // socket.emit('change antrian display', antrian)
+            socket.on("change antrian display complete", (antrian) => {
+                if (panggilBtn) panggilBtn.removeAttribute('disabled');
+                if (lewatiBtn) lewatiBtn.removeAttribute('disabled');
+                if (terpanggilBtn) terpanggilBtn.removeAttribute('disabled');
+                console.log("done loading");
+            });
 
-        socket.on("change antrian display loading", (antrian) => {
-            lewatiBtn.setAttribute('disabled', 'true')
-            terpanggilBtn.setAttribute('disabled', 'true')
-            panggilBtn.setAttribute('disabled', 'true')
-            console.log("hi'S")
-        })
+            socket.on("change antrian display loading", (antrian) => {
+                lewatiBtn.setAttribute('disabled', 'true')
+                terpanggilBtn.setAttribute('disabled', 'true')
+                panggilBtn.setAttribute('disabled', 'true')
+                console.log("hi'S")
+            })
 
-        socket.on("change antrian display complete", (antrian) => {
-            panggilBtn.removeAttribute('disabled')
-            lewatiBtn.removeAttribute('disabled')
-            terpanggilBtn.removeAttribute('disabled')
-            // lanjutSeragamBtn.removeAttribute('disabled')
-            console.log("hi'SS")
-        })
-
-        // close button
-        function closeButtonClicked() {
-            // Menyembunyikan elemen yang ingin ditutup
-            var closeButton = document.getElementById("closeButton");
-            closeButton.style.display = "none";
-        }
+            // close button
+            function closeButtonClicked() {
+                // Menyembunyikan elemen yang ingin ditutup
+                var closeButton = document.getElementById("closeButton");
+                closeButton.style.display = "none";
+            }
+        });
     </script>
 @endsection
