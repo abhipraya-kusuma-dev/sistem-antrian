@@ -118,21 +118,20 @@
 
         // socket.emit('change antrian display', antrian)
 
-        socket.on("change antrian display loading", (antrian) => {
-            lewatiBtn.setAttribute('disabled', 'true')
-            terpanggilBtn.setAttribute('disabled', 'true')
-            // lanjutSeragamBtn.setAttribute('disabled', 'true')
-            panggilBtn.setAttribute('disabled', 'true')
-            console.log("hi'S")
-        })
+socket.on("change antrian display loading", (antrian) => {
+    if (lewatiBtn) lewatiBtn.setAttribute('disabled', 'true');
+    if (terpanggilBtn) terpanggilBtn.setAttribute('disabled', 'true');
+    if (panggilBtn) panggilBtn.setAttribute('disabled', 'true');
+    console.log("loading...");
+});
 
-        socket.on("change antrian display complete", (antrian) => {
-            panggilBtn.removeAttribute('disabled')
-            lewatiBtn.removeAttribute('disabled')
-            terpanggilBtn.removeAttribute('disabled')
-            // lanjutSeragamBtn.removeAttribute('disabled')
-            console.log("hi'SS")
-        })
+socket.on("change antrian display complete", (antrian) => {
+    if (panggilBtn) panggilBtn.removeAttribute('disabled');
+    if (lewatiBtn) lewatiBtn.removeAttribute('disabled');
+    if (terpanggilBtn) terpanggilBtn.removeAttribute('disabled');
+    console.log("done loading");
+});
+
 
         function closeButtonClicked() {
 document.getElementById('alertbox').style.display = 'none';
